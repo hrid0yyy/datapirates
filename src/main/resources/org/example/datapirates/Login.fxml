@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.logincontroller">
+   <left>
+      <AnchorPane prefHeight="515.0" prefWidth="299.0" style="-fx-background-color: black;" stylesheets="@../../../stylesheets/login.css" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" layoutX="104.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="142.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="93.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DataPirates">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Button fx:id="facebookbtn" layoutX="43.0" layoutY="276.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="226.0" stylesheets="@../../../stylesheets/login.css" text="Signin with facebook" />
+            <Button fx:id="googlebtn" layoutX="42.0" layoutY="332.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="228.0" stylesheets="@../../../stylesheets/login.css" text="Signin with google" />
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="515.0" prefWidth="405.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="102.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login to your account">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <TextField fx:id="email" layoutX="79.0" layoutY="222.0" prefHeight="36.0" prefWidth="296.0" promptText="Email Address" stylesheets="@../../../stylesheets/login.css" />
+            <Text layoutX="132.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dont have an account? " />
+            <Text fill="#1324ed" layoutX="260.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up here!">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            <Button layoutX="79.0" layoutY="394.0" mnemonicParsing="false" onAction="#loginbtn" prefHeight="33.0" prefWidth="298.0" stylesheets="@../../../stylesheets/login.css" text="Login with email" />
+            <RadioButton fx:id="showbtn" layoutX="95.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleRadioButtonAction" text="Show password">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </RadioButton>
+            <Text fill="#1324ed" layoutX="260.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot password?">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            <PasswordField fx:id="pass" layoutX="80.0" layoutY="271.0" onKeyTyped="#passwordkeyevent" prefHeight="32.0" prefWidth="296.0" promptText="Password" stylesheets="@../../../stylesheets/login.css" />
+            <Text fx:id="showpassword" layoutX="91.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show Password" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

@@ -1,0 +1,75 @@
+
+.text-field {
+    -fx-background-color: #ffffff; /* Background color */
+    -fx-border-color: #cccccc; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+    -fx-border-radius: 5px; /* Border radius */
+    -fx-padding: 5px; /* Padding */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "Arial"; /* Font family */
+}
+
+/* Change the text color when focused */
+.text-field:focused {
+    -fx-text-fill: #333333; /* Text color */
+}
+/* styles.css */
+.button {
+    -fx-background-color: #0000FA; /* Green */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-padding: 8px 16px; /* Padding */
+    -fx-border-radius: 8px; /* Border radius */
+}
+
+.button:hover {
+    -fx-background-color: #0000FF; /* Darker green on hover */
+}
+
+.button:pressed {
+    -fx-background-color: #00008B; /* Even darker green when pressed */
+}
+
+
+/* styles.css */
+#facebookbtn {
+    -fx-background-color: #1877F2; /* Green */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-padding: 8px 16px; /* Padding */
+    -fx-border-radius: 8px; /* Border radius */
+}
+
+#facebookbtn:hover {
+    -fx-background-color: #0F59D3 /* Darker green on hover */
+}
+
+#facebookbtn:pressed {
+    -fx-background-color: #0C4599 /* Even darker green when pressed */
+}
+
+
+
+
+/* styles.css */
+#googlebtn {
+    -fx-background-color: #EA4335; /* Green */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-padding: 8px 16px; /* Padding */
+    -fx-border-radius: 8px; /* Border radius */
+}
+
+#googlebtn:hover {
+    -fx-background-color:  #C23527 /* Darker green on hover */
+}
+
+#googlebtn:pressed {
+    -fx-background-color: #9C1D1A  /* Even darker green when pressed */
+}
+
+
+/* Change the text color when hovered */
+.text-field:hover {
+    -fx-text-fill: #333333; /* Text color */
+}

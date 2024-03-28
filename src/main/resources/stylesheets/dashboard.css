@@ -1,0 +1,49 @@
+/* styles.css */
+
+/* Style for the HBox */
+#navBar {
+    -fx-background-color: #333; /* Background color */
+    -fx-spacing: 10px; /* Spacing between buttons */
+
+}
+
+/* Style for the buttons */
+.button {
+    -fx-font-size: 14px; /* Font size */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-family: Arial, sans-serif; /* Font family */
+    -fx-font-weight: bold; /* Font weight */
+    -fx-background-color: transparent; /* Button background color */
+    -fx-text-fill: white; /* Button text color */
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #777; /* Darker background color on hover */
+}
+/* styles.css */
+
+/* Style for the search text field */
+.text-field {
+    -fx-background-color: #f0f0f0; /* Background color */
+    -fx-padding: 5px; /* Padding inside the text field */
+    -fx-border-color: #ccc; /* Border color */
+    -fx-border-radius: 5px; /* Border radius */
+    -fx-prompt-text-fill: #999; /* Prompt text color */
+}
+
+/* Style for the search text field on focus */
+.text-field:focused {
+    -fx-border-color: #66afe9; /* Border color on focus */
+    -fx-background-color: white; /* Background color on focus */
+}
+/* styles.css */
+
+/* Style for the label */
+.label {
+    -fx-font-size: 19px; /* Font size */
+    -fx-text-fill: #333; /* Text color */
+    -fx-font-weight: bold; /* Font weight */
+    -fx-padding: 5px; /* Padding */
+}
+
