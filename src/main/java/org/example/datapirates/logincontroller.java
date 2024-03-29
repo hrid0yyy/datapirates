@@ -70,7 +70,7 @@ public class logincontroller implements Initializable {
                FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
                root = loader.load();
                dashboardcontroller home =loader.getController();
-               home.userinfo(user_email,password);
+               home.userinfo(user_email);
 
                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                scene = new Scene(root);
@@ -81,9 +81,6 @@ public class logincontroller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
          showpassword.setVisible(false);
-
-
-
 
 
 

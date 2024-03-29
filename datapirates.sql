@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2024 at 09:23 PM
+-- Generation Time: Mar 29, 2024 at 10:39 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `datapirates`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `problems`
+--
+
+CREATE TABLE `problems` (
+  `problemID` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `problemName` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `problems`
+--
+
+INSERT INTO `problems` (`problemID`, `description`, `problemName`) VALUES
+(1, 'rtertert', 'erterter'),
+(2, 'ftsdf', 'sdfsdf');
 
 -- --------------------------------------------------------
 
@@ -44,10 +64,26 @@ INSERT INTO `users` (`pass`, `email`) VALUES
 --
 
 --
+-- Indexes for table `problems`
+--
+ALTER TABLE `problems`
+  ADD PRIMARY KEY (`problemID`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `problems`
+--
+ALTER TABLE `problems`
+  MODIFY `problemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
