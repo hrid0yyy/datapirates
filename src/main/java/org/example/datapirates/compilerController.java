@@ -84,6 +84,7 @@ public class compilerController implements Initializable {
         pid.setText(" Problem ID : "+problems.getProblemID());
         pname.setText(" Problem Name : "+problems.getProblemName());
         description.setText(" Description : "+problems.getProblemDescription());
+        codebox.setText(problems.getCodeFormat());
     }
     private String Lang;
 
@@ -135,9 +136,17 @@ public class compilerController implements Initializable {
 
         output res = gson.fromJson(postResponse.body(), output.class);
         StringBuilder outputBuilder = new StringBuilder();
-        outputBuilder.append("").append(res.getOutput()).append("\n")
-                .append("Cpu Time : ").append(res.getCpuTime()).append("\n")
-                .append("Memory : ").append(res.getMemory());
+        if(res.getOutput().equals(problems.getOutput()))
+        {
+            outputBuilder.append("Accepted").append(res.getOutput()).append("\n")
+                    .append("Cpu Time : ").append(res.getCpuTime()).append("\n")
+                    .append("Memory : ").append(res.getMemory());
+        }
+        else {
+            outputBuilder.append("Not Accepted"+"\n")
+                    .append("Cpu Time : ").append(res.getCpuTime()).append("\n")
+                    .append("Memory : ").append(res.getMemory());
+        }
         result.setText(outputBuilder.toString());
     }
 

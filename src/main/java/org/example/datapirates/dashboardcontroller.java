@@ -29,6 +29,12 @@ public class dashboardcontroller  {
 
     @FXML
     private Label welcomeLabel;
+    public void userinfo(UserInfo userInfo)
+    {
+        this.userInfo = userInfo;
+        welcomeLabel.setText("Welcome "+userInfo.getMail());
+
+    }
 
     public void userinfo(String mail)
     {

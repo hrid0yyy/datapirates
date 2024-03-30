@@ -3,18 +3,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.datapirates.dataBaseConnection.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 
@@ -30,9 +28,12 @@ public class problemController implements Initializable {
 
     @FXML
     private TableColumn<Problems, Void> actionCol;
-
+    @FXML
+    private TextField searchBar;
     @FXML
     private HBox navBar;
+
+
     private UserInfo userInfo;
 
     @FXML
@@ -46,6 +47,9 @@ public class problemController implements Initializable {
 
     @FXML
     private TableColumn<Problems, String> typeCol;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     String query = null;
     Connection connection = null;
@@ -66,12 +70,39 @@ public class problemController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             loadDate();
+            setupSearchBarListener();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+    private void setupSearchBarListener() {
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                filterTable(newValue);
+            } else {
+                try {
+                    refreshTable();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+    private void filterTable(String searchTerm) {
+        ObservableList<Problems> filteredList = FXCollections.observableArrayList();
+
+        for (Problems problem : problemsList) {
+            if (String.valueOf(problem.getProblemID()).contains(searchTerm) || problem.getProblemName().contains(searchTerm)) {
+                filteredList.add(problem);
+            }
+        }
+        problemTable.setItems(filteredList);
+    }
+
+
     private  void refreshTable() throws SQLException {
         problemsList.clear();
 
@@ -80,7 +111,8 @@ public class problemController implements Initializable {
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next())
         {
-             problemsList.add(new Problems(resultSet.getInt("problemID"),resultSet.getString("problemName"),"lula",resultSet.getString("description")));
+             problemsList.add(new Problems(resultSet.getInt("problemID"),resultSet.getString("problemName"),resultSet.getString("problemType"),resultSet.getString("description")
+             ,resultSet.getString("driverCode"),resultSet.getString("output"),resultSet.getString("codeFormat")));
              problemTable.setItems(problemsList);
         }
 
@@ -90,9 +122,21 @@ public class problemController implements Initializable {
         refreshTable();
         pIDcol.setCellValueFactory(new PropertyValueFactory<>("problemID"));
         pNameCol.setCellValueFactory(new PropertyValueFactory<>("problemName"));
-    //    actionCol.setCellValueFactory(new PropertyValueFactory<>("button"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("problemType"));
         addButtonToTable();
       
+    }
+
+    @FXML
+    void homeBtn(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+        root = loader.load();
+        dashboardcontroller dashboardcontroller = loader.getController();
+        dashboardcontroller.userinfo(getUserInfo());
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     private void addButtonToTable() {
         TableColumn<Problems, Void> colBtn = new TableColumn<>("Action");
@@ -134,9 +178,6 @@ public class problemController implements Initializable {
         colBtn.setCellFactory(cellFactory);
         actionCol.setCellFactory(param -> colBtn.getCellFactory().call(param));
     }
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
 
     private void handleNavigation(Problems problem, ActionEvent event) throws IOException {
