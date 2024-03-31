@@ -59,25 +59,26 @@ public class logincontroller implements Initializable {
     }
     @FXML
     void loginbtn(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
-              String user_email = email.getText();
-              String password  = pass.getText();
-            ResultSet resultSet =  dbOperation.loginquery(user_email,password);
-           if(!resultSet.next())
-           {
-               System.out.println("wrong credentials");
-           }
-           else {
-               FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
-               root = loader.load();
-               dashboardcontroller home =loader.getController();
-               home.userinfo(user_email);
+        String user_email = email.getText();
+        String password = pass.getText();
+        UserInfo userInfo = new UserInfo(user_email);
+        ResultSet resultSet = dbOperation.loginquery(user_email, password);
+        if (!resultSet.next()) {
+            System.out.println("wrong credentials");
+        } else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+            root = loader.load();
+            dashboardcontroller home = loader.getController();
+            home.setUserInfo(userInfo);
+            home.initialize(null, null);
 
-               stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-               scene = new Scene(root);
-               stage.setScene(scene);
-               stage.show();
-           }
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
          showpassword.setVisible(false);

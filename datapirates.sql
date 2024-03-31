@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2024 at 06:08 PM
+-- Generation Time: Mar 31, 2024 at 11:13 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -20,6 +20,52 @@ SET time_zone = "+00:00";
 --
 -- Database: `datapirates`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `friends`
+--
+
+CREATE TABLE `friends` (
+  `fmail` varchar(255) DEFAULT NULL,
+  `umail` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `friends`
+--
+
+INSERT INTO `friends` (`fmail`, `umail`) VALUES
+('hridoy@gmail.com', 'mehrin@gmail.com'),
+('mehrin@gmail.com', 'hridoy@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `postid` int(11) NOT NULL,
+  `mail` varchar(255) DEFAULT NULL,
+  `content` text DEFAULT NULL,
+  `time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`postid`, `mail`, `content`, `time`) VALUES
+(1, 'mehrin@gmail.com', 'ohayooo', '2024-03-31 23:01:13'),
+(2, 'mehrin@gmail.com', 'oyasumi', '2023-04-12 00:01:38'),
+(4, 'mehrin@gmail.com', 'kire', '2024-04-01 01:11:40'),
+(5, 'mehrin@gmail.com', 'kjsfdg', '2024-04-01 01:11:49'),
+(6, 'mehrin@gmail.com', 'sdfsd', '2024-04-01 01:11:51'),
+(7, 'mehrin@gmail.com', 'sdf', '2024-04-01 01:11:54'),
+(8, 'mehrin@gmail.com', 'hayhay koyki\n', '2024-04-01 01:22:51'),
+(9, 'hridoy@gmail.com', 'oyeee', '2024-04-01 02:44:40');
 
 -- --------------------------------------------------------
 
@@ -42,7 +88,7 @@ CREATE TABLE `problems` (
 --
 
 INSERT INTO `problems` (`problemID`, `description`, `problemName`, `problemType`, `driverCode`, `output`, `codeFormat`) VALUES
-(3, 'reverse array ', 'array 3', 'array', NULL, '5', '// write a function named ReverseArray that will return an array'),
+(3, 'reverse array ', 'array 3', 'array', 'if __name__ == \"__main__\":\n    list = [1,2,3,4,5]\n    print(func(list))', '[5, 4, 3, 2, 1]', '\"\"\"write a function named func that will reverse the array\"\"\"'),
 (4, 'find maximum element in array', 'array 2', 'array', NULL, NULL, NULL),
 (5, 'check if array is sorted', 'array 5', 'array', NULL, NULL, NULL),
 (6, 'find minimum element in array', 'array 7', 'array', NULL, NULL, NULL),
@@ -75,11 +121,26 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`pass`, `email`) VALUES
-('1234', 'hridoy@gmail.com');
+('1234', 'hridoy@gmail.com'),
+('1234', 'mehrin@gmail.com');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `friends`
+--
+ALTER TABLE `friends`
+  ADD KEY `fmail` (`fmail`),
+  ADD KEY `fmail2` (`umail`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`postid`),
+  ADD KEY `mail` (`mail`);
 
 --
 -- Indexes for table `problems`
@@ -98,10 +159,33 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `problems`
 --
 ALTER TABLE `problems`
   MODIFY `problemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `friends`
+--
+ALTER TABLE `friends`
+  ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`fmail`) REFERENCES `users` (`email`),
+  ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`umail`) REFERENCES `users` (`email`);
+
+--
+-- Constraints for table `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`mail`) REFERENCES `users` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

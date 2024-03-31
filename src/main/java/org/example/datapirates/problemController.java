@@ -34,7 +34,7 @@ public class problemController implements Initializable {
     private HBox navBar;
 
 
-    private UserInfo userInfo;
+    public UserInfo userInfo;
 
     @FXML
     private TableColumn<Problems, Integer> pIDcol;
@@ -64,6 +64,7 @@ public class problemController implements Initializable {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
+
     }
 
     @Override
@@ -76,6 +77,7 @@ public class problemController implements Initializable {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
     }
     private void setupSearchBarListener() {
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -131,8 +133,9 @@ public class problemController implements Initializable {
     void homeBtn(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
         root = loader.load();
-        dashboardcontroller dashboardcontroller = loader.getController();
-        dashboardcontroller.userinfo(getUserInfo());
+        dashboardcontroller home = loader.getController();
+        home.setUserInfo(userInfo);
+        home.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

@@ -95,20 +95,31 @@ public class compilerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         langChoice.getItems().addAll(language);
         langChoice.setOnAction(this::setLang);
-
     }
 
     private void setLang(ActionEvent event) {
         this.Lang = langChoice.getValue();
     }
-
+    @FXML
+    void homeBtn(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+        root = loader.load();
+        dashboardcontroller home = loader.getController();
+        home.setUserInfo(userInfo);
+        home.initialize(null, null);
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     void compile(ActionEvent event) throws IOException, InterruptedException, URISyntaxException {
         Code code = new Code();
-        code.setCode(codebox.getText());
+        code.setCode(codebox.getText()+"\n"+problems.getDriverCode());
         code.setLanguage(getLang());
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Code.class, new CodeTypeAdapter())
@@ -138,12 +149,12 @@ public class compilerController implements Initializable {
         StringBuilder outputBuilder = new StringBuilder();
         if(res.getOutput().equals(problems.getOutput()))
         {
-            outputBuilder.append("Accepted").append(res.getOutput()).append("\n")
+            outputBuilder.append("Accepted"+"\n").append(res.getOutput()).append("\n")
                     .append("Cpu Time : ").append(res.getCpuTime()).append("\n")
                     .append("Memory : ").append(res.getMemory());
         }
         else {
-            outputBuilder.append("Not Accepted"+"\n")
+            outputBuilder.append("Not Accepted"+"\n").append(res.getOutput()).append("\n")
                     .append("Cpu Time : ").append(res.getCpuTime()).append("\n")
                     .append("Memory : ").append(res.getMemory());
         }
