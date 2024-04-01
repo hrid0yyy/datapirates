@@ -158,7 +158,7 @@ public class problemController implements Initializable {
                             // For example, you can call a method to handle navigation
                             try {
                                 handleNavigation(problem,event);
-                            } catch (IOException e) {
+                            } catch (IOException | SQLException | ClassNotFoundException e) {
                                 throw new RuntimeException(e);
                             }
                         });
@@ -183,7 +183,7 @@ public class problemController implements Initializable {
     }
 
 
-    private void handleNavigation(Problems problem, ActionEvent event) throws IOException {
+    private void handleNavigation(Problems problem, ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         // Implement navigation logic here
         // For example, switch scenes or load another FXML file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("compiler.fxml"));

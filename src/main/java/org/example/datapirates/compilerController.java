@@ -25,9 +25,8 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import static org.example.datapirates.dbOperation.connection;
@@ -85,11 +84,12 @@ public class compilerController implements Initializable {
         this.userInfo = userInfo;
     }
 
-    public void setProblems(Problems problems) {
+    public void setProblems(Problems problems) throws SQLException, ClassNotFoundException {
         this.problems = problems;
         pid.setText(" Problem ID : "+problems.getProblemID());
         pname.setText(" Problem Name : "+problems.getProblemName());
         description.setText(" Description : "+problems.getProblemDescription());
+        
         codebox.setText(problems.getCodeFormat());
     }
     private String Lang;
@@ -180,6 +180,17 @@ public class compilerController implements Initializable {
                 // Execute the insert statement
                 insertStatement.executeUpdate();
 
+                String postContent = problems.getProblemName()+"\n"+getLang()+"\n"+codebox.getText();
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                String sql = "INSERT INTO posts (mail, content,time) VALUES (?, ?,?)";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, userInfo.getMail());
+                statement.setString(2, postContent);
+                statement.setTimestamp(3, Timestamp.valueOf(currentDateTime));
+
+                statement.executeUpdate();
+
+
                 // Close resources
                 insertStatement.close();
                 connection.close();
@@ -200,11 +211,11 @@ public class compilerController implements Initializable {
 
 
         // Prepare SQL statement to insert into the solved table
-        String insertSql = "INSERT INTO attempted (problemID, userMail) VALUES (?, ?)";
+        String insertSql = "INSERT INTO attempted (problemID, userMail,code) VALUES (?, ?,?)";
         PreparedStatement insertStatement = connection.prepareStatement(insertSql);
         insertStatement.setInt(1, problems.getProblemID()); // Assuming problems.getProblemID() returns the problem ID
         insertStatement.setString(2, userInfo.getMail()); // Assuming userInfo is properly set
-
+        insertStatement.setString(3, codebox.getText());
         // Execute the insert statement
         insertStatement.executeUpdate();
         result.setText(outputBuilder.toString());
