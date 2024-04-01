@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.datapirates.dataBaseConnection.dbHandler;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -24,7 +25,12 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static org.example.datapirates.dbOperation.connection;
 
 public class compilerController implements Initializable {
 
@@ -117,7 +123,7 @@ public class compilerController implements Initializable {
     }
 
     @FXML
-    void compile(ActionEvent event) throws IOException, InterruptedException, URISyntaxException {
+    void compile(ActionEvent event) throws IOException, InterruptedException, URISyntaxException, SQLException {
         Code code = new Code();
         code.setCode(codebox.getText()+"\n"+problems.getDriverCode());
         code.setLanguage(getLang());
@@ -152,12 +158,55 @@ public class compilerController implements Initializable {
             outputBuilder.append("Accepted"+"\n").append(res.getOutput()).append("\n")
                     .append("Cpu Time : ").append(res.getCpuTime()).append("\n")
                     .append("Memory : ").append(res.getMemory());
+            try {
+                // Establish database connection
+                Connection connection = dbHandler.getDbConnection();
+
+                String insertSql = "DELETE FROM solved WHERE problemID = ? and userMail = ?";
+                PreparedStatement insertStatement = connection.prepareStatement(insertSql);
+                insertStatement.setInt(1, problems.getProblemID()); // Assuming problems.getProblemID() returns the problem ID
+                insertStatement.setString(2, userInfo.getMail()); // Assuming userInfo is properly set
+
+                // Execute the insert statement
+                insertStatement.executeUpdate();
+
+
+                // Prepare SQL statement to insert into the solved table
+                insertSql = "INSERT INTO solved (problemID, userMail) VALUES (?, ?)";
+                insertStatement = connection.prepareStatement(insertSql);
+                insertStatement.setInt(1, problems.getProblemID()); // Assuming problems.getProblemID() returns the problem ID
+                insertStatement.setString(2, userInfo.getMail()); // Assuming userInfo is properly set
+
+                // Execute the insert statement
+                insertStatement.executeUpdate();
+
+                // Close resources
+                insertStatement.close();
+                connection.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
         else {
+
             outputBuilder.append("Not Accepted"+"\n").append(res.getOutput()).append("\n")
                     .append("Cpu Time : ").append(res.getCpuTime()).append("\n")
                     .append("Memory : ").append(res.getMemory());
         }
+
+
+
+        // Prepare SQL statement to insert into the solved table
+        String insertSql = "INSERT INTO attempted (problemID, userMail) VALUES (?, ?)";
+        PreparedStatement insertStatement = connection.prepareStatement(insertSql);
+        insertStatement.setInt(1, problems.getProblemID()); // Assuming problems.getProblemID() returns the problem ID
+        insertStatement.setString(2, userInfo.getMail()); // Assuming userInfo is properly set
+
+        // Execute the insert statement
+        insertStatement.executeUpdate();
         result.setText(outputBuilder.toString());
     }
 
