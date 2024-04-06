@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2024 at 08:28 PM
+-- Generation Time: Apr 06, 2024 at 09:25 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -29,18 +29,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `attempted` (
   `problemID` int(11) DEFAULT NULL,
-  `userMail` varchar(255) DEFAULT NULL
+  `userMail` varchar(255) DEFAULT NULL,
+  `code` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `attempted`
 --
 
-INSERT INTO `attempted` (`problemID`, `userMail`) VALUES
-(3, 'hridoy@gmail.com'),
-(3, 'emon@gmail.com'),
-(3, 'emon@gmail.com'),
-(3, 'emon@gmail.com');
+INSERT INTO `attempted` (`problemID`, `userMail`, `code`) VALUES
+(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list');
 
 -- --------------------------------------------------------
 
@@ -103,14 +101,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`postid`, `mail`, `content`, `time`) VALUES
-(1, 'mehrin@gmail.com', 'ohayooo', '2024-03-31 23:01:13'),
-(2, 'mehrin@gmail.com', 'oyasumi', '2023-04-12 00:01:38'),
-(4, 'mehrin@gmail.com', 'kire', '2024-04-01 01:11:40'),
-(5, 'mehrin@gmail.com', 'kjsfdg', '2024-04-01 01:11:49'),
-(6, 'mehrin@gmail.com', 'sdfsd', '2024-04-01 01:11:51'),
-(7, 'mehrin@gmail.com', 'sdf', '2024-04-01 01:11:54'),
-(8, 'mehrin@gmail.com', 'hayhay koyki\n', '2024-04-01 01:22:51'),
-(9, 'hridoy@gmail.com', 'oyeee', '2024-04-01 02:44:40');
+(12, 'hridoy@gmail.com', 'Solved array 3 by python3\nTime Taken : 0.01\nSpace Taken : 7424', '2024-04-07 01:23:53');
 
 -- --------------------------------------------------------
 
@@ -159,16 +150,16 @@ INSERT INTO `problems` (`problemID`, `description`, `problemName`, `problemType`
 
 CREATE TABLE `solved` (
   `problemID` int(11) DEFAULT NULL,
-  `userMail` varchar(255) DEFAULT NULL
+  `userMail` varchar(255) DEFAULT NULL,
+  `code` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `solved`
 --
 
-INSERT INTO `solved` (`problemID`, `userMail`) VALUES
-(3, 'hridoy@gmail.com'),
-(3, 'emon@gmail.com');
+INSERT INTO `solved` (`problemID`, `userMail`, `code`) VALUES
+(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list');
 
 -- --------------------------------------------------------
 
@@ -190,6 +181,31 @@ INSERT INTO `users` (`pass`, `email`) VALUES
 ('1234', 'hridoy@gmail.com'),
 ('1234', 'mehrin@gmail.com'),
 ('1234', 'shagin@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_profile`
+--
+
+CREATE TABLE `user_profile` (
+  `umail` varchar(255) DEFAULT NULL,
+  `pic` varchar(255) DEFAULT NULL,
+  `institution` varchar(255) DEFAULT NULL,
+  `position` varchar(255) DEFAULT NULL,
+  `about_me` text DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_profile`
+--
+
+INSERT INTO `user_profile` (`umail`, `pic`, `institution`, `position`, `about_me`, `name`) VALUES
+('hridoy@gmail.com', 'images/guts.jpeg', 'uiu', 'student', 'fakaa', 'hridoy ahmeddd'),
+('emon@gmail.com', 'images/zoro.jpeg', 'ewu', '', '', 'emon'),
+('mehrin@gmail.com', 'images/guts.jpeg', NULL, NULL, NULL, 'Mehrin Ahmed Chowdhury'),
+('shagin@gmail.com', 'images/guts.jpeg', NULL, NULL, NULL, 'Shagin');
 
 --
 -- Indexes for dumped tables
@@ -244,6 +260,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `user_profile`
+--
+ALTER TABLE `user_profile`
+  ADD KEY `umail` (`umail`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -257,7 +279,7 @@ ALTER TABLE `friend_requests`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `problems`
@@ -302,6 +324,12 @@ ALTER TABLE `posts`
 ALTER TABLE `solved`
   ADD CONSTRAINT `solved_ibfk_1` FOREIGN KEY (`userMail`) REFERENCES `users` (`email`),
   ADD CONSTRAINT `solved_ibfk_2` FOREIGN KEY (`problemID`) REFERENCES `problems` (`problemID`);
+
+--
+-- Constraints for table `user_profile`
+--
+ALTER TABLE `user_profile`
+  ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`umail`) REFERENCES `users` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

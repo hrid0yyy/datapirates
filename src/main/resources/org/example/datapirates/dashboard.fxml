@@ -17,6 +17,7 @@
       <HBox fx:id="navBar" prefHeight="41.0" prefWidth="731.0" stylesheets="@../../../stylesheets/dashboard.css" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="102.0" text="Home" />
+            <Button mnemonicParsing="false" onAction="#profileBtn" prefHeight="54.0" prefWidth="98.0" text="Profile" />
             <Button mnemonicParsing="false" onAction="#loadProblems" prefHeight="42.0" prefWidth="109.0" text="Problems" />
             <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="110.0" text="Compete" />
          </children>

@@ -172,15 +172,16 @@ public class compilerController implements Initializable {
 
 
                 // Prepare SQL statement to insert into the solved table
-                insertSql = "INSERT INTO solved (problemID, userMail) VALUES (?, ?)";
+                insertSql = "INSERT INTO solved (problemID, userMail,code) VALUES (?, ?, ?)";
                 insertStatement = connection.prepareStatement(insertSql);
                 insertStatement.setInt(1, problems.getProblemID()); // Assuming problems.getProblemID() returns the problem ID
                 insertStatement.setString(2, userInfo.getMail()); // Assuming userInfo is properly set
-
+                insertStatement.setString(3, codebox.getText());
                 // Execute the insert statement
                 insertStatement.executeUpdate();
 
-                String postContent = problems.getProblemName()+"\n"+getLang()+"\n"+codebox.getText();
+                String postContent = "Solved "+problems.getProblemName()+" by "+getLang()+"\n"+"Time Taken : "+res.getCpuTime()+"\n"+
+                        "Space Taken : "+res.getMemory();
                 LocalDateTime currentDateTime = LocalDateTime.now();
                 String sql = "INSERT INTO posts (mail, content,time) VALUES (?, ?,?)";
                 PreparedStatement statement = connection.prepareStatement(sql);

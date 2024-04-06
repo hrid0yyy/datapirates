@@ -3,6 +3,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import org.example.datapirates.dataBaseConnection.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,8 +32,7 @@ public class dashboardcontroller implements Initializable {
     private UserInfo userInfo;
     @FXML
     private TextArea postbox;
-    @FXML
-    private Label welcomeLabel;
+
     @FXML
     private VBox friendReqBox;
     @FXML
@@ -53,7 +53,7 @@ public class dashboardcontroller implements Initializable {
 
                 Connection connection = dbHandler.getDbConnection();
 
-                String sql = "SELECT email FROM users WHERE email LIKE ? AND email != ?";
+                String sql = "SELECT email,name,pic FROM users JOIN user_profile on users.email = user_profile.umail WHERE email LIKE ? AND email != ?";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setString(1, "%" + searchTerm + "%");
                 statement.setString(2, userInfo.getMail());
@@ -66,37 +66,39 @@ public class dashboardcontroller implements Initializable {
 
 
                 while (resultSet.next()) {
-
                     String userEmail = resultSet.getString("email");
-
+                    String userName = resultSet.getString("name");
+                    String userPic = resultSet.getString("pic");
 
                     if (isFriend(userEmail)) {
+                        Image userImage = new Image(getClass().getResourceAsStream(userPic));
+                        ImageView userImageView = new ImageView(userImage);
+                        userImageView.setFitWidth(40);
+                        userImageView.setFitHeight(40);
 
-                        Label userLabel = new Label(userEmail +"\n"+ "Friend");
-
-
-                        searchBox.getChildren().add(userLabel);
+                        Label userLabel = new Label(userName +"\n"+ "Friend");
+                        VBox userInfoBox = new VBox(10);
+                        userInfoBox.getChildren().addAll(userImageView,userLabel);
+                        searchBox.getChildren().addAll(userInfoBox);
                     } else {
+                        Image userImage = new Image(getClass().getResourceAsStream(userPic));
+                        ImageView userImageView = new ImageView(userImage);
+                        userImageView.setFitWidth(40);
+                        userImageView.setFitHeight(40);
 
-                        Label userLabel = new Label(" "+userEmail);
-
-
+                        Label userLabel = new Label(" " + userName);
                         Button sendRequestButton = new Button();
-                        Image addFriendIcon = new Image(getClass().getResourceAsStream("add-user.png"));
-
+                        Image addFriendIcon = new Image(getClass().getResourceAsStream("images/add-user.png"));
                         ImageView addFriendImageView = new ImageView(addFriendIcon);
                         addFriendImageView.setFitWidth(20);
                         addFriendImageView.setFitHeight(20);
                         sendRequestButton.setGraphic(addFriendImageView);
                         sendRequestButton.setOnAction(Event -> sendFriendRequest(userEmail));
 
-                        VBox userEntry = new VBox(5);
-                        VBox.setMargin(sendRequestButton, new Insets(0, 0, 0, 90));
+                        VBox userInfoBox = new VBox(10);
+                        userInfoBox.getChildren().addAll(userImageView,userLabel, sendRequestButton);
 
-                        userEntry.getChildren().addAll(userLabel, sendRequestButton);
-
-
-                        searchBox.getChildren().add(userEntry);
+                        searchBox.getChildren().add(userInfoBox);
                     }
                 }
 
@@ -148,7 +150,7 @@ public class dashboardcontroller implements Initializable {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
-        welcomeLabel.setText(userInfo.getMail());
+
 
     }
 
@@ -179,9 +181,10 @@ public class dashboardcontroller implements Initializable {
             Connection connection = dbHandler.getDbConnection();
 
 
-            String sql = "SELECT content, time, fmail FROM users " +
+            String sql = "SELECT content, time,pic,name, fmail FROM users " +
                     "JOIN friends ON users.email = friends.umail " +
                     "JOIN posts ON friends.fmail = posts.mail " +
+                    "JOIN user_profile ON friends.fmail = user_profile.umail " +
                     "WHERE users.email = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, userInfo.getMail());
@@ -196,14 +199,25 @@ public class dashboardcontroller implements Initializable {
             while (resultSet.next()) {
                 String content = resultSet.getString("content");
                 Timestamp timestamp = resultSet.getTimestamp("time");
-                String friendMail = resultSet.getString("fmail");
+                String friendName = resultSet.getString("name");
+                String friendPic = resultSet.getString("pic");
+
+                Image userImage = new Image(getClass().getResourceAsStream(friendPic));
+                ImageView userImageView = new ImageView(userImage);
+                userImageView.setFitWidth(40);
+                userImageView.setFitHeight(40);
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm a, d MMMM, yyyy");
                 String formattedTime = dateFormat.format(timestamp);
 
                 Label contentLabel = new Label(content);
                 Label timeLabel = new Label(formattedTime);
-                Label friendMailLabel = new Label(friendMail);
+                Label friendMailLabel = new Label("  "+friendName);
+
+
+                HBox nameNpic = new HBox();
+                nameNpic.getChildren().addAll(userImageView,friendMailLabel);
+                HBox.setMargin(friendMailLabel, new Insets(20, 0, 0, 0));
 
 
                 contentLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
@@ -211,7 +225,7 @@ public class dashboardcontroller implements Initializable {
                 friendMailLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #808080;");
 
 
-                postContainer.getChildren().addAll(friendMailLabel, timeLabel, contentLabel);
+                postContainer.getChildren().addAll(nameNpic, timeLabel, contentLabel);
 
 
                 postContainer.getChildren().add(new Label(""));
@@ -356,7 +370,7 @@ public class dashboardcontroller implements Initializable {
 
             Connection connection = dbHandler.getDbConnection();
 
-            String sql = "SELECT sender_email FROM friend_requests WHERE receiver_email = ? AND status = 'pending'";
+            String sql = "SELECT sender_email,name,pic FROM friend_requests join user_profile on friend_requests.sender_email = user_profile.umail WHERE receiver_email = ? AND status = 'pending'";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, userInfo.getMail());
 
@@ -368,10 +382,16 @@ public class dashboardcontroller implements Initializable {
             while (resultSet.next()) {
 
                 String senderEmail = resultSet.getString("sender_email");
+                String senderName = resultSet.getString("name");
+               String userPic = resultSet.getString("pic");
+                Image userImage = new Image(getClass().getResourceAsStream(userPic));
+                ImageView userImageView = new ImageView(userImage);
+                userImageView.setFitWidth(40);
+                userImageView.setFitHeight(40);
 
 
-                Label senderLabel = new Label(senderEmail);
-                Image addFriendIcon = new Image(getClass().getResourceAsStream("friend-request.png"));
+                Label senderLabel = new Label(senderName);
+                Image addFriendIcon = new Image(getClass().getResourceAsStream("images/friend-request.png"));
                 ImageView addFriendImageView = new ImageView(addFriendIcon);
                 addFriendImageView.setFitWidth(20);
                 addFriendImageView.setFitHeight(20);
@@ -381,8 +401,7 @@ public class dashboardcontroller implements Initializable {
 
 
                 VBox friendRequestVBox = new VBox(5);
-                VBox.setMargin(acceptButton, new Insets(0, 0, 0, 80));
-                friendRequestVBox.getChildren().addAll(senderLabel, acceptButton);
+                friendRequestVBox.getChildren().addAll(userImageView,senderLabel,acceptButton);
 
 
                 friendReqBox.getChildren().add(friendRequestVBox);
@@ -427,6 +446,20 @@ public class dashboardcontroller implements Initializable {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    void profileBtn(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
+        root = loader.load();
+        profileController profileHome = loader.getController();
+        profileHome.setUserInfo(getUserInfo());
+        profileHome.initialize(null, null);
+
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     private void acceptFriendRequest(String senderEmail) {
         try {
