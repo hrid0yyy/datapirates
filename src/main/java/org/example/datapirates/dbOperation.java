@@ -32,6 +32,16 @@ public class dbOperation {
         resultSet = preparedStatement.executeQuery();
         return  resultSet;
     }
+    public static  ResultSet solved(String mail) throws SQLException {
+        query = "SELECT COUNT(*) AS total FROM solved WHERE userMail = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, mail);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet;
+
+
+    }
     public static ResultSet detailsQuery(String email) throws SQLException {
         query = "Select * from user_profile where umail = ?";
         preparedStatement = connection.prepareStatement(query);

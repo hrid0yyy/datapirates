@@ -1,5 +1,6 @@
 package org.example.datapirates;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -77,6 +78,15 @@ public class dashboardcontroller implements Initializable {
                         userImageView.setFitHeight(40);
 
                         Label userLabel = new Label(userName +"\n"+ "Friend");
+                        userLabel.setCursor(Cursor.HAND); // Change cursor to hand
+                        userLabel.setOnMouseClicked(e -> {
+                            try {
+                                goToFriendProfile(userEmail);
+                            } catch (IOException | SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }); // Go to friend's profile on click
+
                         VBox userInfoBox = new VBox(10);
                         userInfoBox.getChildren().addAll(userImageView,userLabel);
                         searchBox.getChildren().addAll(userInfoBox);
@@ -87,6 +97,15 @@ public class dashboardcontroller implements Initializable {
                         userImageView.setFitHeight(40);
 
                         Label userLabel = new Label(" " + userName);
+                        userLabel.setCursor(Cursor.HAND); // Change cursor to hand
+                        userLabel.setOnMouseClicked(e -> {
+                            try {
+                                goToFriendProfile(userEmail);
+                            } catch (IOException | SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }); // Go to friend's profile on click
+
                         Button sendRequestButton = new Button();
                         Image addFriendIcon = new Image(getClass().getResourceAsStream("images/add-user.png"));
                         ImageView addFriendImageView = new ImageView(addFriendIcon);
@@ -117,6 +136,24 @@ public class dashboardcontroller implements Initializable {
             searchBox.getChildren().clear();
         }
     }
+
+    // Method to navigate to friend's profile
+    private void goToFriendProfile(String friendEmail) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("friendProfile.fxml"));
+        root = loader.load();
+
+       friendProfileController controller = loader.getController();
+        controller.setFriendEmail(friendEmail);
+        controller.setUserInfo(userInfo);
+        controller.initialize(null, null);
+        scene = new Scene(root);
+
+        stage = (Stage) searchBar.getScene().getWindow();
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 
 
