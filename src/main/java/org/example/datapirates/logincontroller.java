@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.example.datapirates.dataBaseConnection.dbHandler;
@@ -29,6 +31,8 @@ public class logincontroller implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    @FXML
+    private Text signup;
 
 
     @FXML
@@ -84,6 +88,23 @@ public class logincontroller implements Initializable {
          showpassword.setVisible(false);
 
 
+         signup.setCursor(Cursor.HAND);
+        signup.setOnMouseClicked(e -> {
+            try {
+                gotoSignUp(e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+    }
 
+    private void gotoSignUp(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUP.fxml"));
+        root = loader.load();
+
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

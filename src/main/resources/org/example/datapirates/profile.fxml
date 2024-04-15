@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
@@ -56,37 +57,62 @@
          </children></VBox>
    </left>
    <center>
-      <VBox prefHeight="474.0" prefWidth="510.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label prefHeight="28.0" prefWidth="111.0" text="Name">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="updateName" prefHeight="25.0" prefWidth="475.0" promptText="Insert name">
-               <VBox.margin>
-                  <Insets bottom="15.0" right="200.0" top="15.0" />
-               </VBox.margin>
-            </TextField>
-            <Label prefHeight="17.0" prefWidth="143.0" text="Institution" />
-            <TextField fx:id="updateInstitution" promptText="Insert Institution">
-               <VBox.margin>
-                  <Insets bottom="15.0" right="200.0" top="15.0" />
-               </VBox.margin>
-            </TextField>
-            <Label prefHeight="17.0" prefWidth="159.0" text="Position" />
-            <TextField fx:id="updatePosition" promptText="Insert position">
-               <VBox.margin>
-                  <Insets bottom="15.0" right="200.0" top="15.0" />
-               </VBox.margin>
-            </TextField>
-            <Label prefHeight="17.0" prefWidth="155.0" text="About you" />
-            <TextArea fx:id="updateAboutyou" prefHeight="200.0" prefWidth="200.0" promptText="Talk about you">
-               <VBox.margin>
-                  <Insets bottom="100.0" right="150.0" top="15.0" />
-               </VBox.margin>
-            </TextArea>
-         </children>
-      </VBox>
+      <ScrollPane prefHeight="332.0" prefWidth="375.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox prefHeight="456.0" prefWidth="367.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="111.0" text="Name">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="updateName" prefHeight="25.0" prefWidth="475.0" promptText="Insert name">
+                     <VBox.margin>
+                        <Insets bottom="15.0" right="100.0" top="15.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="17.0" prefWidth="143.0" text="Institution" />
+                  <TextField fx:id="updateInstitution" promptText="Insert Institution">
+                     <VBox.margin>
+                        <Insets bottom="15.0" right="100.0" top="15.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="17.0" prefWidth="159.0" text="Position" />
+                  <TextField fx:id="updatePosition" promptText="Insert position">
+                     <VBox.margin>
+                        <Insets bottom="15.0" right="100.0" top="15.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="17.0" prefWidth="155.0" text="About you" />
+                  <TextArea fx:id="updateAboutyou" prefHeight="84.0" prefWidth="267.0" promptText="Talk about you">
+                     <VBox.margin>
+                        <Insets right="100.0" top="15.0" />
+                     </VBox.margin>
+                  </TextArea>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="379.0" text="Time Line">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox fx:id="posts" prefHeight="48.0" prefWidth="367.0" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
    </center>
+   <right>
+      <ScrollPane prefHeight="474.0" prefWidth="173.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="solvedVbox" prefHeight="474.0" prefWidth="180.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="150.0" text="Solved Probelms">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </right>
 </BorderPane>

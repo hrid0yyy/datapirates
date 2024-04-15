@@ -238,6 +238,7 @@ public class dashboardcontroller implements Initializable {
                 Timestamp timestamp = resultSet.getTimestamp("time");
                 String friendName = resultSet.getString("name");
                 String friendPic = resultSet.getString("pic");
+                String friendMail = resultSet.getString("fmail");
 
                 Image userImage = new Image(getClass().getResourceAsStream(friendPic));
                 ImageView userImageView = new ImageView(userImage);
@@ -250,6 +251,14 @@ public class dashboardcontroller implements Initializable {
                 Label contentLabel = new Label(content);
                 Label timeLabel = new Label(formattedTime);
                 Label friendMailLabel = new Label("  "+friendName);
+                friendMailLabel.setCursor(Cursor.HAND); // Change cursor to hand
+                friendMailLabel.setOnMouseClicked(e -> {
+                    try {
+                        goToFriendProfile(friendMail);
+                    } catch (IOException | SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }); 
 
 
                 HBox nameNpic = new HBox();
@@ -257,9 +266,9 @@ public class dashboardcontroller implements Initializable {
                 HBox.setMargin(friendMailLabel, new Insets(20, 0, 0, 0));
 
 
-                contentLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-                timeLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #808080;");
-                friendMailLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #808080;");
+                contentLabel.setStyle("-fx-font-size: 14px;");
+                timeLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #808080;");
+                friendMailLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #808080;");
 
 
                 postContainer.getChildren().addAll(nameNpic, timeLabel, contentLabel);
@@ -430,6 +439,14 @@ public class dashboardcontroller implements Initializable {
                 Label senderLabel = new Label(senderName);
                 Image addFriendIcon = new Image(getClass().getResourceAsStream("images/friend-request.png"));
                 ImageView addFriendImageView = new ImageView(addFriendIcon);
+                senderLabel.setCursor(Cursor.HAND); // Change cursor to hand
+                senderLabel.setOnMouseClicked(e -> {
+                    try {
+                        goToFriendProfile(senderEmail);
+                    } catch (IOException | SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }); // Go to friend's profile on click
                 addFriendImageView.setFitWidth(20);
                 addFriendImageView.setFitHeight(20);
                 Button acceptButton = new Button();

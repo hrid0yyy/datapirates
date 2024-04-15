@@ -32,6 +32,55 @@ public class dbOperation {
         resultSet = preparedStatement.executeQuery();
         return  resultSet;
     }
+    public static ResultSet solvedProbelms(String email) throws SQLException {
+        query = "Select * from solved join problems on solved.problemID = problems.problemID where userMail = ?";
+        preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setString(1, email);
+        resultSet = preparedStatement.executeQuery();
+        return  resultSet;
+    }
+
+    public static void addAccount(String email , String pass) throws SQLException {
+        query = "INSERT INTO users (pass, email) VALUES (?,?)";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1,pass);
+        preparedStatement.setString(2,email);
+        preparedStatement.execute();
+
+    }
+    public static void addDefaultPic(String mail,String name) throws SQLException {
+        query = "INSERT INTO user_profile (umail, pic, name) VALUES (?,?,?)";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1,mail);
+        preparedStatement.setString(2,"images/user.png");
+        preparedStatement.setString(3,name);
+        preparedStatement.execute();
+    }
+    public static ResultSet posts(String mail) throws SQLException {
+        query = "Select * from posts where mail = ?";
+        preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setString(1, mail);
+        resultSet = preparedStatement.executeQuery();
+        return  resultSet;
+    }
+    public static boolean isOldAccount(String mail) throws SQLException {
+        query = "Select * from users where email = ?";
+        preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setString(1, mail);
+        resultSet = preparedStatement.executeQuery();
+       if(resultSet.next())
+       {
+           return true;
+       }
+       else
+       {
+           return false;
+       }
+
+    }
     public static  ResultSet solved(String mail) throws SQLException {
         query = "SELECT COUNT(*) AS total FROM solved WHERE userMail = ?";
         preparedStatement = connection.prepareStatement(query);

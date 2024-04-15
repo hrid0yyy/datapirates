@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class friendProfileController implements Initializable {
@@ -33,6 +36,11 @@ public class friendProfileController implements Initializable {
 
     @FXML
     private Label fInstitue;
+    @FXML
+    private ScrollPane posts;
+
+    @FXML
+    private ScrollPane solvedList;
 
     @FXML
     private Label fName;
@@ -47,8 +55,7 @@ public class friendProfileController implements Initializable {
     @FXML
     private Label fSolved;
 
-    @FXML
-    private VBox solvedList;
+
     private ResultSet resultSet;
 
     @FXML
@@ -95,6 +102,45 @@ public class friendProfileController implements Initializable {
         this.fmail = friendEmail;
         this.resultSet = dbOperation.detailsQuery(friendEmail);
     }
+    public void loadPosts() throws SQLException{
+        resultSet = dbOperation.posts(fmail);
+        VBox postContainer = new VBox();
+
+        while (resultSet.next()){
+            String content = resultSet.getString("content");
+            Timestamp timestamp = resultSet.getTimestamp("time");
+
+
+
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm a, d MMMM, yyyy");
+            String formattedTime = dateFormat.format(timestamp);
+
+            Label contentLabel = new Label(content);
+            Label timeLabel = new Label(formattedTime);
+
+
+
+
+
+
+            contentLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+            timeLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #808080;");
+
+
+            postContainer.getChildren().addAll(timeLabel, contentLabel,new Label("\n"));
+        }
+        posts.setContent(postContainer);
+    }
+    public void solvedProblem() throws SQLException {
+        resultSet = dbOperation.solvedProbelms(fmail);
+        VBox box = new VBox(5);
+        while (resultSet.next()){
+            box.getChildren().add(new Label(resultSet.getString("problemName")));
+        }
+        solvedList.setContent(box);
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -114,6 +160,8 @@ public class friendProfileController implements Initializable {
                 fPic.setFitHeight(171); // Set your desired height
                 ResultSet rs = dbOperation.solved(fmail);
                 fSolved.setText("Solved : "+rs.getString("total"));
+                loadPosts();
+                solvedProblem();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2024 at 09:25 PM
+-- Generation Time: Apr 15, 2024 at 04:19 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -38,7 +38,8 @@ CREATE TABLE `attempted` (
 --
 
 INSERT INTO `attempted` (`problemID`, `userMail`, `code`) VALUES
-(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list');
+(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list'),
+(6, 'hridoy@gmail.com', '\"\"\"write a function named func that will find the minimum element in the array\"\"\"\ndef func(list):\n	return min(list)');
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,8 @@ INSERT INTO `friends` (`fmail`, `umail`) VALUES
 ('hridoy@gmail.com', 'mehrin@gmail.com'),
 ('mehrin@gmail.com', 'hridoy@gmail.com'),
 ('shagin@gmail.com', 'hridoy@gmail.com'),
-('hridoy@gmail.com', 'emon@gmail.com');
+('hridoy@gmail.com', 'emon@gmail.com'),
+('mehrin@gmail.com', 'emon@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -81,7 +83,7 @@ CREATE TABLE `friend_requests` (
 INSERT INTO `friend_requests` (`request_id`, `sender_email`, `receiver_email`, `status`) VALUES
 (2, 'shagin@gmail.com', 'hridoy@gmail.com', 'accepted'),
 (3, 'hridoy@gmail.com', 'emon@gmail.com', 'accepted'),
-(5, 'mehrin@gmail.com', 'emon@gmail.com', 'pending');
+(5, 'mehrin@gmail.com', 'emon@gmail.com', 'accepted');
 
 -- --------------------------------------------------------
 
@@ -101,7 +103,8 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`postid`, `mail`, `content`, `time`) VALUES
-(12, 'hridoy@gmail.com', 'Solved array 3 by python3\nTime Taken : 0.01\nSpace Taken : 7424', '2024-04-07 01:23:53');
+(12, 'hridoy@gmail.com', 'Solved array 3 by python3\nTime Taken : 0.01\nSpace Taken : 7424', '2024-04-07 01:23:53'),
+(17, 'hridoy@gmail.com', 'Solved min array by python3\nTime Taken : 0.01\nSpace Taken : 7552', '2024-04-15 20:18:32');
 
 -- --------------------------------------------------------
 
@@ -125,21 +128,16 @@ CREATE TABLE `problems` (
 
 INSERT INTO `problems` (`problemID`, `description`, `problemName`, `problemType`, `driverCode`, `output`, `codeFormat`) VALUES
 (3, 'reverse array ', 'array 3', 'array', 'if __name__ == \"__main__\":\n    list = [1,2,3,4,5]\n    print(func(list))', '[5, 4, 3, 2, 1]', '\"\"\"write a function named func that will reverse the array\"\"\"'),
-(4, 'find maximum element in array', 'array 2', 'array', NULL, NULL, NULL),
-(5, 'check if array is sorted', 'array 5', 'array', NULL, NULL, NULL),
-(6, 'find minimum element in array', 'array 7', 'array', NULL, NULL, NULL),
-(7, 'remove duplicates from array', 'array 9', 'array', NULL, NULL, NULL),
-(8, 'check if two arrays are equal', 'array 11', 'array', NULL, NULL, NULL),
-(9, 'rotate array elements', 'array 13', 'array', NULL, NULL, NULL),
-(10, 'split array into two parts with equal sum', 'array 15', 'array', NULL, NULL, NULL),
-(11, 'check if array contains only positive numbers', 'array 14', 'array', NULL, NULL, NULL),
-(12, 'find second largest element in array', 'array 16', 'array', NULL, NULL, NULL),
-(13, 'remove specific element from array', 'array 17', 'array', NULL, NULL, NULL),
-(14, 'find leaders in array', 'array 18', 'array', NULL, NULL, NULL),
-(15, 'reverse string', 'string 1', 'string', NULL, NULL, NULL),
-(16, 'reverse string', 'string 1', 'string', NULL, NULL, NULL),
-(17, 'check if string is palindrome', 'string 2', 'string', NULL, NULL, NULL),
-(18, 'count vowels in string', 'string 3', 'string', NULL, NULL, NULL),
+(4, 'calculate sum of array elements', 'array sum', 'array', 'if __name__ == \"__main__\":\n    list = [1, 2, 3, 4, 5]\n    print(func(list))', '15', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"'),
+(5, 'find maximum element in array', 'max array', 'array', 'if __name__ == \"__main__\":\n    list = [1, 5, 3, 7, 2]\n    print(func(list))', '7', '\"\"\"write a function named func that will find the maximum element in the array\"\"\"'),
+(6, 'find minimum element in array', 'min array', 'array', 'if __name__ == \"__main__\":\n    list = [10, 5, 8, 3, 12]\n    print(func(list))', '3', '\"\"\"write a function named func that will find the minimum element in the array\"\"\"'),
+(7, 'calculate average of array elements', 'array average', 'array', 'if __name__ == \"__main__\":\n    list = [2, 4, 6, 8, 10]\n    print(func(list))', '6.0', '\"\"\"write a function named func that will calculate the average of array elements\"\"\"'),
+(8, 'check if array contains a specific element', 'array element check', 'array', 'if __name__ == \"__main__\":\n    list = [1, 2, 3, 4, 5]\n    element = 3\n    print(func(list, element))', 'True', '\"\"\"write a function named func that will check if a specific element is present in the array\"\"\"'),
+(9, 'remove duplicates from array', 'array duplicates', 'array', 'if __name__ == \"__main__\":\n    list = [1, 2, 3, 2, 4, 5, 4]\n    print(func(list))', '[1, 2, 3, 4, 5]', '\"\"\"write a function named func that will remove duplicates from the array\"\"\"'),
+(10, 'sort array in ascending order', 'array sort', 'array', 'if __name__ == \"__main__\":\n    list = [5, 3, 8, 2, 7]\n    print(func(list))', '[2, 3, 5, 7, 8]', '\"\"\"write a function named func that will sort the array in ascending order\"\"\"'),
+(11, 'sort array in descending order', 'array reverse sort', 'array', 'if __name__ == \"__main__\":\n    list = [5, 3, 8, 2, 7]\n    print(func(list))', '[8, 7, 5, 3, 2]', '\"\"\"write a function named func that will sort the array in descending order\"\"\"'),
+(12, 'insert element at specific index in array', 'array insert', 'array', 'if __name__ == \"__main__\":\n    list = [1, 2, 4, 5]\n    element = 3\n    index = 2\n    print(func(list, element, index))', '[1, 2, 3, 4, 5]', '\"\"\"write a function named func that will insert an element at a specific index in the array\"\"\"'),
+(13, 'delete element at specific index in array', 'array delete', 'array', 'if __name__ == \"__main__\":\n    list = [1, 2, 3, 4, 5]\n    index = 2\n    print(func(list, index))', '[1, 2, 4, 5]', '\"\"\"write a function named func that will delete an element at a specific index in the array\"\"\"'),
 (19, 'leetcode', 'gas station', 'greedy', 'gas = [5,8,2,8]\r\ncost = [6,5,6,6]\r\nobj = Solution()\r\nprint(obj.canCompleteCircuit(gas,cost))', '3', 'class Solution(object):\r\n    def canCompleteCircuit(self, gas, cost):\r\n        \"\"\"\r\n        :type gas: List[int]\r\n        :type cost: List[int]\r\n        :rtype: int\r\n        \"\"\"');
 
 -- --------------------------------------------------------
@@ -159,7 +157,8 @@ CREATE TABLE `solved` (
 --
 
 INSERT INTO `solved` (`problemID`, `userMail`, `code`) VALUES
-(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list');
+(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list'),
+(6, 'hridoy@gmail.com', '\"\"\"write a function named func that will find the minimum element in the array\"\"\"\ndef func(list):\n	return min(list)');
 
 -- --------------------------------------------------------
 
@@ -177,6 +176,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`pass`, `email`) VALUES
+('1234', 'chaity@gmail.com'),
 ('1234', 'emon@gmail.com'),
 ('1234', 'hridoy@gmail.com'),
 ('1234', 'mehrin@gmail.com'),
@@ -202,10 +202,11 @@ CREATE TABLE `user_profile` (
 --
 
 INSERT INTO `user_profile` (`umail`, `pic`, `institution`, `position`, `about_me`, `name`) VALUES
-('hridoy@gmail.com', 'images/guts.jpeg', 'uiu', 'student', 'fakaa', 'hridoy ahmeddd'),
+('hridoy@gmail.com', 'images/guts.jpeg', 'uiu uni', 'student', 'faka\n', 'hridoy ahmeddd'),
 ('emon@gmail.com', 'images/zoro.jpeg', 'ewu', '', '', 'emon'),
 ('mehrin@gmail.com', 'images/guts.jpeg', NULL, NULL, NULL, 'Mehrin Ahmed Chowdhury'),
-('shagin@gmail.com', 'images/guts.jpeg', NULL, NULL, NULL, 'Shagin');
+('shagin@gmail.com', 'images/guts.jpeg', NULL, NULL, NULL, 'Shagin'),
+('chaity@gmail.com', 'images/user.png', NULL, NULL, NULL, 'chaity');
 
 --
 -- Indexes for dumped tables
@@ -279,7 +280,7 @@ ALTER TABLE `friend_requests`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `problems`

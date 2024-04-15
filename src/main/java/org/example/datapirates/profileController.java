@@ -4,15 +4,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -21,13 +21,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 
 
 public class profileController implements Initializable {
 
-
+    @FXML
+    private VBox solvedVbox;
     private  UserInfo userInfo;
     private Stage stage;
     private Scene scene;
@@ -39,7 +42,6 @@ public class profileController implements Initializable {
     @FXML
     private Label picName;
 
-
     @FXML
     private ImageView pic;
     @FXML
@@ -47,7 +49,8 @@ public class profileController implements Initializable {
 
     @FXML
     private TextField updateInstitution;
-
+    @FXML
+    private VBox posts;
     @FXML
     private TextField updateName;
     private String profilePic;
@@ -71,7 +74,48 @@ public class profileController implements Initializable {
     public ResultSet getResultSet() {
         return resultSet;
     }
+    public void loadSolvedProbles() throws SQLException {
+        resultSet = dbOperation.solvedProbelms(userInfo.getMail());
+        VBox box = new VBox(5);
+        while (resultSet.next()){
+            box.getChildren().add(new Label(resultSet.getString("problemName")));
+        }
+        solvedVbox.getChildren().add(box);
+    }
+    public void loadPosts() throws SQLException {
+        resultSet = dbOperation.posts(userInfo.getMail());
+        VBox postContainer = new VBox();
 
+
+        while (resultSet.next()) {
+            String content = resultSet.getString("content");
+            Timestamp timestamp = resultSet.getTimestamp("time");
+
+
+
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm a, d MMMM, yyyy");
+            String formattedTime = dateFormat.format(timestamp);
+
+            Label contentLabel = new Label(content);
+            Label timeLabel = new Label(formattedTime);
+
+
+
+
+
+
+            contentLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+            timeLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #808080;");
+
+
+            postContainer.getChildren().addAll(timeLabel, contentLabel);
+
+        }
+        posts.getChildren().add(postContainer);
+
+
+    }
     @FXML
     void selectPic(ActionEvent event) {
         FileChooser fc = new FileChooser();
@@ -154,6 +198,8 @@ public class profileController implements Initializable {
         if (userInfo != null) {
             try {
               refreshProfile();
+              loadSolvedProbles();
+              loadPosts();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
