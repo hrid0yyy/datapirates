@@ -2,11 +2,23 @@
 
 /* Style for the HBox */
 #navBar {
-    -fx-background-color: #333; /* Background color */
+    -fx-background-color: black; /* Background color */
     -fx-spacing: 10px; /* Spacing between buttons */
 
 }
 
+#postbox {
+    background-color: #f0f0f0; /* Light grey */
+    border: 1px solid #ccc; /* Grey border */
+    padding: 10px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    border-radius: 5px; /* Rounded corners */
+}
+
+#postbox:hover {
+    outline: none; /* Remove the default focus outline */
+    border-color: #007bff; /* Change border color on focus */
+}
 /* Style for the buttons */
 .button {
     -fx-font-size: 14px; /* Font size */
@@ -14,7 +26,6 @@
     -fx-font-family: Arial, sans-serif; /* Font family */
     -fx-font-weight: bold; /* Font weight */
     -fx-background-color: transparent; /* Button background color */
-    -fx-text-fill: white; /* Button text color */
 }
 
 /* Hover effect for buttons */
@@ -42,7 +53,7 @@
 /* Style for the label */
 .label {
     -fx-font-size: 19px; /* Font size */
-    -fx-text-fill: #333; /* Text color */
+    -fx-text-fill: white; /* Text color */
     -fx-font-weight: bold; /* Font weight */
     -fx-padding: 5px; /* Padding */
 }

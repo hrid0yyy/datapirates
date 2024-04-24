@@ -4,8 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -15,6 +15,11 @@
    <top>
       <HBox fx:id="navBar" prefHeight="41.0" prefWidth="731.0" stylesheets="@../../../stylesheets/dashboard.css" BorderPane.alignment="CENTER">
          <children>
+            <ImageView fitHeight="41.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/datapirate.jpeg" />
+               </image>
+            </ImageView>
             <Button mnemonicParsing="false" onAction="#homebtn" prefHeight="43.0" prefWidth="102.0" text="Home" />
             <Button mnemonicParsing="false" onAction="#profileBtn" prefHeight="54.0" prefWidth="98.0" text="Profile" />
             <Button mnemonicParsing="false" onAction="#loadProblems" prefHeight="42.0" prefWidth="109.0" text="Problems" />
@@ -23,7 +28,7 @@
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="143.0" prefWidth="731.0">
                <children>
@@ -32,7 +37,7 @@
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="fName" alignment="BOTTOM_LEFT" prefHeight="152.0" prefWidth="559.0" text="Name">
+                  <Label fx:id="fName" alignment="BOTTOM_LEFT" prefHeight="152.0" prefWidth="559.0" text="Name" textFill="#fcfcfc">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
@@ -42,7 +47,7 @@
                   </Label>
                </children>
             </HBox>
-            <Label fx:id="fInstitue" alignment="BOTTOM_LEFT" prefHeight="14.0" prefWidth="730.0" text="Institute">
+            <Label fx:id="fInstitue" alignment="BOTTOM_LEFT" prefHeight="14.0" prefWidth="730.0" text="Institute" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -50,7 +55,7 @@
                   <Insets bottom="5.0" left="172.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="fPosition" alignment="BOTTOM_LEFT" prefHeight="34.0" prefWidth="748.0" text="Position">
+            <Label fx:id="fPosition" alignment="BOTTOM_LEFT" prefHeight="34.0" prefWidth="748.0" text="Position" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -58,7 +63,7 @@
                   <Insets bottom="5.0" left="172.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="fAboutMe" alignment="BOTTOM_LEFT" prefHeight="34.0" prefWidth="736.0" text="About me">
+            <Label fx:id="fAboutMe" alignment="BOTTOM_LEFT" prefHeight="34.0" prefWidth="736.0" text="About me" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -66,7 +71,7 @@
                   <Insets left="172.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="fSolved" alignment="BOTTOM_LEFT" prefHeight="34.0" prefWidth="736.0" text="Solved">
+            <Label fx:id="fSolved" alignment="BOTTOM_LEFT" prefHeight="34.0" prefWidth="736.0" text="Solved" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -74,15 +79,18 @@
                   <Insets bottom="5.0" left="172.0" />
                </VBox.margin>
             </Label>
-            <ScrollPane fx:id="posts" prefHeight="186.0" prefWidth="585.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
+            <ScrollPane prefHeight="186.0" prefWidth="585.0">
+               <content>
+                  <VBox fx:id="posts" prefHeight="184.0" prefWidth="580.0" style="-fx-background-color: #333;" />
+               </content>
             </ScrollPane>
          </children>
       </VBox>
    </center>
    <right>
-      <ScrollPane fx:id="solvedList" prefHeight="474.0" prefWidth="149.0" BorderPane.alignment="CENTER" />
+      <ScrollPane prefHeight="474.0" prefWidth="149.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="solvedList" prefHeight="472.0" prefWidth="147.0" style="-fx-background-color: #333;" />
+         </content></ScrollPane>
    </right>
 </BorderPane>

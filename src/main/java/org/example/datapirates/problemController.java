@@ -25,7 +25,10 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class problemController implements Initializable {
-
+    @FXML
+    private Label solved;
+    @FXML
+    private Label attempted;
     @FXML
     private TableColumn<Problems, Void> actionCol;
     @FXML
@@ -66,12 +69,87 @@ public class problemController implements Initializable {
         this.userInfo = userInfo;
 
     }
+    private  void setSolved()
+    {
+        try {
+            // Establish database connection
+            Connection connection = dbHandler.getDbConnection();
 
+            // Prepare SQL statement to count rows
+            String sql = "SELECT COUNT(*) AS total FROM solved WHERE userMail = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, userInfo.getMail()); // Replace with the actual user email
+
+            // Execute query
+            ResultSet resultSet = statement.executeQuery();
+
+            // Retrieve the row count
+            int rowCount = 0;
+            if (resultSet.next()) {
+                rowCount = resultSet.getInt("total");
+            }
+
+            // Set the value of the 'solved' label
+            solved.setText(String.valueOf(rowCount));
+            solved.setStyle("-fx-text-fill: white;");
+
+            // Close resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private  void setSubmission()
+    {
+        try {
+            // Establish database connection
+            Connection connection = dbHandler.getDbConnection();
+
+            // Prepare SQL statement to count rows
+            String sql = "SELECT COUNT(*) AS total FROM attempted WHERE userMail = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, userInfo.getMail()); // Replace with the actual user email
+
+            // Execute query
+            ResultSet resultSet = statement.executeQuery();
+
+            // Retrieve the row count
+            int rowCount = 0;
+            if (resultSet.next()) {
+                rowCount = resultSet.getInt("total");
+            }
+
+            // Set the value of the 'solved' label
+            attempted.setText(String.valueOf(rowCount));
+            attempted.setStyle("-fx-text-fill: white;");
+
+            // Close resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(userInfo != null) {
+            setSolved();
+            setSubmission();
+        }
         try {
-            loadDate();
-            setupSearchBarListener();
+
+                loadDate();
+                setupSearchBarListener();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

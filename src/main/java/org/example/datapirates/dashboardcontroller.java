@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import org.example.datapirates.ServerBackend.NetworkConnection;
 import org.example.datapirates.dataBaseConnection.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +45,11 @@ public class dashboardcontroller implements Initializable {
     private Label attempted;
     @FXML
     private Label solved;
+   private NetworkConnection nc;
 
+    public void setNc(NetworkConnection nc) {
+        this.nc = nc;
+    }
 
     @FXML
     void searchFriend(ActionEvent event) {
@@ -78,6 +83,7 @@ public class dashboardcontroller implements Initializable {
                         userImageView.setFitHeight(40);
 
                         Label userLabel = new Label(userName +"\n"+ "Friend");
+                        userLabel.setStyle("-fx-text-fill: white;");
                         userLabel.setCursor(Cursor.HAND); // Change cursor to hand
                         userLabel.setOnMouseClicked(e -> {
                             try {
@@ -97,6 +103,7 @@ public class dashboardcontroller implements Initializable {
                         userImageView.setFitHeight(40);
 
                         Label userLabel = new Label(" " + userName);
+                        userLabel.setStyle("-fx-text-fill: white;");
                         userLabel.setCursor(Cursor.HAND); // Change cursor to hand
                         userLabel.setOnMouseClicked(e -> {
                             try {
@@ -203,14 +210,28 @@ public class dashboardcontroller implements Initializable {
         root = loader.load();
         problemController problemHome = loader.getController();
         problemHome.setUserInfo(getUserInfo());
-
+        problemHome.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
     }
+    @FXML
+    void openChatBox(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("friendlist.fxml"));
+        root = loader.load();
+        friendListController listController = loader.getController();
+        listController.setUserInfo(userInfo);
+        listController.setNc(nc);
 
+        listController.initialize(null,null);
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
 
     private void loadPosts() {
         try {
@@ -331,16 +352,6 @@ public class dashboardcontroller implements Initializable {
         }
     }
 
-
-    @FXML
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(userInfo != null) {
-            loadPosts();
-            loadFriendRequests();
-            setSolved();
-            setSubmission();
-        }
-    }
     private  void setSolved()
     {
         try {
@@ -363,6 +374,7 @@ public class dashboardcontroller implements Initializable {
 
             // Set the value of the 'solved' label
             solved.setText(String.valueOf(rowCount));
+            solved.setStyle("-fx-text-fill: white;");
 
             // Close resources
             resultSet.close();
@@ -397,6 +409,7 @@ public class dashboardcontroller implements Initializable {
 
             // Set the value of the 'solved' label
             attempted.setText(String.valueOf(rowCount));
+            attempted.setStyle("-fx-text-fill: white;");
 
             // Close resources
             resultSet.close();
@@ -409,6 +422,18 @@ public class dashboardcontroller implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        if(userInfo != null) {
+
+            loadPosts();
+            loadFriendRequests();
+            setSolved();
+            setSubmission();
+        }
+    }
+
 
 
     private void loadFriendRequests() {
@@ -439,6 +464,7 @@ public class dashboardcontroller implements Initializable {
                 Label senderLabel = new Label(senderName);
                 Image addFriendIcon = new Image(getClass().getResourceAsStream("images/friend-request.png"));
                 ImageView addFriendImageView = new ImageView(addFriendIcon);
+                senderLabel.setStyle("-fx-text-fill: white;");
                 senderLabel.setCursor(Cursor.HAND); // Change cursor to hand
                 senderLabel.setOnMouseClicked(e -> {
                     try {
@@ -527,25 +553,31 @@ public class dashboardcontroller implements Initializable {
             updateStatement.setString(2, userInfo.getMail());
 
 
-            int rowsAffected = updateStatement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("Friend request accepted successfully.");
-
-                String insertSql = "INSERT INTO friends (fmail, umail) VALUES (?, ?)";
-                PreparedStatement insertStatement = connection.prepareStatement(insertSql);
-                insertStatement.setString(1, senderEmail);
-                insertStatement.setString(2, userInfo.getMail());
+            updateStatement.executeUpdate();
 
 
-                insertStatement.executeUpdate();
-                insertStatement.close();
+            String insertSql = "INSERT INTO friends (fmail, umail) VALUES (?, ?)";
+            PreparedStatement insertStatement = connection.prepareStatement(insertSql);
+            insertStatement.setString(1, senderEmail);
+            insertStatement.setString(2, userInfo.getMail());
 
 
-                loadFriendRequests();
-            } else {
-                System.out.println("Failed to accept friend request.");
-            }
+            insertStatement.executeUpdate();
+
+
+            insertStatement.setString(1, userInfo.getMail());
+            insertStatement.setString(2, senderEmail);
+            insertStatement.executeUpdate();
+
+
+
+
+            insertStatement.close();
+
+
+            loadFriendRequests();
+
+
 
 
             updateStatement.close();

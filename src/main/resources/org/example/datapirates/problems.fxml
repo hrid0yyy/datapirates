@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -16,20 +18,25 @@
    <top>
       <HBox fx:id="navBar" prefHeight="41.0" prefWidth="731.0" stylesheets="@../../../stylesheets/dashboard.css" BorderPane.alignment="CENTER">
          <children>
+            <ImageView fitHeight="41.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/datapirate.jpeg" />
+               </image>
+            </ImageView>
             <Button mnemonicParsing="false" onAction="#homeBtn" prefHeight="43.0" prefWidth="102.0" text="Home" />
             <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="109.0" text="Problems" />
             <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="114.0" text="Compete" />
-            <TextField fx:id="searchBar" prefHeight="32.0" prefWidth="193.0" promptText="Search Problems" stylesheets="@../../../stylesheets/dashboard.css">
+            <TextField fx:id="searchBar" prefHeight="32.0" prefWidth="176.0" promptText="Search Problems" stylesheets="@../../../stylesheets/dashboard.css">
                <HBox.margin>
-                  <Insets left="175.0" top="5.0" />
+                  <Insets left="175.0" right="10.0" top="5.0" />
                </HBox.margin></TextField>
          </children>
       </HBox>
    </top>
    <center>
-      <ScrollPane prefHeight="462.0" prefWidth="702.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="472.0" prefWidth="597.0" BorderPane.alignment="CENTER">
          <content>
-            <TableView fx:id="problemTable" prefHeight="470.0" prefWidth="595.0">
+            <TableView fx:id="problemTable" prefHeight="472.0" prefWidth="595.0" style="-fx-background-color: #333;">
               <columns>
                 <TableColumn fx:id="pIDcol" prefWidth="109.0" text="Problem ID" />
                 <TableColumn fx:id="typeCol" prefWidth="129.0" text="Type" />
@@ -40,7 +47,7 @@
          </content></ScrollPane>
    </center>
    <right>
-      <VBox prefHeight="462.0" prefWidth="134.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="462.0" prefWidth="134.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="54.0" prefWidth="134.0">
                <children>
@@ -51,7 +58,13 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="53.0" prefWidth="134.0" />
+            <HBox prefHeight="53.0" prefWidth="134.0">
+               <children>
+                  <Label fx:id="solved" alignment="CENTER" prefHeight="61.0" prefWidth="134.0" text="Label">
+                     <font>
+                        <Font name="System Bold Italic" size="19.0" />
+                     </font></Label>
+               </children></HBox>
             <VBox prefHeight="63.0" prefWidth="134.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="134.0" stylesheets="@../../../stylesheets/dashboard.css" text="Submissions">
@@ -61,7 +74,13 @@
                   </Label>
                </children>
             </VBox>
-            <VBox prefHeight="59.0" prefWidth="134.0" />
+            <VBox prefHeight="59.0" prefWidth="134.0">
+               <children>
+                  <Label fx:id="attempted" alignment="CENTER" prefHeight="69.0" prefWidth="134.0" text="Label">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
+               </children></VBox>
          </children>
       </VBox>
    </right>

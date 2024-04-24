@@ -57,6 +57,19 @@ public class dbOperation {
         preparedStatement.setString(3,name);
         preparedStatement.execute();
     }
+    public static String[] friends(String mail) throws SQLException {
+        String[] friends = new String[1000];
+        query = "Select * from friends where umail = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1,mail);
+        resultSet = preparedStatement.executeQuery();
+        int itr = 0;
+        while (resultSet.next()){
+            friends[itr] = resultSet.getString("fmail");
+            itr++;
+        }
+        return friends;
+    }
     public static ResultSet posts(String mail) throws SQLException {
         query = "Select * from posts where mail = ?";
         preparedStatement = connection.prepareStatement(query);

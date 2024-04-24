@@ -37,10 +37,10 @@ public class friendProfileController implements Initializable {
     @FXML
     private Label fInstitue;
     @FXML
-    private ScrollPane posts;
+    private VBox posts;
 
     @FXML
-    private ScrollPane solvedList;
+    private VBox solvedList;
 
     @FXML
     private Label fName;
@@ -124,21 +124,24 @@ public class friendProfileController implements Initializable {
 
 
 
-            contentLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-            timeLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #808080;");
+            contentLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;");
+            timeLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
 
 
             postContainer.getChildren().addAll(timeLabel, contentLabel,new Label("\n"));
         }
-        posts.setContent(postContainer);
+        posts.getChildren().add(postContainer);
     }
     public void solvedProblem() throws SQLException {
         resultSet = dbOperation.solvedProbelms(fmail);
         VBox box = new VBox(5);
+
         while (resultSet.next()){
-            box.getChildren().add(new Label(resultSet.getString("problemName")));
+            Label L = new Label(resultSet.getString("problemName"));
+            L.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
+            box.getChildren().add(L);
         }
-        solvedList.setContent(box);
+        solvedList.getChildren().add(box);
     }
 
 
@@ -147,8 +150,11 @@ public class friendProfileController implements Initializable {
         if (fmail != null){
             try {
                 fName.setText(resultSet.getString("name"));
+
                 fInstitue.setText("Institute : "+resultSet.getString("institution"));
+
                 fPosition.setText("Position : "+resultSet.getString("position"));
+
                 fAboutMe.setText("Bio : "+resultSet.getString("about_me"));
                 Image profilePic = new Image(getClass().getResourceAsStream(resultSet.getString("pic")));
                 fPic.setImage(profilePic);

@@ -15,13 +15,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.example.datapirates.dataBaseConnection.dbHandler;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
@@ -78,7 +77,9 @@ public class profileController implements Initializable {
         resultSet = dbOperation.solvedProbelms(userInfo.getMail());
         VBox box = new VBox(5);
         while (resultSet.next()){
-            box.getChildren().add(new Label(resultSet.getString("problemName")));
+            Label L = new Label(resultSet.getString("problemName"));
+            L.setStyle("-fx-font-size: 14px;");
+            box.getChildren().add(L);
         }
         solvedVbox.getChildren().add(box);
     }
@@ -105,8 +106,8 @@ public class profileController implements Initializable {
 
 
 
-            contentLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-            timeLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #808080;");
+            contentLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;");
+            timeLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
 
 
             postContainer.getChildren().addAll(timeLabel, contentLabel);
@@ -146,7 +147,7 @@ public class profileController implements Initializable {
         root = loader.load();
         problemController problemHome = loader.getController();
         problemHome.setUserInfo(getUserInfo());
-
+        problemHome.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -186,6 +187,7 @@ public class profileController implements Initializable {
             }
 
     }
+
     @FXML
     void updateProfile(ActionEvent event) throws SQLException {
         dbOperation.updateProfile(updateName.getText(),updateAboutyou.getText(),updateInstitution.getText(),
@@ -200,6 +202,7 @@ public class profileController implements Initializable {
               refreshProfile();
               loadSolvedProbles();
               loadPosts();
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

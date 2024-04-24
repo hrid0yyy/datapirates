@@ -40,7 +40,7 @@ public class compilerController implements Initializable {
     private Label description;
 
     @FXML
-    private Text result;
+    private Label result;
 
     @FXML
     private ChoiceBox<String> langChoice;
@@ -72,7 +72,7 @@ public class compilerController implements Initializable {
         root = loader.load();
         problemController problemHome = loader.getController();
         problemHome.setUserInfo(getUserInfo());
-
+        problemHome.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -155,7 +155,7 @@ public class compilerController implements Initializable {
         StringBuilder outputBuilder = new StringBuilder();
         if(res.getOutput().equals(problems.getOutput()))
         {
-            outputBuilder.append("Accepted"+"\n").append(res.getOutput()).append("\n")
+            outputBuilder.append("Accepted"+"\n")
                     .append("Cpu Time : ").append(res.getCpuTime()).append("\n")
                     .append("Memory : ").append(res.getMemory());
             try {
@@ -204,7 +204,7 @@ public class compilerController implements Initializable {
         }
         else {
 
-            outputBuilder.append("Not Accepted"+"\n").append(res.getOutput()).append("\n")
+            outputBuilder.append("Not Accepted"+"\n")
                     .append("Cpu Time : ").append(res.getCpuTime()).append("\n")
                     .append("Memory : ").append(res.getMemory());
         }
@@ -219,6 +219,7 @@ public class compilerController implements Initializable {
         insertStatement.setString(3, codebox.getText());
         // Execute the insert statement
         insertStatement.executeUpdate();
+        result.setStyle("-fx-text-fill: white;");
         result.setText(outputBuilder.toString());
     }
 

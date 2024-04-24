@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2024 at 04:19 PM
+-- Generation Time: Apr 24, 2024 at 08:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -38,8 +38,31 @@ CREATE TABLE `attempted` (
 --
 
 INSERT INTO `attempted` (`problemID`, `userMail`, `code`) VALUES
-(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list'),
-(6, 'hridoy@gmail.com', '\"\"\"write a function named func that will find the minimum element in the array\"\"\"\ndef func(list):\n	return min(list)');
+(3, 'hridoy@gmail.com', 'def func(list):\n	list.reverse()\n	return list'),
+(4, 'hridoy@gmail.com', 'def func(list):\n	return sum(list)'),
+(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\nfghfg'),
+(3, 'emon@gmail.com', 'def function(list):\n	return 2'),
+(3, 'emon@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef function(list)\n	list.reverse()\n	return list'),
+(4, 'emon@gmail.com', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"\ndef func(list):\n	return sum(list)');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat`
+--
+
+CREATE TABLE `chat` (
+  `sender` varchar(255) DEFAULT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
+  `message` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`sender`, `receiver`, `message`) VALUES
+('mehrin@gmail.com', 'hridoy@gmail.com', 'kire');
 
 -- --------------------------------------------------------
 
@@ -57,11 +80,10 @@ CREATE TABLE `friends` (
 --
 
 INSERT INTO `friends` (`fmail`, `umail`) VALUES
-('hridoy@gmail.com', 'mehrin@gmail.com'),
-('mehrin@gmail.com', 'hridoy@gmail.com'),
+('hridoy@gmail.com', 'shagin@gmail.com'),
 ('shagin@gmail.com', 'hridoy@gmail.com'),
-('hridoy@gmail.com', 'emon@gmail.com'),
-('mehrin@gmail.com', 'emon@gmail.com');
+('hridoy@gmail.com', 'mehrin@gmail.com'),
+('mehrin@gmail.com', 'hridoy@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -81,9 +103,8 @@ CREATE TABLE `friend_requests` (
 --
 
 INSERT INTO `friend_requests` (`request_id`, `sender_email`, `receiver_email`, `status`) VALUES
-(2, 'shagin@gmail.com', 'hridoy@gmail.com', 'accepted'),
-(3, 'hridoy@gmail.com', 'emon@gmail.com', 'accepted'),
-(5, 'mehrin@gmail.com', 'emon@gmail.com', 'accepted');
+(9, 'hridoy@gmail.com', 'shagin@gmail.com', 'accepted'),
+(10, 'hridoy@gmail.com', 'mehrin@gmail.com', 'accepted');
 
 -- --------------------------------------------------------
 
@@ -103,8 +124,9 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`postid`, `mail`, `content`, `time`) VALUES
-(12, 'hridoy@gmail.com', 'Solved array 3 by python3\nTime Taken : 0.01\nSpace Taken : 7424', '2024-04-07 01:23:53'),
-(17, 'hridoy@gmail.com', 'Solved min array by python3\nTime Taken : 0.01\nSpace Taken : 7552', '2024-04-15 20:18:32');
+(18, 'hridoy@gmail.com', 'Solved array 3 by python3\nTime Taken : 0.01\nSpace Taken : 7552', '2024-04-18 11:16:17'),
+(19, 'hridoy@gmail.com', 'Solved array sum by python3\nTime Taken : 0.01\nSpace Taken : 7552', '2024-04-18 11:18:16'),
+(20, 'emon@gmail.com', 'Solved array sum by python3\nTime Taken : 0.01\nSpace Taken : 7680', '2024-04-18 12:32:46');
 
 -- --------------------------------------------------------
 
@@ -157,8 +179,9 @@ CREATE TABLE `solved` (
 --
 
 INSERT INTO `solved` (`problemID`, `userMail`, `code`) VALUES
-(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list'),
-(6, 'hridoy@gmail.com', '\"\"\"write a function named func that will find the minimum element in the array\"\"\"\ndef func(list):\n	return min(list)');
+(3, 'hridoy@gmail.com', 'def func(list):\n	list.reverse()\n	return list'),
+(4, 'hridoy@gmail.com', 'def func(list):\n	return sum(list)'),
+(4, 'emon@gmail.com', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"\ndef func(list):\n	return sum(list)');
 
 -- --------------------------------------------------------
 
@@ -203,7 +226,7 @@ CREATE TABLE `user_profile` (
 
 INSERT INTO `user_profile` (`umail`, `pic`, `institution`, `position`, `about_me`, `name`) VALUES
 ('hridoy@gmail.com', 'images/guts.jpeg', 'uiu uni', 'student', 'faka\n', 'hridoy ahmeddd'),
-('emon@gmail.com', 'images/zoro.jpeg', 'ewu', '', '', 'emon'),
+('emon@gmail.com', 'images/zoro.jpeg', 'ewu', 'student', 'haiya\n', 'emon'),
 ('mehrin@gmail.com', 'images/guts.jpeg', NULL, NULL, NULL, 'Mehrin Ahmed Chowdhury'),
 ('shagin@gmail.com', 'images/guts.jpeg', NULL, NULL, NULL, 'Shagin'),
 ('chaity@gmail.com', 'images/user.png', NULL, NULL, NULL, 'chaity');
@@ -218,6 +241,13 @@ INSERT INTO `user_profile` (`umail`, `pic`, `institution`, `position`, `about_me
 ALTER TABLE `attempted`
   ADD KEY `userMail` (`userMail`),
   ADD KEY `problemID` (`problemID`);
+
+--
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
+  ADD KEY `sender` (`sender`),
+  ADD KEY `receiver` (`receiver`);
 
 --
 -- Indexes for table `friends`
@@ -274,13 +304,13 @@ ALTER TABLE `user_profile`
 -- AUTO_INCREMENT for table `friend_requests`
 --
 ALTER TABLE `friend_requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `problems`
@@ -298,6 +328,13 @@ ALTER TABLE `problems`
 ALTER TABLE `attempted`
   ADD CONSTRAINT `attempted_ibfk_1` FOREIGN KEY (`userMail`) REFERENCES `users` (`email`),
   ADD CONSTRAINT `attempted_ibfk_2` FOREIGN KEY (`problemID`) REFERENCES `problems` (`problemID`);
+
+--
+-- Constraints for table `chat`
+--
+ALTER TABLE `chat`
+  ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`sender`) REFERENCES `users` (`email`),
+  ADD CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`receiver`) REFERENCES `users` (`email`);
 
 --
 -- Constraints for table `friends`

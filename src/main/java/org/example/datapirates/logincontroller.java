@@ -70,12 +70,13 @@ public class logincontroller implements Initializable {
         if (!resultSet.next()) {
             System.out.println("wrong credentials");
         } else {
+            ClientController clientController = new ClientController(userInfo.getMail());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
             root = loader.load();
             dashboardcontroller home = loader.getController();
             home.setUserInfo(userInfo);
+            home.setNc(clientController.getNc());
             home.initialize(null, null);
-
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -86,8 +87,6 @@ public class logincontroller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
          showpassword.setVisible(false);
-
-
          signup.setCursor(Cursor.HAND);
         signup.setOnMouseClicked(e -> {
             try {
