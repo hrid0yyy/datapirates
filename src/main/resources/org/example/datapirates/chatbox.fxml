@@ -16,9 +16,9 @@
          </font>
       </Button>
       <TextField fx:id="msgBox" layoutX="21.0" layoutY="514.0" prefHeight="45.0" prefWidth="361" />
-      <ScrollPane fx:id="sp_main" fitToWidth="true" layoutX="10.0" layoutY="70" prefHeight="425.0" prefWidth="429.0" styleClass="grey-background" >
+      <ScrollPane fx:id="sp_main" fitToWidth="true" layoutX="10.0" layoutY="70" prefHeight="425.0" prefWidth="429.0" styleClass="grey-background">
          <content>
-            <VBox fx:id="chatbox" prefHeight="423.0" prefWidth="413.0" styleClass="grey-background"  />
+            <VBox fx:id="chatbox" prefHeight="423.0" prefWidth="413.0" styleClass="grey-background" />
          </content>
       </ScrollPane>
       <Label layoutX="166.0" layoutY="27.0" text="Messenger!">
@@ -26,5 +26,6 @@
             <Font name="Arial Rounded MT Bold" size="23" />
          </font>
       </Label>
+      <Button layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
    </children>
 </AnchorPane>

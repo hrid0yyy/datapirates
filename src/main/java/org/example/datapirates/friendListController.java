@@ -46,31 +46,33 @@ public class friendListController implements Initializable {
     }
 
     public void activeList() throws SQLException {
-        onlineList.getChildren().clear();
+//        onlineList.getChildren().clear();
         String[] friends = dbOperation.friends(userInfo.getMail());
-        String query;
-        String serverMessage;
-        query = userInfo.getMail() + "$" + userInfo.getMail() + "$" + "list";
-        data.message = query;
-        try {
-            nc.write(data.clone());
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
+//        String query;
+//        String serverMessage;
+//        query = userInfo.getMail() + "$" + userInfo.getMail() + "$" + "list";
+//        data.message = query;
+//        try {
+//            nc.write(data.clone());
+//        } catch (CloneNotSupportedException e) {
+//            throw new RuntimeException(e);
+//        }
 
 
-       serverMessage = (String) nc.read();
-       String finalServerMessage = serverMessage;
+//       serverMessage = (String) nc.read();
+//       String finalServerMessage = serverMessage;
         for (String friend : friends) {
             if (friend != null)
             {
-              if(finalServerMessage.contains(friend)){
+//              if(finalServerMessage.contains(friend)){
                 Platform.runLater(() -> {
                     try {
                         resultSet = dbOperation.detailsQuery(friend);
                         String friendName = resultSet.getString("name");
                         String friendPic = resultSet.getString("pic");
                         Label friendNameLabel = new Label("  "+friendName);
+                        friendNameLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
+
                         friendNameLabel.setCursor(Cursor.HAND); // Change cursor to hand
                         friendNameLabel.setOnMouseClicked(e -> {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("chatbox.fxml"));
@@ -87,6 +89,7 @@ public class friendListController implements Initializable {
                             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
                             scene = new Scene(root);
                             stage.setScene(scene);
+
                             stage.show();
 
 
@@ -103,17 +106,14 @@ public class friendListController implements Initializable {
                     }
 
                });
-           }
+       //    }
             }
 
         }
 
 
     }
-    @FXML
-    void refreshList(ActionEvent event) throws SQLException {
-      activeList();
-    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if( nc != null) {

@@ -83,14 +83,21 @@ public class ReaderWriterServer implements Runnable {
                words[2] = keyword = send
                 words[3] = message
                 */
-//                try {
-//                    dbOperation.SaveChat(words[0],words[1],words[3]);
-//                } catch (SQLException e) {
-//                    throw new RuntimeException(e);
-//                }
-                Information info = clientList.get(words[1]);
-                String msgToSend = words[3];
-                info.netConnection.write(msgToSend);
+                try {
+                    dbOperation.SaveChat(words[0],words[1],words[3]);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                try{
+                    Information info = clientList.get(words[1]);
+                    String msgToSend = words[3];
+                    info.netConnection.write(msgToSend);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("user is currently offline");
+                }
+
             }
         }
 
