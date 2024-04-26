@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.example.datapirates.ServerBackend.NetworkConnection;
 import org.example.datapirates.dataBaseConnection.dbHandler;
 
 import java.io.File;
@@ -134,19 +135,25 @@ public class profileController implements Initializable {
         root = loader.load();
         dashboardcontroller home = loader.getController();
         home.setUserInfo(userInfo);
+        home.setNc(nc);
         home.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+    private NetworkConnection nc;
 
+    public void setNc(NetworkConnection nc) {
+        this.nc = nc;
+    }
     @FXML
     void loadProblems(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("problems.fxml"));
         root = loader.load();
         problemController problemHome = loader.getController();
         problemHome.setUserInfo(getUserInfo());
+        problemHome.setNc(nc);
         problemHome.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

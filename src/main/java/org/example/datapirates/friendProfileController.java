@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import org.example.datapirates.ServerBackend.NetworkConnection;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,7 +56,11 @@ public class friendProfileController implements Initializable {
     @FXML
     private Label fSolved;
 
+    private NetworkConnection nc;
 
+    public void setNc(NetworkConnection nc) {
+        this.nc = nc;
+    }
     private ResultSet resultSet;
 
     @FXML
@@ -64,6 +69,7 @@ public class friendProfileController implements Initializable {
         root = loader.load();
         dashboardcontroller home = loader.getController();
         home.setUserInfo(userInfo);
+        home.setNc(nc);
         home.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -77,7 +83,7 @@ public class friendProfileController implements Initializable {
         root = loader.load();
         problemController problemHome = loader.getController();
         problemHome.setUserInfo(userInfo);
-
+       problemHome.setNc(nc);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -90,6 +96,7 @@ public class friendProfileController implements Initializable {
         root = loader.load();
         profileController profileHome = loader.getController();
         profileHome.setUserInfo(userInfo);
+        profileHome.setNc(nc);
         profileHome.initialize(null, null);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

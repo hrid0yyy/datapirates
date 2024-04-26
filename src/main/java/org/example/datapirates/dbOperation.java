@@ -113,7 +113,7 @@ public class dbOperation {
         preparedStatement.execute();
     }
     public static ResultSet LoadChat(String sender, String receiver) throws SQLException {
-        query = "SELECT sender,receiver,message FROM `chat` WHERE (sender = ? and receiver = ?) or (sender = ? and receiver = ? )";
+        query = "SELECT sender,receiver,message,id FROM `chat` WHERE (sender = ? and receiver = ?) or (sender = ? and receiver = ? )";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1,sender);
         preparedStatement.setString(2,receiver);
@@ -123,6 +123,23 @@ public class dbOperation {
 
         return resultSet;
     }
+    public static ResultSet LoadChatSince(String sender, String receiver, long lastProcessedRowId) throws SQLException {
+        query = "SELECT id, sender, receiver, message FROM `chat` " +
+                "WHERE ((sender = ? AND receiver = ?) OR (sender = ? AND receiver = ?)) " +
+                "AND id > ?";
+
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, sender);
+        preparedStatement.setString(2, receiver);
+        preparedStatement.setString(3, receiver);
+        preparedStatement.setString(4, sender);
+        preparedStatement.setLong(5, lastProcessedRowId); // Set the last processed row ID
+
+        resultSet = preparedStatement.executeQuery();
+
+        return resultSet;
+    }
+
 
 
     public static ResultSet detailsQuery(String email) throws SQLException {

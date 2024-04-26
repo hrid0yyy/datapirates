@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.example.datapirates.ServerBackend.NetworkConnection;
 import org.example.datapirates.dataBaseConnection.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,6 +54,11 @@ public class problemController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private NetworkConnection nc;
+
+    public void setNc(NetworkConnection nc) {
+        this.nc = nc;
+    }
 
     String query = null;
     Connection connection = null;
@@ -213,6 +219,7 @@ public class problemController implements Initializable {
         root = loader.load();
         dashboardcontroller home = loader.getController();
         home.setUserInfo(userInfo);
+        home.setNc(nc);
         home.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -269,6 +276,7 @@ public class problemController implements Initializable {
         compilerController compilerHome = loader.getController();
         compilerHome.setUserInfo(getUserInfo());
         compilerHome.setProblems(problem);
+        compilerHome.setNc(nc);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

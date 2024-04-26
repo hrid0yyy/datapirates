@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.datapirates.ServerBackend.NetworkConnection;
 import org.example.datapirates.dataBaseConnection.dbHandler;
 
 import java.io.IOException;
@@ -56,7 +57,13 @@ public class compilerController implements Initializable {
         return problems;
     }
 
-    private Problems problems;
+    private NetworkConnection nc;
+
+    public void setNc(NetworkConnection nc) {
+        this.nc = nc;
+    }
+
+        private Problems problems;
 
     @FXML
     private Label pid;
@@ -72,6 +79,7 @@ public class compilerController implements Initializable {
         root = loader.load();
         problemController problemHome = loader.getController();
         problemHome.setUserInfo(getUserInfo());
+        problemHome.setNc(nc);
         problemHome.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -114,6 +122,7 @@ public class compilerController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
         root = loader.load();
         dashboardcontroller home = loader.getController();
+        home.setNc(nc);
         home.setUserInfo(userInfo);
         home.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

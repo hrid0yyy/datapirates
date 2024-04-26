@@ -28,6 +28,8 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class chatboxController implements Initializable {
     @FXML
@@ -48,7 +50,7 @@ public class chatboxController implements Initializable {
         this.nc = nc;
     }
     private String receiver;
-
+    private static long lastProcessedRowId = 0; // Assuming row ID is a numeric column
     public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
@@ -89,7 +91,9 @@ public class chatboxController implements Initializable {
                 {
                     addLabel2(chat.getString("message"));
                 }
+                lastProcessedRowId = chat.getInt("id");
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -99,9 +103,26 @@ public class chatboxController implements Initializable {
     private Scene scene;
     @FXML
     private ScrollPane sp_main;
-
+   private Thread newChat;
     @FXML
     void goBack(ActionEvent event) throws IOException {
+        if (newChat != null && newChat.isAlive()) {
+            newChat.interrupt(); // Interrupt the thread
+            try {
+                newChat.join(); // Wait for the thread to complete
+            } catch (InterruptedException e) {
+                // Handle InterruptedException if needed
+                e.printStackTrace();
+            }
+        }
+
+
+        if(newChat.isAlive()) {
+            System.out.println("newChat Thread is dead.");
+        }
+        else {
+            System.out.println("dead");
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("friendlist.fxml"));
         root = loader.load();
         friendListController listController = loader.getController();
@@ -152,13 +173,35 @@ public void addLabel(String message){
         }
     });
 }
-private Thread serverListener;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(userInfo != null)
+        if(userInfo != null && nc != null)
         {
 
                 LoadChat();
+            System.out.println(lastProcessedRowId);
+            newChat = new Thread(()->{
+                try {
+                   while (true){
+                       ResultSet resultSet = dbOperation.LoadChatSince(userInfo.getMail(),receiver,lastProcessedRowId);
+                       while (resultSet.next()){
+                           if(!resultSet.getString("receiver").equals(receiver)) {
+                               addLabel2(resultSet.getString("message"));
+                           }
+                           lastProcessedRowId = resultSet.getInt("id");
+                       }
+
+                       resultSet.close();
+                       Thread.sleep(500);
+
+                   }
+
+                } catch (SQLException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+            });
+            newChat.start();
 
             try {
                 getRname();
@@ -166,26 +209,14 @@ private Thread serverListener;
                 throw new RuntimeException(e);
             }
         }
-        serverListener = new Thread(() -> {
-            String serverMessage;
-            while (true) { // Check if the thread is not interrupted
-                serverMessage = (String) nc.read();
-                String finalServerMessage = serverMessage;
-                if (serverMessage != null) {
-                    Platform.runLater(() -> {
-                        addLabel2(finalServerMessage);
-                    });
-                }
-            }
-        });
-        serverListener.start();
+
         chatbox.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                sp_main.setVvalue((Double) t1);
             }
         });
-    }
 
+    }
 
 }

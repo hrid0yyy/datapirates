@@ -151,6 +151,7 @@ public class dashboardcontroller implements Initializable {
 
        friendProfileController controller = loader.getController();
         controller.setFriendEmail(friendEmail);
+        controller.setNc(nc);
         controller.setUserInfo(userInfo);
         controller.initialize(null, null);
         scene = new Scene(root);
@@ -210,6 +211,7 @@ public class dashboardcontroller implements Initializable {
         root = loader.load();
         problemController problemHome = loader.getController();
         problemHome.setUserInfo(getUserInfo());
+        problemHome.setNc(nc);
         problemHome.initialize(null, null);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -534,6 +536,7 @@ public class dashboardcontroller implements Initializable {
         root = loader.load();
         profileController profileHome = loader.getController();
         profileHome.setUserInfo(getUserInfo());
+        profileHome.setNc(nc);
         profileHome.initialize(null, null);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

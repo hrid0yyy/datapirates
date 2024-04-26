@@ -77,17 +77,18 @@ public class signUpController implements Initializable {
             UserInfo userInfo = new UserInfo(user_email);
 
 
+            ClientController clientController = new ClientController(userInfo.getMail());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
             root = loader.load();
             dashboardcontroller home = loader.getController();
             home.setUserInfo(userInfo);
+            home.setNc(clientController.getNc());
             home.initialize(null, null);
-
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            System.out.println("OK");
+
 
         } else {
             warn.setText("Enter a valid mail and the minimum size of password is 4");
