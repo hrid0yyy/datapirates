@@ -4,28 +4,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="452.0" styleClass="dark-grey-background" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.chatboxController">
+<AnchorPane prefHeight="623.0" prefWidth="455.0" style="-fx-background-color: #131311;" styleClass="dark-grey-background" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.chatboxController">
    <children>
-      <Button layoutX="392.0" layoutY="520.0" onAction="#send" text="Send">
+      <Button layoutX="389.0" layoutY="558.0" onAction="#send" text="Send">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="msgBox" layoutX="21.0" layoutY="514.0" prefHeight="45.0" prefWidth="361" />
-      <ScrollPane fx:id="sp_main" fitToWidth="true" layoutX="10.0" layoutY="70" prefHeight="425.0" prefWidth="429.0" styleClass="grey-background">
+      <TextField fx:id="msgBox" layoutX="20.0" layoutY="551.0" prefHeight="45.0" prefWidth="361" />
+      <ScrollPane fx:id="sp_main" fitToWidth="true" layoutX="13.0" layoutY="85.0" prefHeight="425.0" prefWidth="429.0" styleClass="grey-background" stylesheets="@../../../stylesheets/style.css">
          <content>
-            <VBox fx:id="chatbox" prefHeight="423.0" prefWidth="413.0" styleClass="grey-background" />
+            <VBox fx:id="chatbox" prefHeight="424.0" prefWidth="414.0" styleClass="dark-grey-background" stylesheets="@../../../stylesheets/style.css" />
          </content>
       </ScrollPane>
-      <Label layoutX="166.0" layoutY="27.0" text="Messenger!">
+      <Button layoutX="402.0" layoutY="47.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
+      <ImageView fx:id="fPic" fitHeight="67.0" fitWidth="71.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="fName" layoutX="96.0" layoutY="44.0" prefHeight="31.0" prefWidth="242.0" text="Label" textFill="WHITE">
          <font>
-            <Font name="Arial Rounded MT Bold" size="23" />
+            <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
    </children>
 </AnchorPane>

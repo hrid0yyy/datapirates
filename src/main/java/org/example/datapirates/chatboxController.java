@@ -15,8 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -39,6 +41,13 @@ public class chatboxController implements Initializable {
     private TextField msgBox;
     private Data data = new Data();
     private UserInfo userInfo;
+    @FXML
+    private Label fName;
+
+    @FXML
+    private ImageView fPic;
+
+
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
@@ -74,10 +83,16 @@ public class chatboxController implements Initializable {
 
     }
     private String Rname;
-    public void getRname() throws SQLException {
+    public void design() throws SQLException {
         ResultSet resultSet;
         resultSet = dbOperation.detailsQuery(receiver);
         Rname = resultSet.getString("name");
+        fName.setText(Rname);
+        fPic.setImage(new Image(getClass().getResourceAsStream(resultSet.getString("pic"))));
+        double diameter = Math.min(fPic.getFitWidth(), fPic.getFitHeight()); // Determine diameter based on smaller dimension
+        Circle clip = new Circle(diameter / 2, diameter / 2, diameter / 2);
+        fPic.setClip(clip);
+
     }
     private void LoadChat() {
         ResultSet chat;
@@ -107,15 +122,17 @@ public class chatboxController implements Initializable {
     @FXML
     void goBack(ActionEvent event) throws IOException {
         if (newChat != null && newChat.isAlive()) {
-            newChat.interrupt(); // Interrupt the thread
+            newChat.interrupt();
             try {
-                newChat.join(); // Wait for the thread to complete
+                newChat.join();
             } catch (InterruptedException e) {
-                // Handle InterruptedException if needed
                 e.printStackTrace();
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0c62b43 (up)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("friendlist.fxml"));
         root = loader.load();
         friendListController listController = loader.getController();
@@ -132,13 +149,12 @@ public class chatboxController implements Initializable {
     public void addLabel2(String message){
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER_LEFT);
-
         hbox.setPadding(new Insets(5,5,5,10));
         Text text = new Text(message);
         TextFlow textFlow = new TextFlow(text);
         textFlow.setStyle("-fx-background-color: rgb(233,233,235); -fx-background-radius: 20px;");
         textFlow.setPadding(new Insets(5,10,5,10));
-        hbox.getChildren().add(textFlow);
+        hbox.getChildren().addAll(textFlow);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -154,9 +170,10 @@ public void addLabel(String message){
     hbox.setAlignment(Pos.CENTER_RIGHT);
 
     hbox.setPadding(new Insets(5,5,5,10));
-    Text text = new Text(message);
+    Label text = new Label(message);
+    text.setStyle("-fx-text-fill: white;");
     TextFlow textFlow = new TextFlow(text);
-    textFlow.setStyle("-fx-fill: white;  -fx-background-color: rgb(15,125,242); -fx-background-radius: 20px;");
+    textFlow.setStyle("-fx-background-color: rgb(15,125,242); -fx-background-radius: 20px;");
     textFlow.setPadding(new Insets(5,10,5,10));
     hbox.getChildren().add(textFlow);
     Platform.runLater(new Runnable() {
@@ -170,7 +187,11 @@ public void addLabel(String message){
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(userInfo != null && nc != null)
         {
-
+            try {
+                design();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
                 LoadChat();
             System.out.println(lastProcessedRowId);
             newChat = new Thread(()->{
@@ -196,11 +217,6 @@ public void addLabel(String message){
             });
             newChat.start();
 
-            try {
-                getRname();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
 
         chatbox.heightProperty().addListener(new ChangeListener<Number>() {
