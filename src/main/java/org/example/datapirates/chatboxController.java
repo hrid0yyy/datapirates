@@ -116,13 +116,6 @@ public class chatboxController implements Initializable {
             }
         }
 
-
-        if(newChat.isAlive()) {
-            System.out.println("newChat Thread is dead.");
-        }
-        else {
-            System.out.println("dead");
-        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("friendlist.fxml"));
         root = loader.load();
         friendListController listController = loader.getController();
