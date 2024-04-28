@@ -27,12 +27,7 @@
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="474.0" prefWidth="200.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="pid" prefHeight="40.0" prefWidth="200.0" text="Problem ID :" textFill="WHITE" />
-            <Label fx:id="pname" prefHeight="40.0" prefWidth="200.0" text="Problem Name :" textFill="WHITE" />
-            <Label fx:id="description" alignment="TOP_LEFT" prefHeight="395.0" prefWidth="200.0" text="Description :" textFill="WHITE" />
-         </children></VBox>
+      <VBox fx:id="sideBox" prefHeight="474.0" prefWidth="202.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER" />
    </left>
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">

@@ -7,6 +7,8 @@ module org.example.datapirates {
     requires mysql.connector.j;
 
 
+
     opens org.example.datapirates to javafx.fxml;
     exports org.example.datapirates;
+
 }

@@ -112,6 +112,20 @@ public class dbOperation {
         preparedStatement.setString(3,Msg);
         preparedStatement.execute();
     }
+    public static void addContest(String name, String date, int time, int contestants, int maxRat, int minRat, int len) throws SQLException {
+        query = "INSERT INTO `contest` (`contestID`, `name`, `day`, `start_time`, `contestants`, `maxRat`, `minRat`, `length`)" +
+                " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1,name);
+        preparedStatement.setString(2,date);
+        preparedStatement.setInt(3,time);
+        preparedStatement.setInt(4,contestants);
+        preparedStatement.setInt(5,maxRat);
+        preparedStatement.setInt(6,minRat);
+        preparedStatement.setInt(7,len);
+        preparedStatement.execute();
+
+    }
     public static ResultSet LoadChat(String sender, String receiver) throws SQLException {
         query = "SELECT sender,receiver,message,id FROM `chat` WHERE (sender = ? and receiver = ?) or (sender = ? and receiver = ? )";
         preparedStatement = connection.prepareStatement(query);

@@ -23,6 +23,7 @@ import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class dashboardcontroller implements Initializable {
@@ -263,7 +264,7 @@ public class dashboardcontroller implements Initializable {
                 String friendPic = resultSet.getString("pic");
                 String friendMail = resultSet.getString("fmail");
 
-                Image userImage = new Image(getClass().getResourceAsStream(friendPic));
+                Image userImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(friendPic)));
                 ImageView userImageView = new ImageView(userImage);
                 userImageView.setFitWidth(40);
                 userImageView.setFitHeight(40);
@@ -529,7 +530,21 @@ public class dashboardcontroller implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    void competeBtn(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("contestHome.fxml"));
+        root = loader.load();
 
+        ContestHome contestHome = loader.getController();
+        contestHome.setNc(nc);
+        contestHome.setUserInfo(userInfo);
+        contestHome.initialize(null, null);
+
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     @FXML
     void profileBtn(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));

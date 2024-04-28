@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -88,7 +89,7 @@ public class chatboxController implements Initializable {
         resultSet = dbOperation.detailsQuery(receiver);
         Rname = resultSet.getString("name");
         fName.setText(Rname);
-        fPic.setImage(new Image(getClass().getResourceAsStream(resultSet.getString("pic"))));
+        fPic.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(resultSet.getString("pic")))));
         double diameter = Math.min(fPic.getFitWidth(), fPic.getFitHeight()); // Determine diameter based on smaller dimension
         Circle clip = new Circle(diameter / 2, diameter / 2, diameter / 2);
         fPic.setClip(clip);
@@ -113,9 +114,7 @@ public class chatboxController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-     private Parent root;
-    private Stage stage;
-    private Scene scene;
+
     @FXML
     private ScrollPane sp_main;
    private Thread newChat;
@@ -129,19 +128,16 @@ public class chatboxController implements Initializable {
                 e.printStackTrace();
             }
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 0c62b43 (up)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("friendlist.fxml"));
-        root = loader.load();
+        Parent root = loader.load();
         friendListController listController = loader.getController();
         listController.setUserInfo(userInfo);
         listController.setNc(nc);
 
         listController.initialize(null,null);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }

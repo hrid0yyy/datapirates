@@ -1,42 +1,51 @@
 package org.example.datapirates;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.concurrent.TimeUnit;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class debog {
-    // Variable to store the last processed row ID or timestamp
-    private static long lastProcessedRowId = 0; // Assuming row ID is a numeric column
 
-    // Example usage
-    public static void main(String[] args) throws SQLException, InterruptedException {
-        Thread chatload = new Thread(()->{
-            while (true) {
-                // Fetch only the new rows since the last processed row
-                try{
-                    ResultSet resultSet = dbOperation.LoadChatSince("hridoy@gmail.com", "mehrin@gmail.com", lastProcessedRowId);
-                    while (resultSet.next()) {
-                        System.out.println(resultSet.getString("message"));
-                        // Update lastProcessedRowId to the ID of the current row
-                        lastProcessedRowId = resultSet.getLong("id");
-                    }
+    public static void main(String[] args) {
 
-                    // Close the ResultSet after processing
-                    resultSet.close();
+        // Timer = 		A facility for threads to schedule tasks
+        //				for future execution in a background thread
 
-                    // Wait for a certain amount of time before checking again
-                    TimeUnit.SECONDS.sleep(10); // Adjust the delay time as needed
-                }
-                catch (Exception e){
-                    System.out.println("ERROR");
-                }
+        // TimerTask = 	A task that can be scheduled for one-time
+        //				or repeated execution by a Timer
+
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+
+        //    int counter = 10;
+            @Override
+            public void run() {
+//                if(counter>0) {
+//                    System.out.println(counter+" seconds");
+//                    counter--;
+//                }
+//                else {
+                System.out.println("HAPPY NEW YEAR!");
+                timer.cancel();
+
+                //  }
             }
+        };
+        int Year = 2024;
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR,Year);
+        date.set(Calendar.MONTH,Calendar.APRIL);
+        date.set(Calendar.DAY_OF_MONTH,28);
+        date.set(Calendar.HOUR_OF_DAY,19);
+        date.set(Calendar.MINUTE,43);
+        date.set(Calendar.SECOND,30);
+        date.set(Calendar.MILLISECOND,0);
 
-        });
-        chatload.start();
-
-
-
+        //timer.schedule(task, 0);
+        //timer.schedule(task, date.getTime());
+        //timer.scheduleAtFixedRate(task, 0, 1000);
+        timer.scheduleAtFixedRate(task, date.getTime(), 1000);
     }
+
 }

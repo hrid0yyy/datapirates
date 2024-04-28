@@ -7,13 +7,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import org.example.datapirates.ServerBackend.NetworkConnection;
 import org.example.datapirates.dataBaseConnection.dbHandler;
@@ -36,9 +41,9 @@ public class compilerController implements Initializable {
 
     @FXML
     private TextArea codebox;
-
     @FXML
-    private Label description;
+    private VBox sideBox;
+
 
     @FXML
     private Label result;
@@ -65,11 +70,9 @@ public class compilerController implements Initializable {
 
         private Problems problems;
 
-    @FXML
-    private Label pid;
 
-    @FXML
-    private Label pname;
+
+
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -94,10 +97,14 @@ public class compilerController implements Initializable {
 
     public void setProblems(Problems problems) throws SQLException, ClassNotFoundException {
         this.problems = problems;
-        pid.setText(" Problem ID : "+problems.getProblemID());
-        pname.setText(" Problem Name : "+problems.getProblemName());
-        description.setText(" Description : "+problems.getProblemDescription());
-        
+        Label label1 = new Label("\n"+"\n"+"\n"+" Problem ID : " + problems.getProblemID() + "\n");
+        Label label2 = new Label( " Problem Name : " + problems.getProblemName() + "\n" );
+        Label label3 = new Label(" Description : " + problems.getProblemDescription());
+        label1.setStyle("-fx-text-fill: white");
+        label2.setStyle("-fx-text-fill: white");
+        label3.setStyle("-fx-text-fill: white");
+        sideBox.getChildren().addAll(new TextFlow(label1),new TextFlow(label2),new TextFlow(label3));
+
         codebox.setText(problems.getCodeFormat());
     }
     private String Lang;
