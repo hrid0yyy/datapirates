@@ -1,6 +1,7 @@
 package org.example.datapirates;
 
 
+import org.example.datapirates.ContestBackend.contest;
 import org.example.datapirates.ServerBackend.CreateConnection;
 import org.example.datapirates.ServerBackend.Information;
 import org.example.datapirates.ServerBackend.NetworkConnection;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 public class Server {
 
     public static void main(String[] args) throws IOException {
+        new contest();
         ServerSocket serverSocket = new ServerSocket(8080);
         HashMap<String, Information> clientList = new HashMap<String, Information>();
 

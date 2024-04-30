@@ -1,22 +1,32 @@
 package org.example.datapirates;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.datapirates.ServerBackend.NetworkConnection;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ContestHome implements Initializable {
@@ -55,6 +65,9 @@ public class ContestHome implements Initializable {
     private TextField nameField;
 
     @FXML
+    private VBox contestBox;
+
+    @FXML
     private ChoiceBox<String> startTime;
     private Integer contestTime;
     private final String[] sTime = new String[]{
@@ -76,7 +89,7 @@ public class ContestHome implements Initializable {
            System.out.println("Contest added successfully");
        }
        catch (Exception e){
-           System.out.println("Failed to add the contest");
+           e.printStackTrace();
        }
         maxContestant.clear();
         minRat.clear();
@@ -127,8 +140,103 @@ public class ContestHome implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    private void loadContest()
-    {
+    private void loadContest() throws SQLException {
+        ResultSet resultSet;
+
+
+        resultSet = dbOperation.upcomingContest();
+        Label upcoming = new Label("Upcoming Contest");
+        upcoming.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-font-size: 20px;" +
+                "-fx-padding: 5px; -fx-background-radius: 6px");
+        contestBox.getChildren().addAll(upcoming,new Label("\n\n"));
+        while (resultSet.next()){
+            HBox hBox = new HBox(10);
+            Label contestName = new Label(resultSet.getString("name"));
+            ImageView joinImageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/join.png"))));
+            joinImageView.setFitWidth(25);
+            joinImageView.setFitHeight(25);
+            joinImageView.setCursor(Cursor.HAND);
+            int contestID = resultSet.getInt("contestID"); // Store contestID locally
+
+
+            joinImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                     FXMLLoader loader = new FXMLLoader(getClass().getResource("contestDetails.fxml"));
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    contestDetails home = loader.getController();
+                    home.setUserInfo(userInfo);
+                    home.setNc(nc);
+                    home.setContestID(contestID);
+                    home.initialize(null, null);
+                    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            });
+            contestName.setStyle("-fx-text-fill: white; -fx-font-size: 16px");
+
+            hBox.getChildren().addAll(contestName,joinImageView);
+            contestBox.getChildren().add(hBox);
+        }
+
+
+
+        resultSet = dbOperation.ongoingContest();
+        Label ongoing = new Label("Ongoing Contest!!");
+        ongoing.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-font-size: 20px;"+
+                "-fx-padding: 5px; -fx-background-radius: 6px");
+        contestBox.getChildren().addAll(ongoing,new Label("\n\n"));
+        while (resultSet.next()) {
+            HBox hBox = new HBox();
+            Label contestName = new Label(resultSet.getString("name"));
+            contestName.setStyle("-fx-text-fill: white; -fx-font-size: 16px");
+            ImageView enterImageview = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/enter.png"))));
+            enterImageview.setFitWidth(25);
+            enterImageview.setFitHeight(25);
+            enterImageview.setCursor(Cursor.HAND);
+            int contestID = resultSet.getInt("contestID"); // Store contestID locally
+            enterImageview.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    // enter ongoing contest
+                }
+            });
+            hBox.getChildren().addAll(contestName, enterImageview);
+            contestBox.getChildren().add(hBox);
+        }
+
+
+
+
+        resultSet = dbOperation.closedContest();
+        Label previous = new Label("Previous Contest");
+        previous.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-font-size: 20px;"+
+                "-fx-padding: 5px; -fx-background-radius: 6px");
+        contestBox.getChildren().addAll(previous,new Label("\n\n"));
+        while (resultSet.next()){
+            HBox hBox = new HBox();
+            Label contestName = new Label(resultSet.getString("name"));
+            contestName.setStyle("-fx-text-fill: white; -fx-font-size: 16px");
+            ImageView detailsImageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/details.png"))));
+            detailsImageView.setFitWidth(25);
+            detailsImageView.setFitHeight(25);
+            detailsImageView.setCursor(Cursor.HAND);
+            int contestID = resultSet.getInt("contestID"); // Store contestID locally
+            detailsImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    // load contest which details which is already closed
+                }
+            });
+            hBox.getChildren().addAll(contestName,detailsImageView);
+            contestBox.getChildren().add(hBox);
+        }
 
     }
    public void getLen(ActionEvent event){
@@ -144,8 +252,12 @@ public class ContestHome implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      loadContest();
-      length.getItems().addAll(len);
+        try {
+            loadContest();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        length.getItems().addAll(len);
       startTime.getItems().addAll(sTime);
       length.setOnAction(this::getLen);
       startTime.setOnAction(this::getTime);

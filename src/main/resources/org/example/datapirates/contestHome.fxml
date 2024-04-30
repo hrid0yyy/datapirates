@@ -63,7 +63,7 @@
    <center>
       <ScrollPane prefHeight="474.0" prefWidth="231.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox prefHeight="472.0" prefWidth="263.0" style="-fx-background-color: #28282F;" />
+            <VBox fx:id="contestBox" prefHeight="472.0" prefWidth="263.0" style="-fx-background-color: #28282F;" />
          </content>
       </ScrollPane>
    </center>

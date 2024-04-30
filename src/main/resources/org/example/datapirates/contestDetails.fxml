@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="464.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.contestDetails">
+   <top>
+      <HBox fx:id="navBar" prefHeight="41.0" prefWidth="731.0" stylesheets="@../../../stylesheets/dashboard.css" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="41.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/datapirate.jpeg" />
+               </image>
+            </ImageView>
+            <Button mnemonicParsing="false" onAction="#homeBtn" prefHeight="43.0" prefWidth="102.0" text="Home" />
+            <Button mnemonicParsing="false" onAction="#contestBtn" prefHeight="42.0" prefWidth="109.0" text="Contest" />
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <AnchorPane prefHeight="480.0" prefWidth="393.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="475.0" fitWidth="857.0" layoutX="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/background.jpg" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="45.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="71.98307228088379" />
+            <Text fill="WHITE" layoutX="41.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minimum Rating " wrappingWidth="121.98307228088379" />
+            <Text fill="WHITE" layoutX="43.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contest Length" wrappingWidth="116.98307228088379" />
+            <Text fill="WHITE" layoutX="42.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="76.98307228088379" />
+            <Text fill="WHITE" layoutX="42.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" wrappingWidth="76.98307228088379" />
+            <Text fill="WHITE" layoutX="44.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max Contestant Number" wrappingWidth="103.98307228088379" />
+            <Text fill="WHITE" layoutX="42.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maximum Rating" wrappingWidth="108.98307228088379" />
+            <Button layoutX="193.0" layoutY="431.0" mnemonicParsing="false" onAction="#joinContest" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: black;" text="join" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Text fx:id="name" fill="WHITE" layoutX="181.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="255.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="maxRat" fill="WHITE" layoutX="183.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="250.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="minRat" fill="WHITE" layoutX="181.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="253.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="contestLen" fill="WHITE" layoutX="183.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="250.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="date" fill="WHITE" layoutX="184.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="262.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="startTime" fill="WHITE" layoutX="186.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="256.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="contestants" fill="WHITE" layoutX="186.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="257.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Label fx:id="popUp" alignment="CENTER" layoutX="2.0" layoutY="10.0" prefHeight="28.0" prefWidth="458.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>

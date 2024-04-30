@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2024 at 08:36 PM
+-- Generation Time: Apr 30, 2024 at 09:35 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -184,8 +184,53 @@ CREATE TABLE `contest` (
 --
 
 INSERT INTO `contest` (`contestID`, `name`, `day`, `start_time`, `contestants`, `maxRat`, `minRat`, `length`) VALUES
-(1, 'dfgfdg', '2024-04-30', 12, 123, 1213, 123, 2),
-(2, 'hgfh', '2024-04-30', 22, 456, 456, 456, 4);
+(7, 'contest 1.0', '2024-05-03', 20, 100, 100, 500, 3),
+(8, 'contest 2.0', '2024-06-05', 20, 100, 500, 1000, 3),
+(9, 'contest 0.0', '2024-04-01', 12, 123, 1200, 1400, 2),
+(10, 'contest -1.0', '2024-04-01', 12, 123, 1213, 1400, 2),
+(11, 'contest 4.0', '2024-04-30', 12, 100, 100, 200, 4),
+(12, 'contest 5.0', '2024-04-30', 1, 100, 1200, 1400, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contestants`
+--
+
+CREATE TABLE `contestants` (
+  `contestID` int(11) DEFAULT NULL,
+  `contestantMail` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contestants`
+--
+
+INSERT INTO `contestants` (`contestID`, `contestantMail`) VALUES
+(7, 'hridoy@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `conteststate`
+--
+
+CREATE TABLE `conteststate` (
+  `contestID` int(11) NOT NULL,
+  `state` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `conteststate`
+--
+
+INSERT INTO `conteststate` (`contestID`, `state`) VALUES
+(7, 'Upcoming'),
+(8, 'Upcoming'),
+(9, 'Closed'),
+(10, 'Closed'),
+(11, 'Ongoing'),
+(12, 'Ongoing');
 
 -- --------------------------------------------------------
 
@@ -380,6 +425,19 @@ ALTER TABLE `contest`
   ADD PRIMARY KEY (`contestID`);
 
 --
+-- Indexes for table `contestants`
+--
+ALTER TABLE `contestants`
+  ADD KEY `contestID` (`contestID`),
+  ADD KEY `contestantMail` (`contestantMail`);
+
+--
+-- Indexes for table `conteststate`
+--
+ALTER TABLE `conteststate`
+  ADD KEY `contestID` (`contestID`);
+
+--
 -- Indexes for table `friends`
 --
 ALTER TABLE `friends`
@@ -440,7 +498,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `contest`
 --
 ALTER TABLE `contest`
-  MODIFY `contestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `contestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `friend_requests`
@@ -477,6 +535,19 @@ ALTER TABLE `attempted`
 ALTER TABLE `chat`
   ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`sender`) REFERENCES `users` (`email`),
   ADD CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`receiver`) REFERENCES `users` (`email`);
+
+--
+-- Constraints for table `contestants`
+--
+ALTER TABLE `contestants`
+  ADD CONSTRAINT `contestants_ibfk_1` FOREIGN KEY (`contestID`) REFERENCES `contest` (`contestID`),
+  ADD CONSTRAINT `contestants_ibfk_2` FOREIGN KEY (`contestantMail`) REFERENCES `users` (`email`);
+
+--
+-- Constraints for table `conteststate`
+--
+ALTER TABLE `conteststate`
+  ADD CONSTRAINT `conteststate_ibfk_1` FOREIGN KEY (`contestID`) REFERENCES `contest` (`contestID`);
 
 --
 -- Constraints for table `friends`

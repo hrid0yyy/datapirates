@@ -538,7 +538,7 @@ public class dashboardcontroller implements Initializable {
         ContestHome contestHome = loader.getController();
         contestHome.setNc(nc);
         contestHome.setUserInfo(userInfo);
-        contestHome.initialize(null, null);
+
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
