@@ -71,6 +71,9 @@ public class dbOperation {
         preparedStatement.execute();
 
     }
+
+
+
     public static void contestSubmission(int contestID, int problemID,String mail, String code,int accept) throws SQLException {
         query = "insert into contestsubmission (contestID,problemID,mail,accept,code) values(?,?,?,?,?)";
         preparedStatement = connection.prepareStatement(query);
@@ -104,6 +107,49 @@ public class dbOperation {
         }
         return friends;
     }
+    public static int totalContestants(int contestID) throws SQLException {
+        query = "SELECT count(*) as total from contestants where contestID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getInt("total");
+    }
+    public static int totalPoints(int contestID ,String mail) throws SQLException {
+        query = "SELECT t1 - t2 as total \n" +
+                "FROM \n" +
+                "(SELECT COALESCE(SUM(ratting), 0)  as t1, ? as mail from contestproblems join contestsubmission on contestproblems.problemID = contestsubmission.problemID where contestID = ?  and mail = ? and accept = ?) as tab1\n" +
+                "JOIN\n" +
+                "(SELECT COALESCE(SUM(ratting), 0) as t2,? as mail from contestproblems join contestsubmission on contestproblems.problemID = contestsubmission.problemID where contestID = ?  and mail = ? and accept = ?) as tab2\n" +
+                "on tab1.mail = tab2.mail";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1,mail);
+        preparedStatement.setInt(2,contestID);
+        preparedStatement.setString(3,mail);
+        preparedStatement.setInt(4,1);
+        preparedStatement.setString(5,mail);
+        preparedStatement.setInt(6,contestID);
+        preparedStatement.setString(7,mail);
+        preparedStatement.setInt(8,0);
+        resultSet = preparedStatement.executeQuery();
+        if(resultSet.next())
+        {
+            return resultSet.getInt("total");
+        }
+        return 0;
+
+    }
+    public static int totalSubmission(int contestID,int problemID) throws SQLException {
+        query = " SELECT count(*) as total from contestsubmission where contestID = ? and accept = ? and problemID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        preparedStatement.setInt(2,1);
+        preparedStatement.setInt(3,problemID);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getInt("total");
+    }
+
     public static ResultSet posts(String mail) throws SQLException {
         query = "Select * from posts where mail = ?";
         preparedStatement = connection.prepareStatement(query);
@@ -151,6 +197,17 @@ public class dbOperation {
         return resultSet.next();
 
     }
+    public static boolean contestSubmit(String mail,int contestID,int problemID,int accept) throws SQLException {
+        query = " SELECT * from contestsubmission where contestID = ? and accept = ? and problemID = ? and mail = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        preparedStatement.setInt(2,accept);
+        preparedStatement.setInt(3,problemID);
+        preparedStatement.setString(4,mail);
+        resultSet = preparedStatement.executeQuery();
+        return resultSet.next();
+    }
+
     public static  ResultSet solved(String mail) throws SQLException {
         query = "SELECT COUNT(*) AS total FROM solved WHERE userMail = ?";
         preparedStatement = connection.prepareStatement(query);

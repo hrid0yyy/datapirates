@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class contestPageController implements Initializable {
@@ -28,6 +31,9 @@ public class contestPageController implements Initializable {
     private ResultSet contestInfo;
     private UserInfo userInfo;
     private NetworkConnection nc;
+
+    @FXML
+    private Label points;
 
     public void setProblems(int contestID) throws SQLException {
         contestInfo = dbOperation.contestInfo(contestID);
@@ -68,8 +74,23 @@ public class contestPageController implements Initializable {
     }
    private void loadProblems() throws SQLException {
         contestName.setText(contestInfo.getString("name"));
-        int  submitted = 0; // number of people completed that problem
+        int contestID = contestInfo.getInt("contestID");
+        String totalContestants = String.valueOf(dbOperation.totalContestants(contestID));
+        String submitted; // number of people completed that problem
+
+            points.setText("Total Points : "+String.valueOf(dbOperation.totalPoints(contestID, userInfo.getMail())));
+
         while (problems.next()){
+            ImageView userImageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/cUser.png"))));
+            userImageView.setFitWidth(20);
+            userImageView.setFitHeight(20);
+            ImageView yesView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/yes.png"))));
+            yesView.setFitWidth(20);
+            yesView.setFitHeight(20);
+            ImageView noView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/no.png"))));
+            noView.setFitWidth(20);
+            noView.setFitHeight(20);
+            submitted = dbOperation.totalSubmission(contestID,problems.getInt("problemID"))+"/"+totalContestants;
             HBox hBox = new HBox(10);
             Label name = new Label(problems.getString("problemName"));
             name.setStyle("-fx-text-fill: #DF3079; -fx-font-size: 18 px;");
@@ -105,10 +126,19 @@ public class contestPageController implements Initializable {
                 }
             });
             attempt.setStyle("-fx-background-color:  #DF3079; -fx-text-fill: white; -fx-font-size: 12px");
-            Label submits = new Label(String.valueOf(submitted));
+            Label submits = new Label(submitted);
             submits.setStyle("-fx-text-fill: #DF3079; -fx-font-size: 18px");
 
-            hBox.getChildren().addAll(name,attempt,submits);
+            hBox.getChildren().addAll(name,attempt,submits,userImageView);
+            if(dbOperation.contestSubmit(userInfo.getMail(), contestID,problemID,1)){
+                 hBox.getChildren().add(yesView);
+            }
+            else
+            {
+                if(dbOperation.contestSubmit(userInfo.getMail(), contestID,problemID,0)){
+                    hBox.getChildren().add(noView);
+                }
+            }
             problemBox.getChildren().addAll(hBox);
         }
    }

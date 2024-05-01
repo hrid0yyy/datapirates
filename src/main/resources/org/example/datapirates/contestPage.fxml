@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="515.0" prefWidth="731.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.contestPageController">
    <children>
       <Button layoutX="650.0" layoutY="470.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #DF3079;" text="back" textFill="WHITE">
@@ -28,9 +27,14 @@
             </VBox>
          </content>
       </ScrollPane>
-      <Label fx:id="contestName" alignment="CENTER" layoutX="106.0" layoutY="36.0" prefHeight="31.0" prefWidth="536.0" text="Contest Name" textFill="#df3079">
+      <Label fx:id="contestName" alignment="CENTER" layoutX="98.0" layoutY="21.0" prefHeight="31.0" prefWidth="536.0" text="Contest Name" textFill="#df3079">
          <font>
             <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="points" layoutX="57.0" layoutY="53.0" prefHeight="21.0" prefWidth="159.0" textFill="#df3079">
+         <font>
+            <Font size="15.0" />
          </font>
       </Label>
    </children>

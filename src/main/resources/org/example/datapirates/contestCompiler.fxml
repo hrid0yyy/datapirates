@@ -33,5 +33,10 @@
             <Font size="15.0" />
          </font>
       </Label>
+      <Label fx:id="result" alignment="CENTER" layoutX="285.0" layoutY="477.0" prefHeight="17.0" prefWidth="183.0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

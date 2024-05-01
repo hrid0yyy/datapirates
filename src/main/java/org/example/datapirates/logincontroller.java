@@ -76,6 +76,8 @@ public class logincontroller implements Initializable {
             dashboardcontroller home = loader.getController();
             home.setUserInfo(userInfo);
             home.setNc(clientController.getNc());
+            userSession.setNc(clientController.getNc());
+            userSession.setUserMail(user_email);
             home.initialize(null, null);
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);

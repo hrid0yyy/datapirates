@@ -12,6 +12,7 @@ public class debog {
     public static void main(String[] args) throws SQLException {
       //  dbOperation.ContestProblems(13,100,200,4);
         //new contestHandler(11,"2024-05-03",12,4);
+        System.out.println(dbOperation.totalPoints(13,"hridoy@gmail.com"));
     }
 
 }

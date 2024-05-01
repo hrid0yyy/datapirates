@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2024 at 10:17 AM
+-- Generation Time: May 01, 2024 at 07:10 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -194,7 +194,7 @@ INSERT INTO `contest` (`contestID`, `name`, `day`, `start_time`, `contestants`, 
 (10, 'contest -1.0', '2024-04-01', 12, 123, 1213, 1400, 2),
 (11, 'contest 4.0', '2024-04-30', 12, 100, 100, 200, 4),
 (12, 'contest 5.0', '2024-04-30', 1, 100, 1200, 1400, 4),
-(13, 'contest 6.0', '2024-05-01', 12, 100, 100, 200, 6);
+(13, 'contest 6.0', '2024-05-01', 21, 100, 100, 200, 6);
 
 -- --------------------------------------------------------
 
@@ -213,7 +213,10 @@ CREATE TABLE `contestants` (
 
 INSERT INTO `contestants` (`contestID`, `contestantMail`) VALUES
 (7, 'hridoy@gmail.com'),
-(13, 'hridoy@gmail.com');
+(13, 'hridoy@gmail.com'),
+(13, 'emon@gmail.com'),
+(13, 'mehrin@gmail.com'),
+(13, 'chaity@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -319,10 +322,10 @@ INSERT INTO `conteststate` (`contestID`, `state`) VALUES
 --
 
 CREATE TABLE `contestsubmission` (
-  `contestID` int(11) DEFAULT NULL,
-  `problemID` int(11) DEFAULT NULL,
-  `mail` varchar(255) DEFAULT NULL,
-  `accept` int(11) DEFAULT NULL,
+  `contestID` int(11) NOT NULL,
+  `problemID` int(11) NOT NULL,
+  `mail` varchar(255) NOT NULL,
+  `accept` int(11) NOT NULL,
   `code` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -331,8 +334,10 @@ CREATE TABLE `contestsubmission` (
 --
 
 INSERT INTO `contestsubmission` (`contestID`, `problemID`, `mail`, `accept`, `code`) VALUES
-(13, 1, 'hridoy@gmail.com', 1, 'def func(list):\n	return 5'),
-(13, 1, 'hridoy@gmail.com', 0, 'def func(list):\n	return 2');
+(13, 3, 'emon@gmail.com', 0, '\"\"\"Write a function named func that will reverse the elements of a given array.\"\"\"\ndef func(list):\n	return list'),
+(13, 3, 'emon@gmail.com', 1, '\"\"\"Write a function named func that will reverse the elements of a given array.\"\"\"\ndef func(list):\n	list.reverse()\n	return list'),
+(13, 5, 'emon@gmail.com', 1, '\"\"\"Write a function named func that will find the maximum element in a given array.\"\"\"\ndef func(list):\n	return 9'),
+(13, 5, 'hridoy@gmail.com', 1, '\"\"\"Write a function named func that will find the maximum element in a given array.\"\"\"\ndef func(list):\n	return 9');
 
 -- --------------------------------------------------------
 
@@ -568,6 +573,12 @@ ALTER TABLE `contestants`
 --
 ALTER TABLE `conteststate`
   ADD KEY `contestID` (`contestID`);
+
+--
+-- Indexes for table `contestsubmission`
+--
+ALTER TABLE `contestsubmission`
+  ADD PRIMARY KEY (`contestID`,`problemID`,`accept`,`mail`);
 
 --
 -- Indexes for table `friends`

@@ -41,6 +41,8 @@ public class contestCompilerController implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;
+    @FXML
+    private Label result;
 
     public void setProblemInfo(int problemID) throws SQLException {
         problemInfo = dbOperation.problemInfo(problemID);
@@ -94,9 +96,13 @@ public class contestCompilerController implements Initializable {
         System.out.println(codeTextArea.getText());
         System.out.println(getLang());
         if(res.getOutput().equals(problemInfo.getString("output"))){
+            result.setStyle("-fx-text-fill: green");
+            result.setText("ACCEPTED");
             dbOperation.contestSubmission(contestID,problemInfo.getInt("problemID"), userInfo.getMail(),codeTextArea.getText(),1 );
         }
         else {
+            result.setStyle("-fx-text-fill: red");
+            result.setText("NOT ACCEPTED");
             dbOperation.contestSubmission(contestID,problemInfo.getInt("problemID"), userInfo.getMail(),codeTextArea.getText(),0 );
         }
 
