@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import org.example.datapirates.ServerBackend.NetworkConnection;
+import org.example.datapirates.compiler.*;
 import org.example.datapirates.dataBaseConnection.dbHandler;
 
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class compilerController implements Initializable {
 
     @FXML
     private ChoiceBox<String> langChoice;
-    private String[] language = {"python3","c","java","cpp17"};
+    private final String[] language = {"python3","c","java","cpp17"};
 
     private UserInfo userInfo;
 
@@ -69,9 +70,6 @@ public class compilerController implements Initializable {
     }
 
         private Problems problems;
-
-
-
 
     private Stage stage;
     private Scene scene;
@@ -140,34 +138,9 @@ public class compilerController implements Initializable {
 
     @FXML
     void compile(ActionEvent event) throws IOException, InterruptedException, URISyntaxException, SQLException {
-        Code code = new Code();
-        code.setCode(codebox.getText()+"\n"+problems.getDriverCode());
-        code.setLanguage(getLang());
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Code.class, new CodeTypeAdapter())
-                .create();
 
-        String json = gson.toJson(code);
-       System.out.println(json);
-
-
-        HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(new URI("https://online-code-compiler.p.rapidapi.com/v1/"))
-                .header("X-RapidAPI-Key", "0bef477c4emshfa0da64e0b9b356p1de2a2jsn69aa87927c82")
-                .header("X-RapidAPI-Host", "online-code-compiler.p.rapidapi.com")
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json))
-                .build();
-
-        HttpClient httpClient = HttpClient.newHttpClient();
-        HttpResponse<String> postResponse = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
-
-        // Handle the response as needed
-       gson = new GsonBuilder()
-                .registerTypeAdapter(output.class, new OutputDeserializer())
-                .create();
-
-        output res = gson.fromJson(postResponse.body(), output.class);
+        output res =  CompileCode.compile(codebox.getText()+"\n"+problems.getDriverCode(),getLang());
+        System.out.println(res.getOutput());
         StringBuilder outputBuilder = new StringBuilder();
         if(res.getOutput().equals(problems.getOutput()))
         {
@@ -240,145 +213,11 @@ public class compilerController implements Initializable {
     }
 
 }
-class OutputDeserializer implements JsonDeserializer<output> {
-
-    @Override
-    public output deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        JsonObject jsonObject = json.getAsJsonObject();
-
-        String cpuTime = jsonObject.get("cpuTime").getAsString();
-        String memory = jsonObject.get("memory").getAsString();
-        String output = jsonObject.get("output").getAsString();
-
-        output outputObj = new output();
-        outputObj.setCpuTime(cpuTime);
-        outputObj.setMemory(memory);
-        outputObj.setOutput(output);
-
-        // Handle deserialization of the 'Language' field if needed
-
-        return outputObj;
-    }
-}
-
-class CodeTypeAdapter extends TypeAdapter<Code> {
-
-    @Override
-    public void write(JsonWriter out, Code code) throws IOException {
-        out.beginObject();
-        out.name("code").value(code.getCode());
-        out.name("language").value(code.getLanguage());
-        // Serialize other fields if needed
-        out.endObject();
-    }
-
-    @Override
-    public Code read(JsonReader in) throws IOException {
-        // Implement deserialization if needed
-        throw new UnsupportedOperationException("Deserialization is not supported.");
-    }
-}
-class Code {
-    private String code;
-    private String language;
-
-    private String version;
-    private String input;
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-}
-class output {
-    private String cpuTime;
-    private String memory;
-    private String output;
-    private Language language;
-
-    public String getCpuTime() {
-        return cpuTime;
-    }
-
-    public void setCpuTime(String cpuTime) {
-        this.cpuTime = cpuTime;
-    }
-
-    public String getMemory() {
-        return memory;
-    }
-
-    public void setMemory(String memory) {
-        this.memory = memory;
-    }
-
-    public String getOutput() {
-        return output;
-    }
-
-    public void setOutput(String output) {
-        this.output = output;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-}
 
 
 
-class Language {
-    private String id;
-    private int version;
-    private String versionName;
 
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    public String getVersionName() {
-        return versionName;
-    }
-
-    public void setVersionName(String versionName) {
-        this.versionName = versionName;
-    }
-}
 
 

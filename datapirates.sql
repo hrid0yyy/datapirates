@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2024 at 09:35 AM
+-- Generation Time: May 01, 2024 at 10:17 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -43,7 +43,11 @@ INSERT INTO `attempted` (`problemID`, `userMail`, `code`) VALUES
 (3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\nfghfg'),
 (3, 'emon@gmail.com', 'def function(list):\n	return 2'),
 (3, 'emon@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef function(list)\n	list.reverse()\n	return list'),
-(4, 'emon@gmail.com', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"\ndef func(list):\n	return sum(list)');
+(4, 'emon@gmail.com', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"\ndef func(list):\n	return sum(list)'),
+(6, 'hridoy@gmail.com', '\"\"\"write a function named func that will find the minimum element in the array\"\"\"\ndef func(list):\n	returm min(list)'),
+(4, 'hridoy@gmail.com', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"\ndef func(list):\n	return sum(list)'),
+(4, 'hridoy@gmail.com', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"\ndef func(list):\n	return sum(list)'),
+(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list');
 
 -- --------------------------------------------------------
 
@@ -189,7 +193,8 @@ INSERT INTO `contest` (`contestID`, `name`, `day`, `start_time`, `contestants`, 
 (9, 'contest 0.0', '2024-04-01', 12, 123, 1200, 1400, 2),
 (10, 'contest -1.0', '2024-04-01', 12, 123, 1213, 1400, 2),
 (11, 'contest 4.0', '2024-04-30', 12, 100, 100, 200, 4),
-(12, 'contest 5.0', '2024-04-30', 1, 100, 1200, 1400, 4);
+(12, 'contest 5.0', '2024-04-30', 1, 100, 1200, 1400, 4),
+(13, 'contest 6.0', '2024-05-01', 12, 100, 100, 200, 6);
 
 -- --------------------------------------------------------
 
@@ -207,7 +212,81 @@ CREATE TABLE `contestants` (
 --
 
 INSERT INTO `contestants` (`contestID`, `contestantMail`) VALUES
-(7, 'hridoy@gmail.com');
+(7, 'hridoy@gmail.com'),
+(13, 'hridoy@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contestproblems`
+--
+
+CREATE TABLE `contestproblems` (
+  `ratting` int(11) NOT NULL,
+  `problemID` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `problemName` varchar(255) DEFAULT NULL,
+  `problemType` varchar(255) DEFAULT NULL,
+  `driverCode` text DEFAULT NULL,
+  `output` varchar(255) DEFAULT NULL,
+  `codeFormat` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contestproblems`
+--
+
+INSERT INTO `contestproblems` (`ratting`, `problemID`, `description`, `problemName`, `problemType`, `driverCode`, `output`, `codeFormat`) VALUES
+(100, 1, 'find the missing number in a sequence', 'missing_number', 'array', 'if __name__ == \"__main__\":\n    sequence = [1, 2, 3, 4, 6, 7, 8]\n    print(func(sequence))', '5', '\"\"\"Write a function named func that will find the missing number in a sequence of consecutive integers.\"\"\"'),
+(120, 2, 'count the number of words in a sentence', 'word_count', 'string', 'if __name__ == \"__main__\":\n    sentence = \"Hello world, how are you?\"\n    print(func(sentence))', '5', '\"\"\"Write a function named func that will count the number of words in a given sentence. Assume words are separated by spaces.\"\"\"'),
+(150, 3, 'reverse array ', 'array_reverse', 'array', 'if __name__ == \"__main__\":\n    arr = [1,2,3,4,5]\n    print(func(arr))', '[5, 4, 3, 2, 1]', '\"\"\"Write a function named func that will reverse the elements of a given array.\"\"\"'),
+(130, 4, 'check if a string is a palindrome', 'palindrome_check', 'string', 'if __name__ == \"__main__\":\n    string = \"level\"\n    print(func(string))', 'True', '\"\"\"Write a function named func that will check if a given string is a palindrome. A palindrome is a word that reads the same forwards and backwards.\"\"\"'),
+(110, 5, 'find the maximum element in an array', 'max_element', 'array', 'if __name__ == \"__main__\":\n    arr = [1, 5, 2, 9, 4]\n    print(func(arr))', '9', '\"\"\"Write a function named func that will find the maximum element in a given array.\"\"\"'),
+(160, 6, 'check if a string contains all unique characters', 'unique_characters', 'string', 'if __name__ == \"__main__\":\n    string = \"abcdefg\"\n    print(func(string))', 'True', '\"\"\"Write a function named func that will check if a given string contains all unique characters. Return True if it does, otherwise False.\"\"\"'),
+(140, 7, 'compute the factorial of a number', 'factorial', 'number', 'if __name__ == \"__main__\":\n    n = 5\n    print(func(n))', '120', '\"\"\"Write a function named func that will compute the factorial of a given number.\"\"\"'),
+(170, 8, 'remove duplicates from an array', 'remove_duplicates', 'array', 'if __name__ == \"__main__\":\n    arr = [1, 2, 3, 3, 4, 5, 5]\n    print(func(arr))', '[1, 2, 3, 4, 5]', '\"\"\"Write a function named func that will remove duplicates from a given array while preserving the original order of elements.\"\"\"'),
+(180, 9, 'find the second largest element in an array', 'second_largest', 'array', 'if __name__ == \"__main__\":\n    arr = [10, 20, 30, 40, 50]\n    print(func(arr))', '40', '\"\"\"Write a function named func that will find the second largest element in a given array.\"\"\"'),
+(190, 10, 'find the longest common prefix among strings', 'longest_prefix', 'string', 'if __name__ == \"__main__\":\n    strings = [\"apple\", \"app\", \"application\"]\n    print(func(strings))', 'app', '\"\"\"Write a function named func that will find the longest common prefix among a list of strings.\"\"\"'),
+(200, 11, 'compute the power of a number', 'power_of_number', 'number', 'if __name__ == \"__main__\":\n    x = 2\n    n = 5\n    print(func(x, n))', '32', '\"\"\"Write a function named func that will compute the power of a given number. The function should take two arguments: the base (x) and the exponent (n).\"\"\"'),
+(210, 12, 'check if a number is prime', 'prime_check', 'number', 'if __name__ == \"__main__\":\n    num = 17\n    print(func(num))', 'True', '\"\"\"Write a function named func that will check if a given number is prime. Return True if it is, otherwise False.\"\"\"'),
+(220, 13, 'sort array of strings by their length', 'sort_strings_by_length', 'array', 'if __name__ == \"__main__\":\n    strings = [\"apple\", \"banana\", \"pear\", \"orange\"]\n    print(func(strings))', '[\"pear\", \"apple\", \"banana\", \"orange\"]', '\"\"\"Write a function named func that will sort a given array of strings based on their lengths in ascending order.\"\"\"'),
+(230, 14, 'find the sum of all digits in a number', 'sum_of_digits', 'number', 'if __name__ == \"__main__\":\n    num = 12345\n    print(func(num))', '15', '\"\"\"Write a function named func that will find the sum of all digits in a given number.\"\"\"'),
+(240, 15, 'find the intersection of two arrays', 'array_intersection', 'array', 'if __name__ == \"__main__\":\n    arr1 = [1, 2, 3, 4, 5]\n    arr2 = [4, 5, 6, 7, 8]\n    print(func(arr1, arr2))', '[4, 5]', '\"\"\"Write a function named func that will find the intersection of two given arrays.\"\"\"'),
+(250, 16, 'find the number of vowels in a string', 'vowel_count', 'string', 'if __name__ == \"__main__\":\n    string = \"Hello world\"\n    print(func(string))', '3', '\"\"\"Write a function named func that will count the number of vowels in a given string.\"\"\"'),
+(260, 17, 'reverse words in a sentence', 'reverse_words', 'string', 'if __name__ == \"__main__\":\n    sentence = \"Hello world\"\n    print(func(sentence))', 'world Hello', '\"\"\"Write a function named func that will reverse the words in a given sentence.\"\"\"'),
+(270, 18, 'check if two strings are anagrams', 'anagram_check', 'string', 'if __name__ == \"__main__\":\n    str1 = \"listen\"\n    str2 = \"silent\"\n    print(func(str1, str2))', 'True', '\"\"\"Write a function named func that will check if two given strings are anagrams of each other. Return True if they are, otherwise False.\"\"\"'),
+(280, 19, 'find the kth largest element in an array', 'kth_largest', 'array', 'if __name__ == \"__main__\":\n    arr = [3, 2, 1, 5, 6, 4]\n    k = 2\n    print(func(arr, k))', '5', '\"\"\"Write a function named func that will find the kth largest element in a given array.\"\"\"'),
+(290, 20, 'compute the Fibonacci sequence', 'fibonacci_sequence', 'number', 'if __name__ == \"__main__\":\n    n = 5\n    print(func(n))', '[0, 1, 1, 2, 3]', '\"\"\"Write a function named func that will compute the Fibonacci sequence up to the nth term.\"\"\"'),
+(300, 21, 'find the mode of an array', 'array_mode', 'array', 'if __name__ == \"__main__\":\n    arr = [1, 2, 2, 3, 3, 3, 4]\n    print(func(arr))', '3', '\"\"\"Write a function named func that will find the mode (the most frequently occurring element) in a given array.\"\"\"'),
+(310, 22, 'reverse a linked list', 'reverse_linked_list', 'linked list', 'if __name__ == \"__main__\":\n    # Define linked list\n    class ListNode:\n        def __init__(self, val=0, next=None):\n            self.val = val\n            self.next = next\n    # Create linked list [1, 2, 3, 4, 5]\n    head = ListNode(1)\n    head.next = ListNode(2)\n    head.next.next = ListNode(3)\n    head.next.next.next = ListNode(4)\n    head.next.next.next.next = ListNode(5)\n    # Reverse the linked list\n    reversed_head = func(head)\n    # Print reversed linked list\n    while reversed_head:\n        print(reversed_head.val)\n        reversed_head = reversed_head.next', '5\n4\n3\n2\n1', '\"\"\"Write a function named func that will reverse a given linked list and return the new head of the reversed list.\"\"\"'),
+(320, 23, 'check if a binary tree is balanced', 'balanced_binary_tree', 'binary tree', 'if __name__ == \"__main__\":\n    # Define binary tree node\n    class TreeNode:\n        def __init__(self, val=0, left=None, right=None):\n            self.val = val\n            self.left = left\n            self.right = right\n    # Create binary tree\n    root = TreeNode(1)\n    root.left = TreeNode(2)\n    root.right = TreeNode(3)\n    root.left.left = TreeNode(4)\n    root.left.right = TreeNode(5)\n    # Check if binary tree is balanced\n    print(func(root))', 'True', '\"\"\"Write a function named func that will check if a given binary tree is balanced. A binary tree is balanced if the heights of the two subtrees of any node never differ by more than 1.\"\"\"'),
+(330, 24, 'find the longest increasing subsequence', 'longest_increasing_subsequence', 'array', 'if __name__ == \"__main__\":\n    arr = [10, 9, 2, 5, 3, 7, 101, 18]\n    print(func(arr))', '[2, 3, 7, 101]', '\"\"\"Write a function named func that will find the length of the longest increasing subsequence in a given array.\"\"\"'),
+(340, 25, 'find the majority element in an array', 'majority_element', 'array', 'if __name__ == \"__main__\":\n    arr = [3, 3, 4, 2, 4, 4, 2, 4, 4]\n    print(func(arr))', '4', '\"\"\"Write a function named func that will find the majority element in a given array. The majority element is the element that appears more than n/2 times, where n is the length of the array.\"\"\"'),
+(350, 26, 'find the shortest distance between two words in a sentence', 'shortest_word_distance', 'string', 'if __name__ == \"__main__\":\n    words = [\"the\", \"quick\", \"brown\", \"fox\", \"quick\"]\n    word1 = \"the\"\n    word2 = \"fox\"\n    print(func(words, word1, word2))', '3', '\"\"\"Write a function named func that will find the shortest distance between two given words in a sentence. Assume the words are guaranteed to exist in the sentence.\"\"\"'),
+(360, 27, 'check if a string follows a pattern', 'pattern_check', 'string', 'if __name__ == \"__main__\":\n    pattern = \"abba\"\n    string = \"dog cat cat dog\"\n    print(func(pattern, string))', 'True', '\"\"\"Write a function named func that will check if a given string follows a specific pattern. The pattern consists of lowercase letters separated by spaces, and the string consists of words separated by spaces. Return True if the string follows the pattern, otherwise False.\"\"\"'),
+(370, 28, 'compute the square root of a number', 'square_root', 'number', 'if __name__ == \"__main__\":\n    x = 16\n    print(func(x))', '4.0', '\"\"\"Write a function named func that will compute the square root of a given number.\"\"\"'),
+(380, 29, 'find the longest substring without repeating characters', 'longest_substring', 'string', 'if __name__ == \"__main__\":\n    string = \"abcabcbb\"\n    print(func(string))', 'abc', '\"\"\"Write a function named func that will find the longest substring without repeating characters in a given string.\"\"\"'),
+(390, 30, 'rotate an array by k steps to the right', 'rotate_array', 'array', 'if __name__ == \"__main__\":\n    arr = [1, 2, 3, 4, 5, 6, 7]\n    k = 3\n    func(arr, k)\n    print(arr)', '[5, 6, 7, 1, 2, 3, 4]', '\"\"\"Write a function named func that will rotate a given array to the right by k steps, where k is a non-negative integer.\"\"\"'),
+(400, 31, 'find the longest palindromic substring in a string', 'longest_palindrome_substring', 'string', 'if __name__ == \"__main__\":\n    string = \"babad\"\n    print(func(string))', 'bab', '\"\"\"Write a function named func that will find the longest palindromic substring in a given string.\"\"\"'),
+(410, 32, 'find the maximum product of two integers in an array', 'max_product_of_two', 'array', 'if __name__ == \"__main__\":\n    arr = [1, 2, 3, 4, 5]\n    print(func(arr))', '20', '\"\"\"Write a function named func that will find the maximum product of two integers in a given array.\"\"\"'),
+(420, 33, 'find the number of islands in a binary matrix', 'number_of_islands', 'array', 'if __name__ == \"__main__\":\n    grid = [\n        [1, 1, 0, 0, 0],\n        [1, 1, 0, 0, 0],\n        [0, 0, 1, 0, 0],\n        [0, 0, 0, 1, 1]\n    ]\n    print(func(grid))', '3', '\"\"\"Write a function named func that will find the number of islands in a given binary matrix. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.\"\"\"'),
+(430, 34, 'implement the atoi function', 'atoi', 'string', 'if __name__ == \"__main__\":\n    string = \"42\"\n    print(func(string))', '42', '\"\"\"Write a function named func that will implement the atoi function, which converts a string to an integer.\"\"\"'),
+(440, 35, 'merge two sorted arrays into one', 'merge_sorted_arrays', 'array', 'if __name__ == \"__main__\":\n    arr1 = [1, 3, 5]\n    arr2 = [2, 4, 6]\n    print(func(arr1, arr2))', '[1, 2, 3, 4, 5, 6]', '\"\"\"Write a function named func that will merge two given sorted arrays into one sorted array.\"\"\"'),
+(450, 36, 'find the median of two sorted arrays', 'median_of_sorted_arrays', 'array', 'if __name__ == \"__main__\":\n    nums1 = [1, 3]\n    nums2 = [2]\n    print(func(nums1, nums2))', '2.0', '\"\"\"Write a function named func that will find the median of two sorted arrays.\"\"\"'),
+(460, 37, 'find the minimum window in a string which contains all characters from another string', 'minimum_window_substring', 'string', 'if __name__ == \"__main__\":\n    s = \"ADOBECODEBANC\"\n    t = \"ABC\"\n    print(func(s, t))', 'BANC', '\"\"\"Write a function named func that will find the minimum window in a given string which contains all characters from another given string.\"\"\"'),
+(470, 38, 'find the k closest points to the origin', 'k_closest_points', 'array', 'if __name__ == \"__main__\":\n    points = [[1, 3], [-2, 2]]\n    k = 1\n    print(func(points, k))', '[[1, 3]]', '\"\"\"Write a function named func that will find the k closest points to the origin (0, 0) from a list of points in the 2D plane.\"\"\"'),
+(480, 39, 'count the number of distinct subsequences', 'distinct_subsequences', 'string', 'if __name__ == \"__main__\":\n    s = \"rabbbit\"\n    t = \"rabbit\"\n    print(func(s, t))', '3', '\"\"\"Write a function named func that will count the number of distinct subsequences of string S which equals string T.\"\"\"'),
+(490, 40, 'find the longest consecutive sequence of elements in an unsorted array', 'longest_consecutive_sequence', 'array', 'if __name__ == \"__main__\":\n    nums = [100, 4, 200, 1, 3, 2]\n    print(func(nums))', '4', '\"\"\"Write a function named func that will find the length of the longest consecutive sequence of elements in an unsorted array of integers.\"\"\"'),
+(500, 41, 'implement the next permutation function', 'next_permutation', 'array', 'if __name__ == \"__main__\":\n    nums = [1, 2, 3]\n    func(nums)\n    print(nums)', '[1, 3, 2]', '\"\"\"Write a function named func that will generate the next lexicographically greater permutation of a given list of numbers.\"\"\"'),
+(510, 42, 'find the longest valid parentheses substring in a given string', 'longest_valid_parentheses', 'string', 'if __name__ == \"__main__\":\n    s = \"(()\"\n    print(func(s))', '2', '\"\"\"Write a function named func that will find the length of the longest valid (well-formed) parentheses substring in a given string.\"\"\"'),
+(520, 43, 'implement the merge sort algorithm', 'merge_sort', 'array', 'if __name__ == \"__main__\":\n    arr = [12, 11, 13, 5, 6, 7]\n    print(\"Given array is:\", arr)\n    func(arr)\n    print(\"Sorted array is:\", arr)', 'Sorted array is: [5, 6, 7, 11, 12, 13]', '\"\"\"Write a function named func that will implement the merge sort algorithm to sort a given array.\"\"\"'),
+(530, 44, 'check if a string is a valid palindrome considering only alphanumeric characters and ignoring cases', 'valid_palindrome', 'string', 'if __name__ == \"__main__\":\n    s = \"A man, a plan, a canal: Panama\"\n    print(func(s))', 'True', '\"\"\"Write a function named func that will check if a given string is a valid palindrome, considering only alphanumeric characters and ignoring cases.\"\"\"'),
+(540, 45, 'calculate the maximum profit that can be obtained by buying and selling stocks', 'max_profit_stocks', 'array', 'if __name__ == \"__main__\":\n    prices = [7, 1, 5, 3, 6, 4]\n    print(func(prices))', '5', '\"\"\"Write a function named func that will calculate the maximum profit that can be obtained by buying and selling stocks given their prices for a number of days.\"\"\"'),
+(550, 46, 'find the maximum sum of a subarray of size k', 'max_subarray_sum', 'array', 'if __name__ == \"__main__\":\n    nums = [1, 4, 2, 10, 2, 3, 1, 0, 20]\n    k = 4\n    print(func(nums, k))', '24', '\"\"\"Write a function named func that will find the maximum sum of a subarray of size k in a given array of integers.\"\"\"'),
+(560, 47, 'find the longest common subsequence of two strings', 'longest_common_subsequence', 'string', 'if __name__ == \"__main__\":\n    text1 = \"abcde\"\n    text2 = \"ace\"\n    print(func(text1, text2))', '3', '\"\"\"Write a function named func that will find the length of the longest common subsequence of two given strings.\"\"\"'),
+(570, 48, 'implement the quick sort algorithm', 'quick_sort', 'array', 'if __name__ == \"__main__\":\n    arr = [10, 7, 8, 9, 1, 5]\n    print(\"Given array is:\", arr)\n    func(arr, 0, len(arr) - 1)\n    print(\"Sorted array is:\", arr)', 'Sorted array is: [1, 5, 7, 8, 9, 10]', '\"\"\"Write a function named func that will implement the quick sort algorithm to sort a given array.\"\"\"'),
+(580, 49, 'implement a data structure for LRUCache (Least Recently Used Cache)', 'LRU_cache', 'data structure', 'if __name__ == \"__main__\":\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    print(cache.get(1))\n    cache.put(3, 3)\n    print(cache.get(2))', 'None\n2', '\"\"\"Implement a data structure named LRUCache which supports the following operations: get(key) - Get the value of the key if the key exists in the cache, otherwise return None. put(key, value) - Set or insert the value if the key is not already present.\"\"\"'),
+(590, 50, 'find the longest substring with at most k distinct characters', 'longest_substring_k_distinct', 'string', 'if __name__ == \"__main__\":\n    s = \"eceba\"\n    k = 2\n    print(func(s, k))', '3', '\"\"\"Write a function named func that will find the length of the longest substring with at most k distinct characters in a given string.\"\"\"');
 
 -- --------------------------------------------------------
 
@@ -229,8 +308,31 @@ INSERT INTO `conteststate` (`contestID`, `state`) VALUES
 (8, 'Upcoming'),
 (9, 'Closed'),
 (10, 'Closed'),
-(11, 'Ongoing'),
-(12, 'Ongoing');
+(11, 'Closed'),
+(12, 'Closed'),
+(13, 'Ongoing');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contestsubmission`
+--
+
+CREATE TABLE `contestsubmission` (
+  `contestID` int(11) DEFAULT NULL,
+  `problemID` int(11) DEFAULT NULL,
+  `mail` varchar(255) DEFAULT NULL,
+  `accept` int(11) DEFAULT NULL,
+  `code` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contestsubmission`
+--
+
+INSERT INTO `contestsubmission` (`contestID`, `problemID`, `mail`, `accept`, `code`) VALUES
+(13, 1, 'hridoy@gmail.com', 1, 'def func(list):\n	return 5'),
+(13, 1, 'hridoy@gmail.com', 0, 'def func(list):\n	return 2');
 
 -- --------------------------------------------------------
 
@@ -294,7 +396,10 @@ CREATE TABLE `posts` (
 INSERT INTO `posts` (`postid`, `mail`, `content`, `time`) VALUES
 (18, 'hridoy@gmail.com', 'Solved array 3 by python3\nTime Taken : 0.01\nSpace Taken : 7552', '2024-04-18 11:16:17'),
 (19, 'hridoy@gmail.com', 'Solved array sum by python3\nTime Taken : 0.01\nSpace Taken : 7552', '2024-04-18 11:18:16'),
-(20, 'emon@gmail.com', 'Solved array sum by python3\nTime Taken : 0.01\nSpace Taken : 7680', '2024-04-18 12:32:46');
+(20, 'emon@gmail.com', 'Solved array sum by python3\nTime Taken : 0.01\nSpace Taken : 7680', '2024-04-18 12:32:46'),
+(21, 'hridoy@gmail.com', 'Solved array sum by python3\nTime Taken : 0.01\nSpace Taken : 7680', '2024-04-30 23:42:07'),
+(22, 'hridoy@gmail.com', 'Solved array sum by python3\nTime Taken : 0.01\nSpace Taken : 7296', '2024-05-01 14:02:41'),
+(23, 'hridoy@gmail.com', 'Solved array 3 by python3\nTime Taken : 0.00\nSpace Taken : 7680', '2024-05-01 14:05:50');
 
 -- --------------------------------------------------------
 
@@ -333,6 +438,33 @@ INSERT INTO `problems` (`problemID`, `description`, `problemName`, `problemType`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `problemset`
+--
+
+CREATE TABLE `problemset` (
+  `contestID` int(11) DEFAULT NULL,
+  `problemID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `problemset`
+--
+
+INSERT INTO `problemset` (`contestID`, `problemID`) VALUES
+(13, 11),
+(13, 6),
+(13, 1),
+(13, 5),
+(13, 10),
+(13, 9),
+(13, 7),
+(13, 4),
+(13, 8),
+(13, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `solved`
 --
 
@@ -347,9 +479,9 @@ CREATE TABLE `solved` (
 --
 
 INSERT INTO `solved` (`problemID`, `userMail`, `code`) VALUES
-(3, 'hridoy@gmail.com', 'def func(list):\n	list.reverse()\n	return list'),
-(4, 'hridoy@gmail.com', 'def func(list):\n	return sum(list)'),
-(4, 'emon@gmail.com', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"\ndef func(list):\n	return sum(list)');
+(4, 'emon@gmail.com', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"\ndef func(list):\n	return sum(list)'),
+(4, 'hridoy@gmail.com', '\"\"\"write a function named func that will calculate the sum of array elements\"\"\"\ndef func(list):\n	return sum(list)'),
+(3, 'hridoy@gmail.com', '\"\"\"write a function named func that will reverse the array\"\"\"\ndef func(list):\n	list.reverse()\n	return list');
 
 -- --------------------------------------------------------
 
@@ -498,7 +630,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `contest`
 --
 ALTER TABLE `contest`
-  MODIFY `contestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `contestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `friend_requests`
@@ -510,7 +642,7 @@ ALTER TABLE `friend_requests`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `problems`

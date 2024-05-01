@@ -16,7 +16,6 @@ public class contestHandler implements Runnable{
     private int len;
     private int contestID;
 
-
     private final Calendar contestStart = Calendar.getInstance();
 
     private final Calendar contestFinish = Calendar.getInstance();
@@ -30,13 +29,13 @@ public class contestHandler implements Runnable{
         contestStart.set(Calendar.YEAR, year);
         contestStart.set(Calendar.MONTH, month);
         contestStart.set(Calendar.DAY_OF_MONTH, day);
-        contestStart.set(Calendar.HOUR,hour);
+        contestStart.set(Calendar.HOUR_OF_DAY,hour);
 
 
         contestFinish.set(Calendar.YEAR, year);
         contestFinish.set(Calendar.MONTH, month);
         contestFinish.set(Calendar.DAY_OF_MONTH, day);
-        contestFinish.set(Calendar.HOUR,hour+len);
+        contestFinish.set(Calendar.HOUR_OF_DAY,hour+len);
 
     }
     public contestHandler(int contestID, String date, int hour, int len){
@@ -56,7 +55,6 @@ public class contestHandler implements Runnable{
         while(true){
             if (calendar.after(contestFinish)){
                 // contestState ongoing to closed
-                System.out.println(contestID+" Contest Finished");
                 try {
                     dbOperation.updateContest(contestID,"Closed");
                 } catch (SQLException e) {
@@ -67,10 +65,13 @@ public class contestHandler implements Runnable{
 
             if(calendar.before(contestStart)){
                  // thread will go on
+
             }
             else
             {
+
                 if(notUpdated) {
+
                     notUpdated = false;
                     try {
                         dbOperation.updateContest(contestID, "Ongoing");

@@ -71,9 +71,8 @@ public class ContestHome implements Initializable {
     private ChoiceBox<String> startTime;
     private Integer contestTime;
     private final String[] sTime = new String[]{
-            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-            "21", "22", "23"
+            "0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16"
     };
 
 
@@ -203,8 +202,35 @@ public class ContestHome implements Initializable {
             int contestID = resultSet.getInt("contestID"); // Store contestID locally
             enterImageview.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
-                public void handle(MouseEvent mouseEvent) {
-                    // enter ongoing contest
+                public void handle(MouseEvent event) {
+                    try {
+                        if(dbOperation.isRegistered(userInfo.getMail(), contestID)){
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("contestPage.fxml"));
+                            try {
+                                root = loader.load();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            contestPageController home = loader.getController();
+                            home.setUserInfo(userInfo);
+                            home.setNc(nc);
+                            try {
+                                home.setProblems(contestID);
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                            home.initialize(null, null);
+                            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                            scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+                        }
+                        else {
+                            System.out.println("You didnt register for this contest");
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
             hBox.getChildren().addAll(contestName, enterImageview);

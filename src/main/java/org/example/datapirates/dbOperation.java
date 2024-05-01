@@ -5,9 +5,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class dbOperation {
+
+    static HashMap<Integer, Integer> length = new HashMap<>();
     static public Connection connection;
+
 
     static {
         try {
@@ -64,20 +71,24 @@ public class dbOperation {
         preparedStatement.execute();
 
     }
+    public static void contestSubmission(int contestID, int problemID,String mail, String code,int accept) throws SQLException {
+        query = "insert into contestsubmission (contestID,problemID,mail,accept,code) values(?,?,?,?,?)";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        preparedStatement.setInt(2,problemID);
+        preparedStatement.setString(3,mail);
+        preparedStatement.setInt(4,accept);
+        preparedStatement.setString(5,code);
+        preparedStatement.execute();
+
+    }
     public static boolean checkContestants(String contestantMail, int contestID) throws SQLException {
         query = "select * from contestants where contestantMail = ? and contestID = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1,contestantMail);
         preparedStatement.setInt(2,contestID);
         resultSet = preparedStatement.executeQuery();
-        if(resultSet.next())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return resultSet.next();
 
     }
     public static String[] friends(String mail) throws SQLException {
@@ -137,14 +148,7 @@ public class dbOperation {
 
         preparedStatement.setString(1, mail);
         resultSet = preparedStatement.executeQuery();
-       if(resultSet.next())
-       {
-           return true;
-       }
-       else
-       {
-           return false;
-       }
+        return resultSet.next();
 
     }
     public static  ResultSet solved(String mail) throws SQLException {
@@ -196,6 +200,8 @@ public class dbOperation {
         preparedStatement.setString(2,state);
         preparedStatement.execute();
 
+        // adding problems to the contest
+        ContestProblems(contestID,minRat,maxRat,len);
 
     }
     public static ResultSet LoadChat(String sender, String receiver) throws SQLException {
@@ -232,6 +238,39 @@ public class dbOperation {
         resultSet = preparedStatement.executeQuery();
         return  resultSet;
     }
+    public static List<Integer> getRandomProblems(ArrayList<Integer> problems, int count) {
+        // Shuffle the ArrayList to get random order
+        Collections.shuffle(problems);
+
+        // Get the first 'count' elements from the shuffled list
+        return problems.subList(0, count);
+    }
+    public static void ContestProblems(int contestID,int minRat, int maxRat,int len) throws SQLException {
+        query = "SELECT * FROM `contestproblems` where ratting >= ? and ratting <= ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, minRat);
+        preparedStatement.setInt(2, maxRat);
+        resultSet = preparedStatement.executeQuery();
+        ArrayList<Integer> problems = new ArrayList<>();
+        while (resultSet.next()){
+            problems.add(resultSet.getInt("problemID"));
+        }
+
+        length.put(1,3);
+        length.put(2,6);
+        length.put(3,8);
+        length.put(4,10);
+
+        query = "INSERT into problemSet (contestID, problemID) values(?,?)";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        List<Integer> randomProblems = getRandomProblems(problems, length.get(len));
+        for(Integer random : randomProblems){
+             preparedStatement.setInt(2,random);
+             preparedStatement.execute();
+        }
+
+    }
 
     public static ResultSet detailsQuery(String email) throws SQLException {
         query = "Select * from user_profile where umail = ?";
@@ -242,6 +281,38 @@ public class dbOperation {
         resultSet.next();
         return  resultSet;
 
+    }
+    public static boolean isRegistered(String mail,int contestID) throws SQLException {
+        query = "select * from contestants where contestID = ? and contestantMail = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        preparedStatement.setString(2,mail);
+        resultSet = preparedStatement.executeQuery();
+        return resultSet.next();
+    }
+
+    public static ResultSet loadContestProblems(int contestID) throws SQLException {
+        query = "select * from problemset join contestproblems on problemset.problemID = contestproblems.problemID where contestID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        resultSet = preparedStatement.executeQuery();
+        return resultSet;
+    }
+    public static ResultSet problemInfo(int problemID) throws SQLException {
+        query = "select * from contestproblems where problemID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,problemID);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet;
+    }
+    public static ResultSet contestInfo(int ContestID) throws SQLException {
+        query = "select * from contest where contestID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,ContestID);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet;
     }
     public static void updateContest(int contestID, String state) throws SQLException {
         query = "update contestState set state = ? where contestID = ?";

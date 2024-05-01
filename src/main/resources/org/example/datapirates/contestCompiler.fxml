@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="515.0" prefWidth="731.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.contestCompilerController">
+   <children>
+      <Button layoutX="650.0" layoutY="470.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #DF3079;" text="back" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="58.0" layoutY="56.0" prefHeight="185.0" prefWidth="616.0">
+         <content>
+            <VBox fx:id="codeBox" prefHeight="189.0" prefWidth="614.0" style="-fx-background-color: black;" />
+         </content>
+      </ScrollPane>
+      <TextArea fx:id="codeTextArea" layoutX="58.0" layoutY="301.0" prefHeight="158.0" prefWidth="616.0" promptText="Type your code" />
+      <Button layoutX="339.0" layoutY="258.0" mnemonicParsing="false" onAction="#submit" prefHeight="31.0" prefWidth="67.0" style="-fx-background-color: #DF3079;" text="Submit" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <ChoiceBox fx:id="langChoiceBox" layoutX="574.0" layoutY="22.0" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #DF3079;" />
+      <Label layoutX="457.0" layoutY="24.0" prefHeight="21.0" prefWidth="109.0" text="Select Language" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

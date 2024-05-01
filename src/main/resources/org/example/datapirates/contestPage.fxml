@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="515.0" prefWidth="731.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.contestPageController">
+   <children>
+      <Button layoutX="650.0" layoutY="470.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #DF3079;" text="back" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="57.0" layoutY="89.0" prefHeight="362.0" prefWidth="616.0">
+         <content>
+            <VBox fx:id="problemBox" prefHeight="364.0" prefWidth="619.0" spacing="10.0" style="-fx-background-color: black;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="15.0" left="30.0" top="15.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <Label fx:id="contestName" alignment="CENTER" layoutX="106.0" layoutY="36.0" prefHeight="31.0" prefWidth="536.0" text="Contest Name" textFill="#df3079">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
