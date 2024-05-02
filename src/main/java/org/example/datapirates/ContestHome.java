@@ -256,8 +256,21 @@ public class ContestHome implements Initializable {
             int contestID = resultSet.getInt("contestID"); // Store contestID locally
             detailsImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
-                public void handle(MouseEvent mouseEvent) {
+                public void handle(MouseEvent event) {
                     // load contest which details which is already closed
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("prevContest.fxml"));
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    prevContestController home = loader.getController();
+                    home.setContestID(contestID);
+                    home.initialize(null, null);
+                    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
                 }
             });
             hBox.getChildren().addAll(contestName,detailsImageView);

@@ -95,16 +95,24 @@ public class contestCompilerController implements Initializable {
         output res = CompileCode.compile(codeTextArea.getText()+"\n"+problemInfo.getString("driverCode"),getLang());
         System.out.println(codeTextArea.getText());
         System.out.println(getLang());
-        if(res.getOutput().equals(problemInfo.getString("output"))){
-            result.setStyle("-fx-text-fill: green");
-            result.setText("ACCEPTED");
-            dbOperation.contestSubmission(contestID,problemInfo.getInt("problemID"), userInfo.getMail(),codeTextArea.getText(),1 );
+
+        if(dbOperation.isClosed(contestID)){
+            result.setStyle("-fx-text-fill: red");
+            result.setText("CONTEST CLOSED");
         }
         else {
-            result.setStyle("-fx-text-fill: red");
-            result.setText("NOT ACCEPTED");
-            dbOperation.contestSubmission(contestID,problemInfo.getInt("problemID"), userInfo.getMail(),codeTextArea.getText(),0 );
+            if(res.getOutput().equals(problemInfo.getString("output"))){
+                result.setStyle("-fx-text-fill: green");
+                result.setText("ACCEPTED");
+                dbOperation.contestSubmission(contestID,problemInfo.getInt("problemID"), userInfo.getMail(),codeTextArea.getText(),1 );
+            }
+            else {
+                result.setStyle("-fx-text-fill: red");
+                result.setText("NOT ACCEPTED");
+                dbOperation.contestSubmission(contestID,problemInfo.getInt("problemID"), userInfo.getMail(),codeTextArea.getText(),0 );
+            }
         }
+
 
 
     }

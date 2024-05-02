@@ -77,7 +77,7 @@ public class logincontroller implements Initializable {
             home.setUserInfo(userInfo);
             home.setNc(clientController.getNc());
             userSession.setNc(clientController.getNc());
-            userSession.setUserMail(user_email);
+            userSession.setUserInfo(userInfo);
             home.initialize(null, null);
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);

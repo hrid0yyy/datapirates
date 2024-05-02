@@ -139,6 +139,14 @@ public class dbOperation {
         return 0;
 
     }
+    public static boolean isClosed(int contestID) throws SQLException {
+        query = "select * from contestState where contestID = ? and state = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        preparedStatement.setString(2,"Closed");
+        resultSet = preparedStatement.executeQuery();
+        return resultSet.next();
+    }
     public static int totalSubmission(int contestID,int problemID) throws SQLException {
         query = " SELECT count(*) as total from contestsubmission where contestID = ? and accept = ? and problemID = ?";
         preparedStatement = connection.prepareStatement(query);
@@ -157,6 +165,21 @@ public class dbOperation {
         preparedStatement.setString(1, mail);
         resultSet = preparedStatement.executeQuery();
         return  resultSet;
+    }
+    public static int numOfContestants(int contestID) throws SQLException {
+        query = "SELECT COALESCE(count(*),0) as total from contestants where contestID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getInt("total");
+    }
+    public static ResultSet contestants(int contestID) throws SQLException {
+        query = "select * from contestants join user_profile on contestants.contestantMail = user_profile.umail where contestID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,contestID);
+        resultSet = preparedStatement.executeQuery();
+        return resultSet;
     }
     public static  ResultSet upcomingContest() throws SQLException {
         query = "Select * from contestState join contest on contestState.contestID = contest.contestID where state = ?";
