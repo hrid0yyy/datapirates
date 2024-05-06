@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2024 at 07:10 PM
+-- Generation Time: May 06, 2024 at 04:03 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -164,7 +164,11 @@ INSERT INTO `chat` (`sender`, `receiver`, `message`, `id`) VALUES
 ('hridoy@gmail.com', 'mehrin@gmail.com', 'aaaaaaaaa', 95),
 ('mehrin@gmail.com', 'hridoy@gmail.com', 'sdadasd', 96),
 ('mehrin@gmail.com', 'hridoy@gmail.com', 'aaa', 97),
-('hridoy@gmail.com', 'mehrin@gmail.com', 'kire', 98);
+('hridoy@gmail.com', 'mehrin@gmail.com', 'kire', 98),
+('hridoy@gmail.com', 'rian@gmail.com', 'baai', 99),
+('rian@gmail.com', 'hridoy@gmail.com', 'baaaaaaaaaaaai', 100),
+('hridoy@gmail.com', 'rian@gmail.com', 'dfgdfgdfgdfg', 101),
+('rian@gmail.com', 'hridoy@gmail.com', 'dsgfsdfgdfhfddhffg', 102);
 
 -- --------------------------------------------------------
 
@@ -307,13 +311,13 @@ CREATE TABLE `conteststate` (
 --
 
 INSERT INTO `conteststate` (`contestID`, `state`) VALUES
-(7, 'Upcoming'),
+(7, 'Closed'),
 (8, 'Upcoming'),
 (9, 'Closed'),
 (10, 'Closed'),
 (11, 'Closed'),
 (12, 'Closed'),
-(13, 'Ongoing');
+(13, 'Closed');
 
 -- --------------------------------------------------------
 
@@ -358,7 +362,9 @@ INSERT INTO `friends` (`fmail`, `umail`) VALUES
 ('hridoy@gmail.com', 'shagin@gmail.com'),
 ('shagin@gmail.com', 'hridoy@gmail.com'),
 ('hridoy@gmail.com', 'mehrin@gmail.com'),
-('mehrin@gmail.com', 'hridoy@gmail.com');
+('mehrin@gmail.com', 'hridoy@gmail.com'),
+('rian@gmail.com', 'hridoy@gmail.com'),
+('hridoy@gmail.com', 'rian@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -379,7 +385,8 @@ CREATE TABLE `friend_requests` (
 
 INSERT INTO `friend_requests` (`request_id`, `sender_email`, `receiver_email`, `status`) VALUES
 (9, 'hridoy@gmail.com', 'shagin@gmail.com', 'accepted'),
-(10, 'hridoy@gmail.com', 'mehrin@gmail.com', 'accepted');
+(10, 'hridoy@gmail.com', 'mehrin@gmail.com', 'accepted'),
+(12, 'rian@gmail.com', 'hridoy@gmail.com', 'accepted');
 
 -- --------------------------------------------------------
 
@@ -508,6 +515,7 @@ INSERT INTO `users` (`pass`, `email`) VALUES
 ('1234', 'emon@gmail.com'),
 ('1234', 'hridoy@gmail.com'),
 ('1234', 'mehrin@gmail.com'),
+('1234', 'rian@gmail.com'),
 ('1234', 'shagin@gmail.com');
 
 -- --------------------------------------------------------
@@ -534,7 +542,8 @@ INSERT INTO `user_profile` (`umail`, `pic`, `institution`, `position`, `about_me
 ('emon@gmail.com', 'images/zoro.jpeg', 'ewu', 'student', 'haiya\n', 'emon'),
 ('mehrin@gmail.com', 'images/guts.jpeg', NULL, NULL, NULL, 'Mehrin Ahmed Chowdhury'),
 ('shagin@gmail.com', 'images/guts.jpeg', NULL, NULL, NULL, 'Shagin'),
-('chaity@gmail.com', 'images/user.png', NULL, NULL, NULL, 'chaity');
+('chaity@gmail.com', 'images/user.png', NULL, NULL, NULL, 'chaity'),
+('rian@gmail.com', 'images/rian.jpg', '', '', '', 'rian');
 
 --
 -- Indexes for dumped tables
@@ -635,7 +644,7 @@ ALTER TABLE `user_profile`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `contest`
@@ -647,7 +656,7 @@ ALTER TABLE `contest`
 -- AUTO_INCREMENT for table `friend_requests`
 --
 ALTER TABLE `friend_requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `posts`

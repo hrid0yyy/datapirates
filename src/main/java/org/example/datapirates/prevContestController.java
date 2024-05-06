@@ -99,14 +99,14 @@ public class prevContestController implements Initializable {
     private void loadcontestInfo() throws SQLException {
         ResultSet resultSet = dbOperation.contestDetails(contestID);
         contestName.setText(resultSet.getString("name"));
-        date.setText("Date : "+resultSet.getString("day"));
+        date.setText(resultSet.getString("day"));
         int startTime = resultSet.getInt("start_time");
         int endTime = resultSet.getInt("start_time")+resultSet.getInt("length");
-        time.setText("Time : "+startTime+" - "+endTime);
+        time.setText(startTime+" - "+endTime);
         String minRat = resultSet.getString("minRat");
         String maxRat = resultSet.getString("maxRat");
-        problemRattingRange.setText("Problem Rattings : "+minRat+" - "+maxRat);
-        totalContestants.setText("Total Contestants : "+dbOperation.numOfContestants(contestID));
+        problemRattingRange.setText(minRat+" - "+maxRat);
+        totalContestants.setText(String.valueOf(dbOperation.numOfContestants(contestID)));
         resultSet = dbOperation.contestants(contestID);
         Label name = new Label("Name");
         Label Ratting = new Label("Ratting");
