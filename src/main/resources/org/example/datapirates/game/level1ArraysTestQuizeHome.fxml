@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="515" prefWidth="731" style="-fx-background-color: black; -fx-background-radius: 0; -fx-border-radius: 0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.game.level1ArraysController">
+    <children>
+        <Label layoutX="247.0" layoutY="141.0" prefHeight="45.0" prefWidth="343.0" stylesheets="@../styleSheets/label.css" text="Play Array Quiz" textFill="WHITE">
+            <font>
+                <Font name="Open Sans Extrabold" size="30.0" />
+            </font>
+        </Label>
+        <Button fx:id="playquizbtn" layoutX="230.0" layoutY="267.0" mnemonicParsing="false" onAction="#playQuize" prefHeight="68.0" prefWidth="304.0" style="-fx-background-color: #DF3079; -fx-background-radius: 32px; -fx-border-radius: 32px;" text="START" textFill="WHITE">
+            <font>
+                <Font name="Lucida Console" size="30.0" />
+            </font>
+        </Button>
+        <Button layoutX="43.0" layoutY="37.0" mnemonicParsing="false" onAction="#backToChooseOption" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: #DF3079; -fx-background-radius: 32px; -fx-border-radius: 32px; -fx-font-family: &quot;Lucida Console&quot;;" text="Back" textFill="WHITE">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </Button>
+        <Label layoutX="99.0" layoutY="391.0" lineSpacing="10.0" prefHeight="98.0" prefWidth="563.0" stylesheets="@../styleSheets/label.css" text="Warning: Once the quiz starts, you won't be able to go back to the previous page. Make sure you're ready to begin before proceeding." textFill="#df3079" wrapText="true">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

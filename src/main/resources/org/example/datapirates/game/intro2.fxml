@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="rootPane" prefHeight="515" prefWidth="731" stylesheets="@../styleSheets/intro2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.game.intro2Controller">
+    <children>
+        <ImageView fitHeight="548.0" fitWidth="770.0">
+            <image>
+                <Image url="@../images/intro2back.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="luffy" fitHeight="265.0" fitWidth="342.0" layoutX="376.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/luffy.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="dialouge" fitHeight="312.0" fitWidth="390.0" layoutX="275.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/dialougeBox.png" />
+            </image>
+        </ImageView>
+        <Text fx:id="dialougetext" layoutX="356.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello my name is Monkey D Luffy !!!  Welcome, adventurer, to the boundless world of Data Seas: Quest for Knowledge" textAlignment="CENTER" wrappingWidth="187.5703125">
+            <font>
+                <Font name="Lucida Console" size="12.0" />
+            </font>
+        </Text>
+    </children>
+</AnchorPane>

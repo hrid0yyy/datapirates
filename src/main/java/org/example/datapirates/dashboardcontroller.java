@@ -5,6 +5,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.StageStyle;
 import org.example.datapirates.ServerBackend.NetworkConnection;
 import org.example.datapirates.dataBaseConnection.*;
 import javafx.event.ActionEvent;
@@ -17,6 +20,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.datapirates.game.BackgroundMusicPlayer;
+import org.example.datapirates.game.splashIntroController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +51,7 @@ public class dashboardcontroller implements Initializable {
     private Label attempted;
     @FXML
     private Label solved;
-   private NetworkConnection nc;
+    private NetworkConnection nc;
 
     public void setNc(NetworkConnection nc) {
         this.nc = nc;
@@ -83,7 +88,7 @@ public class dashboardcontroller implements Initializable {
                         userImageView.setFitWidth(40);
                         userImageView.setFitHeight(40);
 
-                        Label userLabel = new Label(userName +"\n"+ "Friend");
+                        Label userLabel = new Label(userName + "\n" + "Friend");
                         userLabel.setStyle("-fx-text-fill: white;");
                         userLabel.setCursor(Cursor.HAND); // Change cursor to hand
                         userLabel.setOnMouseClicked(e -> {
@@ -95,7 +100,7 @@ public class dashboardcontroller implements Initializable {
                         }); // Go to friend's profile on click
 
                         VBox userInfoBox = new VBox(10);
-                        userInfoBox.getChildren().addAll(userImageView,userLabel);
+                        userInfoBox.getChildren().addAll(userImageView, userLabel);
                         searchBox.getChildren().addAll(userInfoBox);
                     } else {
                         Image userImage = new Image(getClass().getResourceAsStream(userPic));
@@ -123,7 +128,7 @@ public class dashboardcontroller implements Initializable {
                         sendRequestButton.setOnAction(Event -> sendFriendRequest(userEmail));
 
                         VBox userInfoBox = new VBox(10);
-                        userInfoBox.getChildren().addAll(userImageView,userLabel, sendRequestButton);
+                        userInfoBox.getChildren().addAll(userImageView, userLabel, sendRequestButton);
 
                         searchBox.getChildren().add(userInfoBox);
                     }
@@ -150,7 +155,7 @@ public class dashboardcontroller implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("friendProfile.fxml"));
         root = loader.load();
 
-       friendProfileController controller = loader.getController();
+        friendProfileController controller = loader.getController();
         controller.setFriendEmail(friendEmail);
         controller.setNc(nc);
         controller.setUserInfo(userInfo);
@@ -162,8 +167,6 @@ public class dashboardcontroller implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
-
 
 
     private boolean isFriend(String userEmail) throws SQLException, ClassNotFoundException {
@@ -192,8 +195,6 @@ public class dashboardcontroller implements Initializable {
     }
 
 
-
-
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
 
@@ -205,7 +206,6 @@ public class dashboardcontroller implements Initializable {
     }
 
 
-
     @FXML
     void loadProblems(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("problems.fxml"));
@@ -214,12 +214,13 @@ public class dashboardcontroller implements Initializable {
         problemHome.setUserInfo(getUserInfo());
         problemHome.setNc(nc);
         problemHome.initialize(null, null);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
     }
+
     @FXML
     void openChatBox(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("friendlist.fxml"));
@@ -228,8 +229,8 @@ public class dashboardcontroller implements Initializable {
         listController.setUserInfo(userInfo);
         listController.setNc(nc);
 
-        listController.initialize(null,null);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        listController.initialize(null, null);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -274,7 +275,7 @@ public class dashboardcontroller implements Initializable {
 
                 Label contentLabel = new Label(content);
                 Label timeLabel = new Label(formattedTime);
-                Label friendMailLabel = new Label("  "+friendName);
+                Label friendMailLabel = new Label("  " + friendName);
                 friendMailLabel.setCursor(Cursor.HAND); // Change cursor to hand
                 friendMailLabel.setOnMouseClicked(e -> {
                     try {
@@ -282,11 +283,11 @@ public class dashboardcontroller implements Initializable {
                     } catch (IOException | SQLException ex) {
                         throw new RuntimeException(ex);
                     }
-                }); 
+                });
 
 
                 HBox nameNpic = new HBox();
-                nameNpic.getChildren().addAll(userImageView,friendMailLabel);
+                nameNpic.getChildren().addAll(userImageView, friendMailLabel);
                 HBox.setMargin(friendMailLabel, new Insets(20, 0, 0, 0));
 
 
@@ -342,7 +343,6 @@ public class dashboardcontroller implements Initializable {
             statement.setTimestamp(3, Timestamp.valueOf(currentDateTime));
 
 
-
             statement.executeUpdate();
 
             statement.close();
@@ -355,8 +355,7 @@ public class dashboardcontroller implements Initializable {
         }
     }
 
-    private  void setSolved()
-    {
+    private void setSolved() {
         try {
             // Establish database connection
             Connection connection = dbHandler.getDbConnection();
@@ -390,8 +389,8 @@ public class dashboardcontroller implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    private  void setSubmission()
-    {
+
+    private void setSubmission() {
         try {
             // Establish database connection
             Connection connection = dbHandler.getDbConnection();
@@ -425,10 +424,11 @@ public class dashboardcontroller implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        if(userInfo != null) {
+        if (userInfo != null) {
 
             loadPosts();
             loadFriendRequests();
@@ -436,7 +436,6 @@ public class dashboardcontroller implements Initializable {
             setSubmission();
         }
     }
-
 
 
     private void loadFriendRequests() {
@@ -457,7 +456,7 @@ public class dashboardcontroller implements Initializable {
 
                 String senderEmail = resultSet.getString("sender_email");
                 String senderName = resultSet.getString("name");
-               String userPic = resultSet.getString("pic");
+                String userPic = resultSet.getString("pic");
                 Image userImage = new Image(getClass().getResourceAsStream(userPic));
                 ImageView userImageView = new ImageView(userImage);
                 userImageView.setFitWidth(40);
@@ -484,7 +483,7 @@ public class dashboardcontroller implements Initializable {
 
 
                 VBox friendRequestVBox = new VBox(5);
-                friendRequestVBox.getChildren().addAll(userImageView,senderLabel,acceptButton);
+                friendRequestVBox.getChildren().addAll(userImageView, senderLabel, acceptButton);
 
 
                 friendReqBox.getChildren().add(friendRequestVBox);
@@ -503,21 +502,16 @@ public class dashboardcontroller implements Initializable {
     }
 
 
-
     private void sendFriendRequest(String receiverEmail) {
         try {
-
             Connection connection = dbHandler.getDbConnection();
-
 
             String sql = "INSERT INTO friend_requests (sender_email, receiver_email, status) VALUES (?, ?, 'pending')";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, userInfo.getMail());
             statement.setString(2, receiverEmail);
 
-
             statement.executeUpdate();
-
 
             statement.close();
             connection.close();
@@ -530,6 +524,7 @@ public class dashboardcontroller implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     void competeBtn(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("contestHome.fxml"));
@@ -540,11 +535,12 @@ public class dashboardcontroller implements Initializable {
         contestHome.setUserInfo(userInfo);
 
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     void profileBtn(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
@@ -554,50 +550,35 @@ public class dashboardcontroller implements Initializable {
         profileHome.setNc(nc);
         profileHome.initialize(null, null);
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     private void acceptFriendRequest(String senderEmail) {
         try {
-
             Connection connection = dbHandler.getDbConnection();
-
 
             String updateSql = "UPDATE friend_requests SET status = 'accepted' WHERE sender_email = ? AND receiver_email = ? AND status = 'pending'";
             PreparedStatement updateStatement = connection.prepareStatement(updateSql);
             updateStatement.setString(1, senderEmail);
             updateStatement.setString(2, userInfo.getMail());
 
-
             updateStatement.executeUpdate();
-
 
             String insertSql = "INSERT INTO friends (fmail, umail) VALUES (?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertSql);
             insertStatement.setString(1, senderEmail);
             insertStatement.setString(2, userInfo.getMail());
 
-
             insertStatement.executeUpdate();
-
 
             insertStatement.setString(1, userInfo.getMail());
             insertStatement.setString(2, senderEmail);
             insertStatement.executeUpdate();
-
-
-
-
             insertStatement.close();
-
-
             loadFriendRequests();
-
-
-
-
             updateStatement.close();
             connection.close();
 
@@ -609,8 +590,86 @@ public class dashboardcontroller implements Initializable {
     }
 
 
+    @FXML
+    void openGame(ActionEvent event) throws IOException {
+        try {
+            String email = userInfo.getMail();
+            String username = getUsernameFromDatabase(email);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/datapirates/game/splash-intro.fxml"));
+            Parent root = loader.load();
+
+            splashIntroController splashIntroController = loader.getController();
+
+            splashIntroController.setUsername(username);
+
+            BackgroundMusicPlayer.getInstance().playMusic("/org/example/datapirates/images/bgmusic.mp3");
+
+//
+//            String musicFilePath = "/org/example/datapirates/images/bgmusic.mp3";
+//            BackgroundMusicThread musicThread = new BackgroundMusicThread(musicFilePath);
+//            musicThread.start();
 
 
+//            // Start background music
+//            Media media = new Media(getClass().getResource("/org/example/datapirates/images/bgmusic.mp3").toString());
+//            MediaPlayer mediaPlayer = new MediaPlayer(media);
+//            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop indefinitely
+//            mediaPlayer.play();
+
+
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private String getUsernameFromDatabase(String email) {
+        String username = null;
+        try {
+            Connection connection = dbHandler.getDbConnection();
+            String sql = "SELECT name FROM user_profile WHERE umail = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                username = resultSet.getString("name");
+            }
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return username;
+    }
+
+
+//    @FXML
+//    void openGame(ActionEvent event) throws IOException {
+//
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/datapirates/game/splash-intro.fxml"));
+//            Parent root = loader.load();
+//            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            Scene scene = new Scene(root);
+//            currentStage.close();
+//            Stage stage = new Stage();
+//            stage.initStyle(StageStyle.UNDECORATED);
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
 
 

@@ -23,9 +23,9 @@
                   <Image url="@images/datapirate.jpeg" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#homeBtn" prefHeight="43.0" prefWidth="102.0" text="Home" />
-            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="109.0" text="Problems" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="114.0" text="Compete" />
+            <Button mnemonicParsing="false" onAction="#homeBtn" prefHeight="43.0" prefWidth="102.0" style="-fx-text-fill: #DF3079;" text="Home" />
+            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="109.0" style="-fx-text-fill: #DF3079;" text="Problems" />
+            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="114.0" style="-fx-text-fill: #DF3079;" text="Compete" />
             <TextField fx:id="searchBar" prefHeight="32.0" prefWidth="176.0" promptText="Search Problems" stylesheets="@../../../stylesheets/dashboard.css">
                <HBox.margin>
                   <Insets left="175.0" right="10.0" top="5.0" />
@@ -34,9 +34,9 @@
       </HBox>
    </top>
    <center>
-      <ScrollPane prefHeight="472.0" prefWidth="597.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="472.0" prefWidth="597.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <content>
-            <TableView fx:id="problemTable" prefHeight="472.0" prefWidth="595.0" style="-fx-background-color: #333;">
+            <TableView fx:id="problemTable" prefHeight="472.0" prefWidth="595.0" style="-fx-background-color: black;">
               <columns>
                 <TableColumn fx:id="pIDcol" prefWidth="109.0" text="Problem ID" />
                 <TableColumn fx:id="typeCol" prefWidth="129.0" text="Type" />
@@ -47,20 +47,20 @@
          </content></ScrollPane>
    </center>
    <right>
-      <VBox prefHeight="462.0" prefWidth="134.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="462.0" prefWidth="134.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="54.0" prefWidth="134.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="130.0" stylesheets="@../../../stylesheets/dashboard.css" text="Solved">
                      <font>
-                        <Font size="19.0" />
+                        <Font name="System Bold" size="19.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="53.0" prefWidth="134.0">
                <children>
-                  <Label fx:id="solved" alignment="CENTER" prefHeight="61.0" prefWidth="134.0" text="Label">
+                  <Label fx:id="solved" alignment="CENTER" prefHeight="61.0" prefWidth="134.0" style="-fx-text-fill: #DF3079;" text="Label">
                      <font>
                         <Font name="System Bold Italic" size="19.0" />
                      </font></Label>
@@ -69,14 +69,14 @@
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="134.0" stylesheets="@../../../stylesheets/dashboard.css" text="Submissions">
                      <font>
-                        <Font size="19.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
             <VBox prefHeight="59.0" prefWidth="134.0">
                <children>
-                  <Label fx:id="attempted" alignment="CENTER" prefHeight="69.0" prefWidth="134.0" text="Label">
+                  <Label fx:id="attempted" alignment="CENTER" prefHeight="69.0" prefWidth="134.0" style="-fx-text-fill: #DF3079;" text="Label">
                      <font>
                         <Font size="19.0" />
                      </font></Label>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="515" prefWidth="731" style="-fx-background-color: black; -fx-background-radius: 0; -fx-border-radius: 0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.game.level1ArraysQuizeResultController">
+    <children>
+        <Label fx:id="result" layoutX="279.0" layoutY="40.0" prefHeight="43.0" prefWidth="196.0" stylesheets="@../styleSheets/label.css" text="Result" textFill="#df3079">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Label>
+        <Label fx:id="remark" layoutX="53.0" layoutY="93.0" lineSpacing="10.0" prefHeight="79.0" prefWidth="623.0" stylesheets="@../styleSheets/label.css" text="Very good work!! This is your hard work and dedication which helped you to reach the zeinth of success." textFill="WHITE" wrapText="true">
+            <font>
+                <Font name="Open Sans Semibold" size="15.0" />
+            </font>
+        </Label>
+        <Label fx:id="marks" layoutX="65.0" layoutY="200.0" prefHeight="114.0" prefWidth="125.0" style="-fx-background-color: skyblue; -fx-background-radius: 16px; -fx-border-radius: 16px;" text="9/10" textFill="#1f3eff">
+            <font>
+                <Font name="Open Sans Extrabold" size="30.0" />
+            </font>
+            <padding>
+                <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+            </padding>
+        </Label>
+        <Label fx:id="markstext" layoutX="54.0" layoutY="362.0" stylesheets="@../styleSheets/label.css" text="9 Marks Scored" textFill="#a3b1ff">
+            <font>
+                <Font name="Open Sans Semibold" size="17.0" />
+            </font>
+        </Label>
+        <ProgressIndicator fx:id="correct_progress" layoutX="282.0" layoutY="193.0" minHeight="128.0" minWidth="126.0" prefHeight="128.0" prefWidth="126.0" progress="0.9" style="-fx-background-color: lightgreen; -fx-progress-color: green; -fx-font-weight: 900; -fx-font-size: 18px; -fx-background-radius: 16px; -fx-border-radius: 16px; -fx-box-border: green;">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </ProgressIndicator>
+        <ProgressIndicator fx:id="wrong_progress" layoutX="496.0" layoutY="196.0" minHeight="130.0" minWidth="130.0" progress="0.1" style="-fx-background-color: FFCDD2; -fx-progress-color: red; -fx-font-weight: 900; -fx-font-size: 18px; -fx-background-radius: 16px; -fx-border-radius: 16px; -fx-box-border: red;">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </ProgressIndicator>
+        <Label fx:id="correcttext" layoutX="248.0" layoutY="361.0" stylesheets="@../styleSheets/label.css" text="Correct Answers : 9" textFill="GREEN">
+            <font>
+                <Font name="Open Sans Semibold" size="17.0" />
+            </font>
+        </Label>
+        <Label fx:id="wrongtext" layoutX="473.0" layoutY="362.0" stylesheets="@../styleSheets/label.css" text="Incorrect Answers : 1" textFill="RED">
+            <font>
+                <Font name="Open Sans Semibold" size="17.0" />
+            </font>
+        </Label>
+        <Button layoutX="559.0" layoutY="440.0" mnemonicParsing="false" onAction="#proceedToMap" prefHeight="35.0" prefWidth="147.0" style="-fx-background-color: #DF3079; -fx-text-fill: white; -fx-background-radius: 32px; -fx-border-radius: 32px; -fx-font-family: &quot;Lucida Console&quot;;" text="Proceed To Map">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

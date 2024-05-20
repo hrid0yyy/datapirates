@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="515" prefWidth="731" stylesheets="@../styleSheets/intro.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.game.introController">
+    <children>
+        <ImageView fitHeight="536.0" fitWidth="770.0" layoutX="-3.0">
+            <image>
+                <Image url="@../images/introBackground.jpg" />
+            </image>
+        </ImageView>
+        <Label fx:id="toplabel" layoutX="148.0" layoutY="34.0" prefHeight="26.0" prefWidth="423.0" style="-fx-text-fill: white;" text="Hello programmer welcome to the world of data pirates">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="55.0" fitWidth="68.0" layoutX="312.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="Xtext" layoutX="299.0" layoutY="456.0" text="Press X to continue">
+            <font>
+                <Font size="15.0" />
+            </font></Label>
+    </children>
+</AnchorPane>

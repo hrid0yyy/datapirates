@@ -1,0 +1,9 @@
+
+.text-area
+{
+    -fx-background-color: transparent;
+    -fx-text-alignment: center;
+    -fx-text-fill: black;
+    -fx-font-family: "Lucida Console";
+
+}

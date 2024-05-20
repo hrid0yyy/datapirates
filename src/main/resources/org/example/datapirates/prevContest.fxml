@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="515.0" prefWidth="731.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.prevContestController">
    <children>
-      <Button layoutX="634.0" layoutY="460.0" mnemonicParsing="false" onAction="#goBack" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: #DF3079;" text="back" textFill="WHITE">
+      <Button layoutX="634.0" layoutY="460.0" mnemonicParsing="false" onAction="#goBack" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: #DF3079; -fx-background-radius: 32px; -fx-border-radius: 32px; -fx-font-family: &quot;Lucida Console&quot;;" text="back" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -24,9 +24,9 @@
                </padding></VBox>
          </content>
       </ScrollPane>
-      <Label fx:id="contestName" alignment="CENTER" layoutY="26.0" prefHeight="31.0" prefWidth="731.0" text="Contest Name" textFill="#df3079">
+      <Label fx:id="contestName" alignment="CENTER" layoutY="26.0" prefHeight="31.0" prefWidth="731.0" stylesheets="@styleSheets/label.css" text="Contest Name" textFill="#df3079">
          <font>
-            <Font name="System Bold" size="21.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
 

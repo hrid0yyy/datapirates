@@ -4,6 +4,7 @@
 #navBar {
     -fx-background-color: black; /* Background color */
     -fx-spacing: 10px; /* Spacing between buttons */
+    -fx-text-fill:  #DF3079;
 
 }
 

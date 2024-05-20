@@ -23,7 +23,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Label alignment="CENTER" text="Friend List" textFill="WHITE">
+            <Label alignment="CENTER" stylesheets="@styleSheets/label.css" text="Friend List" textFill="#df3079">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -35,7 +35,7 @@
       </HBox>
       <ScrollPane layoutY="100.0" prefHeight="301.0" prefWidth="600.0">
          <content>
-            <VBox fx:id="onlineList" prefHeight="299.0" prefWidth="597.0" styleClass="dark-grey-background" />
+            <VBox fx:id="onlineList" prefHeight="299.0" prefWidth="597.0" style="-fx-background-color: black;" />
          </content>
       </ScrollPane>
    </children>

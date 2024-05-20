@@ -1,0 +1,8 @@
+/*
+.wrap-text {
+    -fx-wrap-text: true;
+}
+*/
+.text-area {
+    -fx-wrap-text: true;
+}

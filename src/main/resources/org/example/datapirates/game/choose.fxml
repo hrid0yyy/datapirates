@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="515.0" prefWidth="731.0" style="-fx-background-color: black; -fx-background-radius: 0; -fx-border-radius: 0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.game.level1ArraysController">
+    <children>
+        <Label layoutX="147.0" layoutY="60.0" stylesheets="@../styleSheets/label.css" text="Choose What to Do" textFill="WHITE">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Label>
+        <Button fx:id="chooseQuize" layoutX="228.0" layoutY="218.0" mnemonicParsing="false" onAction="#chooseQuize" prefHeight="55.0" prefWidth="280.0" style="-fx-background-color: #DF3079; -fx-background-radius: 32px; -fx-border-radius: 32px;" text="Proceed to Quize" textFill="WHITE">
+            <font>
+                <Font name="Lucida Console" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="checkVisually" layoutX="229.0" layoutY="337.0" mnemonicParsing="false" onAction="#checkVisually" prefHeight="55.0" prefWidth="280.0" style="-fx-background-color: #DF3079; -fx-background-radius: 32px; -fx-border-radius: 32px;" text="Check Visually" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Button>
+        <Button layoutX="545.0" layoutY="441.0" mnemonicParsing="false" onAction="#mainMap" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #DF3079; -fx-background-radius: 32px; -fx-border-radius: 32px; -fx-font-family: &quot;Lucida Console&quot;;" text=" Main Map" textFill="WHITE">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

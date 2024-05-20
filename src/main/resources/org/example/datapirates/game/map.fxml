@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515" prefWidth="731" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.game.mapController">
+    <children>
+        <ImageView fitHeight="527.0" fitWidth="780.0" layoutX="-40.0" layoutY="-5.0" pickOnBounds="true">
+            <image>
+                <Image url="@../images/map.jpg" />
+            </image>
+        </ImageView>
+        <Label fx:id="lv1" layoutX="125.0" layoutY="267.0" prefHeight="16.0" prefWidth="89.0" text="Array" textAlignment="CENTER">
+            <font>
+                <Font name="Lucida Console" size="18.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="ship1" fitHeight="46.0" fitWidth="50.0" layoutX="95.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/ship.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="lv2" layoutX="148.0" layoutY="94.0" text="Linked List" textFill="WHITE">
+            <font>
+                <Font name="Lucida Console" size="18.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="ship2" fitHeight="46.0" fitWidth="55.0" layoutX="102.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/ship.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="lv3" layoutX="290.0" layoutY="67.0" prefHeight="14.0" prefWidth="55.0" text="Level 3" textFill="WHITE">
+            <font>
+                <Font name="Lucida Console" size="13.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="ship3" fitHeight="55.0" fitWidth="46.0" layoutX="295.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/ship.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="lv4" layoutX="389.0" layoutY="260.0" text="Level 4" textFill="WHITE">
+            <font>
+                <Font name="Lucida Console" size="13.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="ship4" fitHeight="46.0" fitWidth="46.0" layoutX="409.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/ship.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="lv5" layoutX="542.0" layoutY="157.0" text="Level 5" textFill="WHITE">
+            <font>
+                <Font name="Lucida Console" size="13.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="ship5" fitHeight="46.0" fitWidth="55.0" layoutX="586.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/ship.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="lv6" layoutX="530.0" layoutY="382.0" text="Level 6" textFill="WHITE">
+            <font>
+                <Font name="Lucida Console" size="13.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="ship6" fitHeight="46.0" fitWidth="55.0" layoutX="563.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/ship.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="221.0" layoutY="465.0" stylesheets="@../styleSheets/label.css" text="Learn With Every Step You Clear">
+            <font>
+                <Font name="System Bold Italic" size="18.0" />
+            </font>
+        </Label>
+      <Button layoutX="41.0" layoutY="13.0" mnemonicParsing="false" onAction="#back" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: #DF3079; -fx-text-fill: white; -fx-background-radius: 32px; -fx-border-radius: 32px; -fx-font-family: &quot;Lucida Console&quot;;" text="Back">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+    </children>
+</AnchorPane>

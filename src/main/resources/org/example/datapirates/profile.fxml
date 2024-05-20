@@ -22,15 +22,15 @@
                   <Image url="@images/datapirate.jpeg" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#homeBtn" prefHeight="43.0" prefWidth="102.0" text="Home" />
-            <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="98.0" text="Profile" />
-            <Button mnemonicParsing="false" onAction="#loadProblems" prefHeight="42.0" prefWidth="109.0" text="Problems" />
-            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="110.0" text="Compete" />
+            <Button mnemonicParsing="false" onAction="#homeBtn" prefHeight="43.0" prefWidth="102.0" style="-fx-text-fill: #DF3079;" text="Home" />
+            <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="98.0" style="-fx-text-fill: #DF3079;" text="Profile" />
+            <Button mnemonicParsing="false" onAction="#loadProblems" prefHeight="42.0" prefWidth="109.0" style="-fx-text-fill: #DF3079;" text="Problems" />
+            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="110.0" style="-fx-text-fill: #DF3079;" text="Compete" />
          </children>
       </HBox>
    </top>
    <left>
-      <VBox fx:id="friendReqBox" prefHeight="551.0" prefWidth="176.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">
+      <VBox fx:id="friendReqBox" prefHeight="551.0" prefWidth="176.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="pic" fitHeight="110.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
@@ -45,7 +45,7 @@
                   <Font name="System Italic" size="15.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#selectPic" text="Select Profile Picture">
+            <Button mnemonicParsing="false" onAction="#selectPic" style="-fx-background-color: #DF3079; -fx-background-radius: 32px; -fx-border-radius: 32px;" text="Select Profile Picture" textFill="WHITE">
                <VBox.margin>
                   <Insets left="30.0" top="15.0" />
                </VBox.margin>
@@ -55,9 +55,9 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#updateProfile" text="Update Profile">
+            <Button mnemonicParsing="false" onAction="#updateProfile" style="-fx-background-color: #DF3079; -fx-background-radius: 32px; -fx-border-radius: 32px;" text="Update Profile" textFill="WHITE">
                <VBox.margin>
-                  <Insets left="45.0" top="220.0" />
+                  <Insets left="45.0" top="205.0" />
                </VBox.margin>
             </Button>
          </children>
@@ -68,42 +68,62 @@
    <center>
       <ScrollPane prefHeight="332.0" prefWidth="375.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox prefHeight="473.0" prefWidth="367.0" style="-fx-background-color: #333;">
+            <VBox prefHeight="473.0" prefWidth="367.0" style="-fx-background-color: black;">
                <children>
                   <Label prefHeight="28.0" prefWidth="111.0" text="Name" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                   <TextField fx:id="updateName" prefHeight="25.0" prefWidth="475.0" promptText="Insert name">
                      <VBox.margin>
                         <Insets bottom="15.0" right="100.0" top="15.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label prefHeight="17.0" prefWidth="143.0" text="Institution" textFill="WHITE" />
+                  <Label prefHeight="17.0" prefWidth="143.0" text="Institution" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <TextField fx:id="updateInstitution" promptText="Insert Institution">
                      <VBox.margin>
                         <Insets bottom="15.0" right="100.0" top="15.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label prefHeight="17.0" prefWidth="159.0" text="Position" textFill="WHITE" />
+                  <Label prefHeight="17.0" prefWidth="159.0" text="Position" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <TextField fx:id="updatePosition" promptText="Insert position">
                      <VBox.margin>
                         <Insets bottom="15.0" right="100.0" top="15.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label prefHeight="17.0" prefWidth="155.0" text="About you" textFill="WHITE" />
+                  <Label prefHeight="17.0" prefWidth="155.0" text="About you" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <TextArea fx:id="updateAboutyou" prefHeight="84.0" prefWidth="267.0" promptText="Talk about you">
                      <VBox.margin>
                         <Insets right="100.0" top="15.0" />
                      </VBox.margin>
                   </TextArea>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="379.0" text="Time Line" textFill="WHITE">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </Label>
-                  <VBox fx:id="posts" prefHeight="48.0" prefWidth="367.0" />
+                  <VBox fx:id="posts" prefHeight="48.0" prefWidth="367.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="380.0" text="Time Line" textFill="WHITE">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Lucida Console" size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                     </children></VBox>
                </children>
                <padding>
                   <Insets left="10.0" />
@@ -115,12 +135,15 @@
    <right>
       <ScrollPane prefHeight="474.0" prefWidth="173.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="solvedVbox" prefHeight="474.0" prefWidth="180.0">
+            <VBox fx:id="solvedVbox" prefHeight="474.0" prefWidth="180.0" style="-fx-background-color: black;">
                <children>
-                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="150.0" text="Solved Probelms">
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="150.0" text="Solved Probelms" textFill="#df3079">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
                   </Label>
                </children>
             </VBox>

@@ -23,40 +23,64 @@
                   <Image url="@images/datapirate.jpeg" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#homeBtn" prefHeight="43.0" prefWidth="102.0" text="Home" />
-            <Button mnemonicParsing="false" onAction="#profileBtn" prefHeight="54.0" prefWidth="98.0" text="Profile" />
-            <Button mnemonicParsing="false" onAction="#loadProblems" prefHeight="42.0" prefWidth="109.0" text="Problems" />
+            <Button mnemonicParsing="false" onAction="#homeBtn" prefHeight="43.0" prefWidth="102.0" style="-fx-text-fill: #DF3079;" text="Home" />
+            <Button mnemonicParsing="false" onAction="#profileBtn" prefHeight="54.0" prefWidth="98.0" style="-fx-text-fill: #DF3079;" text="Profile" />
+            <Button mnemonicParsing="false" onAction="#loadProblems" prefHeight="42.0" prefWidth="109.0" style="-fx-text-fill: #DF3079;" text="Problems" />
          </children>
       </HBox>
    </top>
    <left>
       <AnchorPane prefHeight="480.0" prefWidth="393.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="480.0" fitWidth="490.0" layoutX="-9.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="480.0" fitWidth="490.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/background.jpg" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="160.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host Contest" wrappingWidth="179.9830722808838">
+            <Text fill="WHITE" layoutX="160.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host Contest" wrappingWidth="179.9830722808838">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="Lucida Console" size="20.0" />
                </font>
             </Text>
             <TextField fx:id="nameField" layoutX="174.0" layoutY="53.0" prefHeight="26.0" prefWidth="219.0" style="-fx-background-color: white;" />
             <TextField fx:id="maxRat" layoutX="174.0" layoutY="113.0" prefHeight="26.0" prefWidth="219.0" style="-fx-background-color: white;" />
             <TextField fx:id="minRat" layoutX="174.0" layoutY="173.0" prefHeight="26.0" prefWidth="219.0" style="-fx-background-color: white;" />
-            <Text fill="WHITE" layoutX="45.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="71.98307228088379" />
-            <Text fill="WHITE" layoutX="41.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minimum Rating " wrappingWidth="121.98307228088379" />
-            <Text fill="WHITE" layoutX="43.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contest Length" wrappingWidth="116.98307228088379" />
-            <Text fill="WHITE" layoutX="42.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="76.98307228088379" />
-            <Text fill="WHITE" layoutX="42.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" wrappingWidth="76.98307228088379" />
-            <Text fill="WHITE" layoutX="44.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max Contestant Number" wrappingWidth="103.98307228088379" />
-            <Text fill="WHITE" layoutX="42.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maximum Rating" wrappingWidth="108.98307228088379" />
+            <Text fill="WHITE" layoutX="45.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="71.98307228088379">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text fill="WHITE" layoutX="41.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minimum Rating " wrappingWidth="121.98307228088379">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text fill="WHITE" layoutX="43.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contest Length" wrappingWidth="116.98307228088379">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text fill="WHITE" layoutX="42.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="76.98307228088379">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text fill="WHITE" layoutX="42.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" wrappingWidth="76.98307228088379">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text fill="WHITE" layoutX="44.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max Contestant Number" wrappingWidth="103.98307228088379">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text fill="WHITE" layoutX="42.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maximum Rating" wrappingWidth="108.98307228088379">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
             <DatePicker fx:id="date" layoutX="175.0" layoutY="279.0" onAction="#getDate" prefHeight="26.0" prefWidth="150.0" promptText="Enter Date" />
             <TextField fx:id="maxContestant" layoutX="174.0" layoutY="376.0" prefHeight="26.0" prefWidth="219.0" style="-fx-background-color: white;" />
             <ChoiceBox fx:id="startTime" layoutX="175.0" layoutY="325.0" prefHeight="26.0" prefWidth="150.0" />
             <ChoiceBox fx:id="length" layoutX="175.0" layoutY="226.0" prefHeight="26.0" prefWidth="150.0" />
-            <Button layoutX="196.0" layoutY="441.0" mnemonicParsing="false" onAction="#createContest" style="-fx-background-color: black;" text="Submit" textFill="WHITE" />
+            <Button layoutX="194.0" layoutY="438.0" mnemonicParsing="false" onAction="#createContest" style="-fx-background-color: black;" text="Submit" textFill="#df3079">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </left>

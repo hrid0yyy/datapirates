@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="378.0" stylesheets="@../styleSheets/splash-intro.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.datapirates.game.splashIntroController">
+    <center>
+        <AnchorPane prefHeight="256.0" prefWidth="354.0" stylesheets="@../styleSheets/splash-intro.css" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="42.0" layoutY="40.0" prefHeight="60.0" prefWidth="300.0" style="-fx-font-size: 50px;" stylesheets="@../styleSheets/splash-intro.css" text="Welcome">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="usernameLabel" layoutY="110.0" prefHeight="141.0" prefWidth="378.0" style="-fx-font-size: 30px; -fx-text-fill: #df3079;" stylesheets="@../styleSheets/label.css" text="Label" textAlignment="CENTER" textFill="#df3079">
+               <font>
+                  <Font name="Lucida Console" size="8.0" />
+               </font>
+            </Label>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
